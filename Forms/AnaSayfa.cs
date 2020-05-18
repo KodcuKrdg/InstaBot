@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaBot.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,6 +43,21 @@ namespace InstaBot
         private void pnlUst_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false; //Formu sürüklemek için
+        }
+
+        private Form activeForm = null;
+        private void openChildForm(Form childForm) {
+            if (activeForm != null)
+                activeForm.Close();
+
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            pnlSag.Controls.Add(childForm);
+            pnlSag.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

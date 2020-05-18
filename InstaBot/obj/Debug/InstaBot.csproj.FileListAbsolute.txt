@@ -1,0 +1,17 @@
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.AnaSayfa.resources
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.Properties.Resources.resources
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.csproj.GenerateResource.cache
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.csproj.CoreCompileInputs.cache
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\AutoItX3.dll
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\AutoItX3_x64.dll
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\InstaBot.exe.config
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\InstaBot.exe
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\InstaBot.pdb
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\AutoItX3.Assembly.dll
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\WebDriver.dll
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\AutoItX3.Assembly.xml
+D:\Kodlar\C#\InstaBot\InstaBot\bin\Debug\WebDriver.xml
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.csproj.CopyComplete
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.exe
+D:\Kodlar\C#\InstaBot\InstaBot\obj\Debug\InstaBot.pdb

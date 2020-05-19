@@ -32,10 +32,14 @@
             this.pnlUst = new System.Windows.Forms.Panel();
             this.pcCancel = new System.Windows.Forms.PictureBox();
             this.pnlSol = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlSag = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlAyrac = new System.Windows.Forms.Panel();
             this.pnlUst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcCancel)).BeginInit();
+            this.pnlSol.SuspendLayout();
+            this.pnlSag.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlUst
@@ -65,20 +69,43 @@
             // pnlSol
             // 
             this.pnlSol.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(191)))), ((int)(((byte)(164)))));
+            this.pnlSol.Controls.Add(this.label1);
             this.pnlSol.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSol.Location = new System.Drawing.Point(0, 55);
             this.pnlSol.Name = "pnlSol";
             this.pnlSol.Size = new System.Drawing.Size(129, 475);
             this.pnlSol.TabIndex = 3;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(12, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(110, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Giriş Yap";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // pnlSag
             // 
             this.pnlSag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(206)))));
+            this.pnlSag.Controls.Add(this.label2);
             this.pnlSag.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSag.Location = new System.Drawing.Point(129, 55);
             this.pnlSag.Name = "pnlSag";
             this.pnlSag.Size = new System.Drawing.Size(733, 475);
             this.pnlSag.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(264, 181);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(166, 55);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "LOGO";
             // 
             // pnlAyrac
             // 
@@ -102,8 +129,13 @@
             this.Name = "AnaSayfa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ana Sayfa";
+            this.Load += new System.EventHandler(this.AnaSayfa_Load);
             this.pnlUst.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcCancel)).EndInit();
+            this.pnlSol.ResumeLayout(false);
+            this.pnlSol.PerformLayout();
+            this.pnlSag.ResumeLayout(false);
+            this.pnlSag.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -115,6 +147,8 @@
         private System.Windows.Forms.Panel pnlSag;
         private System.Windows.Forms.Panel pnlAyrac;
         private System.Windows.Forms.PictureBox pcCancel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

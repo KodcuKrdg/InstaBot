@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaBot.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp6;
 
 namespace InstaBot
 {
@@ -42,6 +44,32 @@ namespace InstaBot
         private void pnlUst_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false; //Formu sürüklemek için
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            openChildForm(new girisYap());
+        }
+
+        private Form activeForm = null;
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            pnlSag.Controls.Add(childForm);
+            pnlSag.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+        }
+
+        private void AnaSayfa_Load(object sender, EventArgs e)
+        {
+            instagram test = new instagram();
+            test.veritabaniOlustur();
         }
     }
 }

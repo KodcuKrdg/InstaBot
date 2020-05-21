@@ -20,29 +20,13 @@ namespace InstaBot.Forms
             InitializeComponent();
         }
 
-        int bosluk;
-        private void Hizalama() 
-        {
-            int pnlWidth = flowLayoutPanel1.Width; 
-
-            My_Post post = new My_Post();
-
-            int postWidth = post.Width;
-
-            bosluk = pnlWidth% postWidth/4;
-        }
-
         private void Gonderiler_Load(object sender, EventArgs e)
         {
-            Hizalama();
-            
             PostlariHizala();
         }
 
         private void PostlariHizala() 
         {
-            int solBoşluk= Convert.ToInt32(bosluk);
-            int ustBosluk=5;
             for (int i = 0; i < 50; i++)
             {
                 My_Post post = new My_Post();

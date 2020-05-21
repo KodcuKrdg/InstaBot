@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaBot.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +45,7 @@ namespace InstaBot
             mouseDown = false; //Formu sürüklemek için
         }
 
-        private Form activeForm = null;
+        private Form activeForm = null; //Yeni Açılan formlar
         public void openChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -60,15 +61,20 @@ namespace InstaBot
             childForm.Show();
         }
 
-        private void pnl_GirisYap_Click(object sender, EventArgs e)
+        private void pnl_Ayar_Click(object sender, EventArgs e)
         {
-            pcGiris.Image = Image.FromFile(@"D:\Kodlar\C#\InstaBot\bin\Debug\Images\login1.png");
-        }
-        private void pnl_Begen_Click(object sender, EventArgs e)
-        {
-            pcBegen.Image = Image.FromFile(@"D:\Kodlar\C#\InstaBot\bin\Debug\Images\like1.png");
+            openChildForm(new Ayarlar());
         }
 
+        private void pcLogo_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+        }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Gonderiler());
+        }
     }
 }

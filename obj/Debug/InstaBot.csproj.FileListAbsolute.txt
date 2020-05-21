@@ -15,3 +15,6 @@ D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.dll
 D:\Kodlar\C#\InstaBot\bin\Debug\AutoItX3.Assembly.xml
 D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.xml
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csproj.CopyComplete
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Ayarlar.resources
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Gonderiler.resources
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_Post.resources

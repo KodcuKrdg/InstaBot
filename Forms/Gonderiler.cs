@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace InstaBot.Forms
 {
@@ -15,6 +16,7 @@ namespace InstaBot.Forms
     {
         public Gonderiler()
         {
+            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
 
@@ -33,6 +35,7 @@ namespace InstaBot.Forms
         private void Gonderiler_Load(object sender, EventArgs e)
         {
             Hizalama();
+            
             PostlariHizala();
         }
 

@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(My_Post));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnKaydet = new System.Windows.Forms.Button();
+            this.btnSec = new System.Windows.Forms.Button();
             this.btnSil = new System.Windows.Forms.Button();
             this.rchTextAciklama = new System.Windows.Forms.RichTextBox();
             this.btnDuzenle = new System.Windows.Forms.Button();
@@ -47,14 +47,14 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // btnKaydet
+            // btnSec
             // 
-            this.btnKaydet.Location = new System.Drawing.Point(95, 225);
-            this.btnKaydet.Name = "btnKaydet";
-            this.btnKaydet.Size = new System.Drawing.Size(79, 23);
-            this.btnKaydet.TabIndex = 1;
-            this.btnKaydet.Text = "Kaydet";
-            this.btnKaydet.UseVisualStyleBackColor = true;
+            this.btnSec.Location = new System.Drawing.Point(95, 225);
+            this.btnSec.Name = "btnSec";
+            this.btnSec.Size = new System.Drawing.Size(79, 23);
+            this.btnSec.TabIndex = 1;
+            this.btnSec.Text = "Seç";
+            this.btnSec.UseVisualStyleBackColor = true;
             // 
             // btnSil
             // 
@@ -90,7 +90,7 @@
             this.Controls.Add(this.btnDuzenle);
             this.Controls.Add(this.rchTextAciklama);
             this.Controls.Add(this.btnSil);
-            this.Controls.Add(this.btnKaydet);
+            this.Controls.Add(this.btnSec);
             this.Controls.Add(this.pictureBox1);
             this.Name = "My_Post";
             this.Size = new System.Drawing.Size(180, 287);
@@ -102,7 +102,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnKaydet;
+        private System.Windows.Forms.Button btnSec;
         private System.Windows.Forms.Button btnSil;
         private System.Windows.Forms.RichTextBox rchTextAciklama;
         private System.Windows.Forms.Button btnDuzenle;

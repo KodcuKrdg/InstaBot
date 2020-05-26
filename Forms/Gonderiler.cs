@@ -6,9 +6,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
+using BotCodes;
+
 
 namespace InstaBot.Forms
 {
@@ -16,23 +18,21 @@ namespace InstaBot.Forms
     {
         public Gonderiler()
         {
-            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
-
+        Bot botCode;
         private void Gonderiler_Load(object sender, EventArgs e)
         {
+            botCode = new Bot();
             PostlariHizala();
         }
-
         private void PostlariHizala() 
         {
             for (int i = 0; i < 50; i++)
             {
-                My_Post post = new My_Post();
-                flowLayoutPanel1.Controls.Add(post);
+                My_Post pos = new My_Post();
+                flowLayoutPanel1.Controls.Add(pos);
             }
-            
         }
     }
 }

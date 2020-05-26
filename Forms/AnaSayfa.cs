@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BotCodes;
 
 namespace InstaBot
 {
@@ -61,20 +62,33 @@ namespace InstaBot
             childForm.Show();
         }
 
-        private void pnl_Ayar_Click(object sender, EventArgs e)
-        {
-            openChildForm(new Ayarlar());
-        }
-
         private void pcLogo_Click(object sender, EventArgs e)
         {
             if (activeForm != null)
                 activeForm.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        Bot botCode;
+        private void AnaSayfa_Load(object sender, EventArgs e)
+        {
+            botCode = new Bot();
+            botCode.veritabaniOlustur();
+
+        }
+
+        private void pcGonderiler_Click(object sender, EventArgs e)
         {
             openChildForm(new Gonderiler());
+        }
+
+        private void pcAyarlar_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Ayarlar());
+        }
+
+        private void pcGiris_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Giris());
         }
     }
 }

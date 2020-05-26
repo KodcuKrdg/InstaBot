@@ -18,3 +18,14 @@ D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csproj.CopyComplete
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Ayarlar.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Gonderiler.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_Post.resources
+D:\Kodlar\C#\InstaBot\bin\Debug\EntityFramework.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\EntityFramework.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.dll.config
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Giris.resources
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_FinishTime.resources

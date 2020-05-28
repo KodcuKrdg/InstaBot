@@ -18,10 +18,6 @@ namespace InstaBot.Forms
             InitializeComponent();
         }
 
-        private void btnGiris_Click(object sender, EventArgs e)
-        {
-        }
-
         private void txtKullaniciAdi_Enter(object sender, EventArgs e)
         {
             altpnlKullanici.BackColor = Color.Blue;
@@ -58,6 +54,65 @@ namespace InstaBot.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             BitisSureleriPnl.Controls.RemoveAt(0);
+        }
+
+        private void chckBegen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckBegen.Checked == true)
+                pnlBegen.Enabled = true;
+            else
+                pnlBegen.Enabled = false;
+        }
+
+        private void chckYorumYap_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckYorumYap.Checked == true)
+                pnlYorum.Enabled = true;
+            else
+                pnlYorum.Enabled = false;
+        }
+
+        private void chckTakipEt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckTakipEt.Checked == true)
+                pnlTakipEt.Enabled = true;
+            else
+                pnlTakipEt.Enabled = false;
+        }
+
+        private void chckTakiptenCık_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckTakiptenCık.Checked == true)
+                pnlTakiptenCikma.Enabled = true;
+            else
+                pnlTakiptenCikma.Enabled = false;
+        }
+
+        private void chckIstekKontrol_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckIstekKontrol.Checked == true)
+                pnlTakipIstegiKontrol.Enabled = true;
+            else
+                pnlTakipIstegiKontrol.Enabled = false;
+        }
+
+        private void chckResimAl_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckResimAl.Checked == true)
+                pnlResimAl.Enabled = true;
+            else
+                pnlResimAl.Enabled = false;
+        }
+
+        private void chckResimYukle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckResimYukle.Checked == true)
+                pnlResimPaylas.Enabled = true;
+            else
+                pnlResimPaylas.Enabled = false;
+        }
+        private void nmrcBegeniSayisi_ValueChanged(object sender, EventArgs e)
+        {
         }
     }
 }

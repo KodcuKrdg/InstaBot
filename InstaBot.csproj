@@ -45,6 +45,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -57,6 +58,19 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.112.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.SQLite.Linq.1.0.112.2\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive, Version=4.4.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reactive.4.4.1\lib\net46\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,9 +83,28 @@
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClass\Begen.cs" />
+    <Compile Include="BaseClass\GirisBilgileri.cs" />
+    <Compile Include="BaseClass\ResimAl.cs" />
+    <Compile Include="BaseClass\ResimPaylas.cs" />
+    <Compile Include="BaseClass\TakipEt.cs" />
+    <Compile Include="BaseClass\TakipKontrol.cs" />
+    <Compile Include="BaseClass\TakiptenCik.cs" />
+    <Compile Include="BaseClass\YorumYap.cs" />
+    <Compile Include="Codes\BitisSuresi.cs" />
     <Compile Include="Codes\BotCode.cs" />
+    <Compile Include="CssSelector\AnaSayfaBegen.cs" />
+    <Compile Include="CssSelector\CssDatabase.cs" />
+    <Compile Include="Codes\CssSelectorler.cs" />
+    <Compile Include="Codes\Komutlar.cs" />
+    <Compile Include="Codes\KullaniciSecimleri.cs" />
+    <Compile Include="CssSelector\GirisEkrani.cs" />
     <Compile Include="Forms\AnaSayfa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +141,8 @@
     <Compile Include="MyDesign\My_Post.Designer.cs">
       <DependentUpon>My_Post.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ob\IObserver.cs" />
+    <Compile Include="Ob\ISubject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AnaSayfa.resx">

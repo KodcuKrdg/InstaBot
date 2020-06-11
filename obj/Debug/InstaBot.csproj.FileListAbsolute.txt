@@ -29,3 +29,13 @@ D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.xml
 D:\Kodlar\C#\InstaBot\bin\Debug\System.Data.SQLite.dll.config
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Giris.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_FinishTime.resources
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Reactive.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.ValueTuple.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Reactive.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\System.ValueTuple.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.Support.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.Support.xml

@@ -703,6 +703,6 @@ namespace BotCodes
             {
                 paylasimOk = "Başarısız";
             }
-        }*/
+        }*/ 
     }
 }

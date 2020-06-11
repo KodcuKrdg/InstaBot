@@ -68,11 +68,9 @@ namespace InstaBot
                 activeForm.Close();
         }
 
-        Bot botCode;
         private void AnaSayfa_Load(object sender, EventArgs e)
         {
-            botCode = new Bot();
-            botCode.veritabaniOlustur();
+            openChildForm(new Giris());
 
         }
 

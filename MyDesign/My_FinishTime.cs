@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace InstaBot.MyDesign
 {
@@ -16,7 +17,7 @@ namespace InstaBot.MyDesign
         {
             InitializeComponent();
         }
-
+        
         public String IslemAdi 
         {
             get { return lblIslem.Text; }
@@ -33,6 +34,18 @@ namespace InstaBot.MyDesign
         {
             get { return lblDk.Text; }
             set { lblDk.Text = value; }
+        }
+
+        public String AdimMaxDegerText
+        {
+            get { return lblAdimMax.Text; }
+            set { lblAdimMax.Text = value; }
+        }
+
+        public String AdimText
+        {
+            get { return lblAdim.Text; }
+            set { lblAdim.Text = value; }
         }
 
         public int BarMax

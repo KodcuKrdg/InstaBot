@@ -60,7 +60,7 @@ namespace InstaBot.Forms
             Secimler.GirisBilgileri.kullaniciAdi = kullaniciAdi;
             Secimler.GirisBilgileri.sifre = sifre;
 
-            Komutlar komutlar = new Komutlar();
+            Komutlar komutlar = Komutlar.GetInstance();
             komutlar.VeriyiAlacak(this);
             komutlar.IslemSec();
         }
@@ -288,6 +288,9 @@ namespace InstaBot.Forms
         public void VeriyiAl(ISubject subject)
         {
             listBox1.Items.Add((subject as Komutlar).Bilgi);
+            // Listbox a veri aklenince en alta alma
+            listBox1.SelectedIndex = listBox1.Items.Count - 1;
+            listBox1.SelectedIndex = -1;
         }
 
         private void Giris_Load(object sender, EventArgs e)

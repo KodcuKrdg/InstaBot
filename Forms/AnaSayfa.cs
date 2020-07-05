@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BotCodes;
+using InstaBot.Codes;
 
 namespace InstaBot
 {
@@ -87,6 +88,12 @@ namespace InstaBot
         private void pcGiris_Click(object sender, EventArgs e)
         {
             openChildForm(new Giris());
+        }
+
+        private void AnaSayfa_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Komutlar komutlar = Komutlar.GetInstance();
+            komutlar.SeleniumKapat();
         }
     }
 }

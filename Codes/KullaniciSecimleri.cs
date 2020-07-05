@@ -11,7 +11,6 @@ namespace InstaBot.Codes
     {
         private KullaniciSecimleri() { }
         private static KullaniciSecimleri _instance;
-
         public static KullaniciSecimleri GetInstance()
         {
             if (_instance == null)

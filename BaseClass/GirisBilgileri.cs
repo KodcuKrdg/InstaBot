@@ -9,7 +9,6 @@ namespace InstaBot.BaseClass
     class GirisBilgileri
     {
         public string kullaniciAdi { get;set;}
-        
         public string sifre { get; set; }
     }
 }

@@ -149,6 +149,7 @@
             this.Name = "AnaSayfa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ana Sayfa";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnaSayfa_FormClosing);
             this.Load += new System.EventHandler(this.AnaSayfa_Load);
             this.pnlUst.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcCancel)).EndInit();

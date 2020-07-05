@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InstaBot.CssSelector
 {
-    class GirisEkrani
+    class CssGirisEkrani
     {
         /// <summary>
         /// Giriş Ekranındaki text boxların CssSelectorleri

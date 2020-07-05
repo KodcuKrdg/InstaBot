@@ -96,15 +96,19 @@
     <Compile Include="BaseClass\TakipEt.cs" />
     <Compile Include="BaseClass\TakipKontrol.cs" />
     <Compile Include="BaseClass\TakiptenCik.cs" />
+    <Compile Include="BaseClass\ToplananVeriler.cs" />
     <Compile Include="BaseClass\YorumYap.cs" />
     <Compile Include="Codes\BitisSuresi.cs" />
     <Compile Include="Codes\BotCode.cs" />
-    <Compile Include="CssSelector\AnaSayfaBegen.cs" />
+    <Compile Include="CssSelector\Base\CssAnaSayfaBegen.cs" />
+    <Compile Include="CssSelector\Base\CssTakipEt.cs" />
+    <Compile Include="CssSelector\Base\CssTakiptenCikma.cs" />
+    <Compile Include="CssSelector\Base\CssYorumyapBegen.cs" />
     <Compile Include="CssSelector\CssDatabase.cs" />
     <Compile Include="Codes\CssSelectorler.cs" />
     <Compile Include="Codes\Komutlar.cs" />
     <Compile Include="Codes\KullaniciSecimleri.cs" />
-    <Compile Include="CssSelector\GirisEkrani.cs" />
+    <Compile Include="CssSelector\Base\CssGirisEkrani.cs" />
     <Compile Include="Forms\AnaSayfa.cs">
       <SubType>Form</SubType>
     </Compile>

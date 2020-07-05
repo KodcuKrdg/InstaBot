@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InstaBot.CssSelector
 {
-    class AnaSayfaBegen
+    class CssAnaSayfaBegen
     {
         public string gonderiDizini { get; set; }
         public string begeniDizini { get; set; }

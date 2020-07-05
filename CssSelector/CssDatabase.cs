@@ -45,8 +45,12 @@ namespace InstaBot.Codes
             {
                 var girisEkrani = cssSelector.GirisEkrani;
                 var anaSayfaBegen = cssSelector.AnaSayfaBegen;
+                var takiptenCikma = cssSelector.TakiptenCikma;
+                var yorumyapBegen = cssSelector.YorumyapBegen;
+                var takipEt = cssSelector.TakipEt;
+
                 con.Open();
-                var cmd = new SQLiteCommand("SELECT * FROM tbl_GirisEkrani,tbl_AnaSayfa", con);
+                var cmd = new SQLiteCommand("SELECT * FROM tbl_GirisEkrani,tbl_AnaSayfa,tbl_TakiptenCik,tbl_YorumyapBegen,tbl_TakipEt", con);
                 SQLiteDataReader rd = cmd.ExecuteReader();
 
                 while (rd.Read())//tablodaki veri kadar döndürüyorum ve gerekli değişkenleri ekrana yazdırıyorum.
@@ -63,6 +67,23 @@ namespace InstaBot.Codes
                     anaSayfaBegen.gonderiDizini = rd["gonderiDizini"].ToString();
                     anaSayfaBegen.begeniDizini = rd["begeniDizini"].ToString();
                     anaSayfaBegen.isimClasi = rd["isimClasi"].ToString();
+                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    takiptenCikma.takipEdilenler = rd["takipEdilenler"].ToString();
+                    takiptenCikma.takipDizini = rd["takipDizini"].ToString();
+                    takiptenCikma.hesapDizini = rd["hesapDizini"].ToString();
+                    takiptenCikma.silmeButonu = rd["silmeButonu"].ToString();
+                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    yorumyapBegen.gonderiler = rd["gonderiler"].ToString();
+                    yorumyapBegen.begeniButonu = rd["begeniButonu"].ToString();
+                    yorumyapBegen.yorumYeri = rd["yorumYeri"].ToString();
+                    yorumyapBegen.yorumYapanlar = rd["yorumYapanlar"].ToString();
+                    yorumyapBegen.yorumyapanınAdi = rd["yorumyapanınAdi"].ToString();
+                    yorumyapBegen.ileriButonu = rd["ileriButonu"].ToString();
+                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    takipEt.anaDizin = rd["anaDizin"].ToString();
+                    takipEt.kullaniciAdi = rd["kullaniciAdi"].ToString();
+                    takipEt.acikHesap = rd["acikHesap"].ToString();
+                    takipEt.gizliHesap = rd["gizliHesap"].ToString();
                 }
 
                 con.Close();

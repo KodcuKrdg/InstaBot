@@ -1,4 +1,5 @@
 ﻿using InstaBot.CssSelector;
+using InstaBot.CssSelector.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,15 @@ namespace InstaBot.Codes
             return _instance;
         }
 
-        public GirisEkrani GirisEkrani = new GirisEkrani();
+        public CssGirisEkrani GirisEkrani = new CssGirisEkrani();
 
-        public AnaSayfaBegen AnaSayfaBegen = new AnaSayfaBegen();
+        public CssAnaSayfaBegen AnaSayfaBegen = new CssAnaSayfaBegen();
+
+        public CssTakiptenCikma TakiptenCikma = new CssTakiptenCikma();
+
+        public CssYorumyapBegen YorumyapBegen = new CssYorumyapBegen();
+
+        public CssTakipEt TakipEt = new CssTakipEt();
 
     }
 }

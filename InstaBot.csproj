@@ -89,26 +89,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClass\Begen.cs" />
-    <Compile Include="BaseClass\GirisBilgileri.cs" />
-    <Compile Include="BaseClass\ResimAl.cs" />
-    <Compile Include="BaseClass\ResimPaylas.cs" />
-    <Compile Include="BaseClass\TakipEt.cs" />
-    <Compile Include="BaseClass\TakipKontrol.cs" />
-    <Compile Include="BaseClass\TakiptenCik.cs" />
-    <Compile Include="BaseClass\ToplananVeriler.cs" />
-    <Compile Include="BaseClass\YorumYap.cs" />
+    <Compile Include="Codes\BaseVeriHavuzu\ListAlinanResim.cs" />
+    <Compile Include="CssSelector\Base\CssLinkAl.cs" />
+    <Compile Include="Kullanicidan\AyarlarVeritabani.cs" />
+    <Compile Include="Kullanicidan\BaseClass\Begen.cs" />
+    <Compile Include="Kullanicidan\BaseClass\GirisBilgileri.cs" />
+    <Compile Include="Kullanicidan\BaseClass\ListHashtag.cs" />
+    <Compile Include="Kullanicidan\BaseClass\ListKullaniciAdi.cs" />
+    <Compile Include="Kullanicidan\BaseClass\ResimAl.cs" />
+    <Compile Include="Kullanicidan\BaseClass\ResimPaylas.cs" />
+    <Compile Include="Kullanicidan\BaseClass\Sureler.cs" />
+    <Compile Include="Kullanicidan\BaseClass\TakipEt.cs" />
+    <Compile Include="Kullanicidan\BaseClass\TakipKontrol.cs" />
+    <Compile Include="Kullanicidan\BaseClass\TakiptenCik.cs" />
+    <Compile Include="Codes\VeriHavuzu.cs" />
+    <Compile Include="Kullanicidan\BaseClass\YorumYap.cs" />
     <Compile Include="Codes\BitisSuresi.cs" />
     <Compile Include="Codes\BotCode.cs" />
     <Compile Include="CssSelector\Base\CssAnaSayfaBegen.cs" />
+    <Compile Include="CssSelector\Base\CssIstekKontrol.cs" />
     <Compile Include="CssSelector\Base\CssTakipEt.cs" />
     <Compile Include="CssSelector\Base\CssTakiptenCikma.cs" />
     <Compile Include="CssSelector\Base\CssYorumyapBegen.cs" />
     <Compile Include="CssSelector\CssDatabase.cs" />
-    <Compile Include="Codes\CssSelectorler.cs" />
+    <Compile Include="CssSelector\CssSelectorler.cs" />
     <Compile Include="Codes\Komutlar.cs" />
-    <Compile Include="Codes\KullaniciSecimleri.cs" />
+    <Compile Include="Kullanicidan\KullaniciSecimleri.cs" />
     <Compile Include="CssSelector\Base\CssGirisEkrani.cs" />
+    <Compile Include="Codes\BaseVeriHavuzu\ListIstekBilgi.cs" />
+    <Compile Include="Codes\BaseVeriHavuzu\ListTakipBilgi.cs" />
+    <Compile Include="Database\VeriTabani.cs" />
     <Compile Include="Forms\AnaSayfa.cs">
       <SubType>Form</SubType>
     </Compile>

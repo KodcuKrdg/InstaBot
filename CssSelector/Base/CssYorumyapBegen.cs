@@ -8,8 +8,10 @@ namespace InstaBot.CssSelector.Base
 {
     class CssYorumyapBegen
     {
+        public string gonderiEkrani { get; set; }
         public string gonderiler { get; set; }
         public string begeniButonu { get; set; }
+        public string yorumYapma { get; set; }
         public string yorumYeri { get; set; }
         public string yorumYapanlar { get; set; }
         public string yorumyapanınAdi { get; set; }

@@ -23,6 +23,8 @@ namespace InstaBot
         private void pcCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            Komutlar komutlar = Komutlar.GetInstance();
+            komutlar.SeleniumKapat();
         }
 
         private bool mouseDown; //Formu sürüklemek için
@@ -92,8 +94,7 @@ namespace InstaBot
 
         private void AnaSayfa_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Komutlar komutlar = Komutlar.GetInstance();
-            komutlar.SeleniumKapat();
+            
         }
     }
 }

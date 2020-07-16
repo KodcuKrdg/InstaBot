@@ -1,11 +1,5 @@
-﻿using InstaBot.CssSelector;
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InstaBot.Codes
 {
@@ -23,23 +17,7 @@ namespace InstaBot.Codes
         }
 
         SQLiteConnection con;//Veritabanı bağlantı değişkeni
-        public void veritabaniOlustur()
-        {
-            
-
-            if (!File.Exists("CssDatabase.db"))
-            {
-                SQLiteConnection.CreateFile(veritabaniAdi);
-
-                con = new SQLiteConnection("Data Source="+ veritabaniAdi+";");//veritabanı yolum
-
-                con.Open();
-                con.ChangePassword(veritabaniSifre);
-                con.Close();
-            }
-        }
-
-        public void verileriAl() 
+        private void verileriAl() 
         {
             using (con = new SQLiteConnection("Data Source="+ veritabaniAdi + ";Password="+veritabaniSifre))
             {
@@ -48,9 +26,11 @@ namespace InstaBot.Codes
                 var takiptenCikma = cssSelector.TakiptenCikma;
                 var yorumyapBegen = cssSelector.YorumyapBegen;
                 var takipEt = cssSelector.TakipEt;
+                var istekKontrol = cssSelector.IstekKontrol;
+                var likAl = cssSelector.LinkAl;
 
                 con.Open();
-                var cmd = new SQLiteCommand("SELECT * FROM tbl_GirisEkrani,tbl_AnaSayfa,tbl_TakiptenCik,tbl_YorumyapBegen,tbl_TakipEt", con);
+                var cmd = new SQLiteCommand("SELECT * FROM tbl_GirisEkrani,tbl_AnaSayfa,tbl_TakiptenCik,tbl_YorumyapBegen,tbl_TakipEt,tbl_IstekKontrol,tbl_LinkAl", con);
                 SQLiteDataReader rd = cmd.ExecuteReader();
 
                 while (rd.Read())//tablodaki veri kadar döndürüyorum ve gerekli değişkenleri ekrana yazdırıyorum.
@@ -64,8 +44,8 @@ namespace InstaBot.Codes
                     girisEkrani.bildirimleriAcButton = rd["bildirimleriAcButton"].ToString();
                     girisEkrani.bildirimleriAcButton = rd["bildirimleriAcButton"].ToString();
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    anaSayfaBegen.gonderiDizini = rd["gonderiDizini"].ToString();
-                    anaSayfaBegen.begeniDizini = rd["begeniDizini"].ToString();
+                    anaSayfaBegen.gonderiler = rd["gonderiler"].ToString();
+                    anaSayfaBegen.begeniClass = rd["begeniClass"].ToString();
                     anaSayfaBegen.isimClasi = rd["isimClasi"].ToString();
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                     takiptenCikma.takipEdilenler = rd["takipEdilenler"].ToString();
@@ -74,6 +54,8 @@ namespace InstaBot.Codes
                     takiptenCikma.silmeButonu = rd["silmeButonu"].ToString();
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                     yorumyapBegen.gonderiler = rd["gonderiler"].ToString();
+                    yorumyapBegen.gonderiEkrani = rd["gonderiEkrani"].ToString();
+                    yorumyapBegen.yorumYapma = rd["yorumYapma"].ToString();
                     yorumyapBegen.begeniButonu = rd["begeniButonu"].ToString();
                     yorumyapBegen.yorumYeri = rd["yorumYeri"].ToString();
                     yorumyapBegen.yorumYapanlar = rd["yorumYapanlar"].ToString();
@@ -84,9 +66,27 @@ namespace InstaBot.Codes
                     takipEt.kullaniciAdi = rd["kullaniciAdi"].ToString();
                     takipEt.acikHesap = rd["acikHesap"].ToString();
                     takipEt.gizliHesap = rd["gizliHesap"].ToString();
+                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    istekKontrol.AtakiptenCik = rd["AtakiptenCik"].ToString();
+                    istekKontrol.GtakiptenCik = rd["GtakiptenCik"].ToString();
+                    istekKontrol.onayButonu = rd["onayButonu"].ToString();
+                    istekKontrol.istekKabul = rd["istekKabul"].ToString();
+                    istekKontrol.gonderi = rd["gonderi"].ToString();
+                    istekKontrol.begenButon = rd["begenButon"].ToString();
+                    istekKontrol.ileriButon = rd["ileriButon"].ToString();
+                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    likAl.gonderiler = rd["gonderiler"].ToString();
+                    likAl.ileri = rd["ileri"].ToString();
+                    likAl.liClass = rd["liClass"].ToString();
+                    likAl.resim = rd["resim"].ToString();
+                    likAl.video = rd["video"].ToString();
+                    likAl.aciklama = rd["aciklama"].ToString();
+                    likAl.paylasan = rd["paylasan"].ToString();
+                    likAl.playTusu = rd["playTusu"].ToString();
                 }
 
                 con.Close();
+                cmd.Dispose();
             }
         }
     }

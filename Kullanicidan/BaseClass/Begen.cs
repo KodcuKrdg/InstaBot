@@ -10,9 +10,8 @@ namespace InstaBot.Codes
     class Begen
     {
         public bool begenecekMi { get; set; }
+        public bool anaSayfaBegen { get; set; }
         public int begeniSayisi { get; set; }
-        public int minSure { get; set; }
-        public int maxSure { get; set; }
         public string yapilanBegeniSayisi { get; set; }
 
     }

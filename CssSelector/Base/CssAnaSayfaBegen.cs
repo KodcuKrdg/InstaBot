@@ -8,8 +8,8 @@ namespace InstaBot.CssSelector
 {
     class CssAnaSayfaBegen
     {
-        public string gonderiDizini { get; set; }
-        public string begeniDizini { get; set; }
+        public string gonderiler { get; set; }
+        public string begeniClass { get; set; }
         public string isimClasi { get; set; }
     }
 }

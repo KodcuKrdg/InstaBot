@@ -34,5 +34,9 @@ namespace InstaBot.Codes
 
         public CssTakipEt TakipEt = new CssTakipEt();
 
+        public CssIstekKontrol IstekKontrol = new CssIstekKontrol();
+
+        public CssLinkAl LinkAl = new CssLinkAl();
+
     }
 }

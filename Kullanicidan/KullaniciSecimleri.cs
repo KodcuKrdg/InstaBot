@@ -1,4 +1,5 @@
 ﻿using InstaBot.BaseClass;
+using InstaBot.Kullanicidan.BaseClass;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace InstaBot.Codes
             }
             return _instance;
         }
-        public Begen Begen = new Begen();
+
+        //Kullanıcının Seçtiği ayarlarının saklandığı yer
+        public Begen Begen = new Begen(); 
 
         public YorumYap YorumYap = new YorumYap();
 
@@ -33,6 +36,19 @@ namespace InstaBot.Codes
 
         public ResimPaylas ResimPaylas = new ResimPaylas();
 
+        public Sureler Sureler = new Sureler();
+
         public GirisBilgileri GirisBilgileri = new GirisBilgileri();
+
+        public List<ListHashtag> ListHashtags = new List<ListHashtag>(); // Kullanıcının kaydettiği hasahtaglerin bilgisi
+
+        public List<string> HashtagGrup = new List<string>(); //Hashtagler de kaç farklı grup varsa onların tutulduğu yer
+
+        public List<string> KullaniciAdigGrup = new List<string>(); //Kullanici Adi kısmında kaç farklı grup varsa onları isimleri
+
+        public List<ListKullaniciAdi> ListKullaniciAdi = new List<ListKullaniciAdi>(); // Kayıtlı Kullanici adları
+
+        public List<string> GidilecekYer = new List<string>();
+
     }
 }

@@ -11,8 +11,6 @@ namespace InstaBot.BaseClass
         public bool yorumYapacakMi { get; set; }
         public bool rasgeleHarfEkle { get; set; }
         public int yorumSayisi { get; set; }
-        public int minSure { get; set; }
-        public int maxSure { get; set; }
         public string yorumGrubu { get; set; }
         public string yapilanYorumSayisi { get; set; }
 

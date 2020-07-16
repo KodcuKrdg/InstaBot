@@ -10,13 +10,10 @@ namespace InstaBot.BaseClass
     {
         public bool takipEdicekMi { get; set; }
         public bool yorumlardanTkpEt { get; set; }
-        public bool begenilerdenTkpEt { get; set; }
         public bool takipEttiklerindenTkpEt { get; set; }
         public bool takipcilerdenTkpEt { get; set; }
-        public bool acikHesaplariTkpEt { get; set; }
+        public bool acikHesaplariTkpEtme { get; set; }
         public int takipEtmeSayisi { get; set; }
-        public int minSure { get; set; }
-        public int maxSure { get; set; }
         public string takipEdilenSayi { get; set; }
     }
 }

@@ -58,6 +58,7 @@ namespace InstaBot.Database
                     });
                 }
             }
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Hashtag
 
             Sorgu.CommandText = "SELECT * FROM tbl_KullaniciAdi order by grupAdi ASC";
             using (var veriler = Sorgu.ExecuteReader())
@@ -78,7 +79,28 @@ namespace InstaBot.Database
                     });
                 }
             }
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Kullanici Adları
 
+            Sorgu.CommandText = "SELECT * FROM tbl_Yorumlar order by grupAdi ASC";
+            using (var veriler = Sorgu.ExecuteReader())
+            {
+                while (veriler.Read())
+                {
+                    //"Contains()" listenin içinde o değer var mı yok mu kontrol eder bizim kullanım amacımız farklı grupları ayırt edip grup adlarını alıp kullanıcıya sunmak
+                    //böylelikle seçtiği gruba dahil olan değerleri bir döngü ile ala bilmek
+                    if (!KullaniciSecimleri.YorumGrubu.Contains(veriler["grupAdi"].ToString()))
+                    {
+                        KullaniciSecimleri.YorumGrubu.Add(veriler["grupAdi"].ToString());
+                    }
+                    KullaniciSecimleri.ListYorumlar.Add(new ListYorumlar()
+                    {
+                        id = veriler["id"].ToString(),
+                        yorum = veriler["yorum"].ToString(),
+                        grupAdi = veriler["grupAdi"].ToString()
+                    });
+                }
+            }
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Yapılacak Yorumlar
             Baglan.Close();
             Sorgu.Dispose();
         }
@@ -105,7 +127,7 @@ namespace InstaBot.Database
             Sorgu.Dispose();
         }
 
-        public void TakipEdilenEkle() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
+        public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
         {
             Sorgu = Baglan.CreateCommand();
             Baglan.Open();
@@ -119,6 +141,8 @@ namespace InstaBot.Database
             }
             Baglan.Close();
             Sorgu.Dispose();
+
+            VeriHavuzu.TakipEdilenHesaplar.Clear();
         }
 
         public void IstekAtilanHesaplar() // İstek atılan hesapların veri tabanından bilgilerinin alındığı yer 
@@ -157,6 +181,8 @@ namespace InstaBot.Database
             }
             Baglan.Close();
             Sorgu.Dispose();
+
+            VeriHavuzu.SilinecekIstekIdler.Clear();
         }
 
         public void ResimVideoLinkiKaydet() // hashtagten/profilden alınan resimleri bilgilerini veritabanına kaydediyoruz
@@ -176,6 +202,7 @@ namespace InstaBot.Database
             }
             Baglan.Close();
             Sorgu.Dispose();
+            VeriHavuzu.AlinanResimVidoe.Clear();
         }
     }
 }

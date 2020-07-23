@@ -8,18 +8,15 @@ namespace InstaBot.Codes
 
         private CssSelectorler cssSelector = CssSelectorler.GetInstance();
 
-        private string veritabaniAdi = "CssDatabase.db";
-        private string veritabaniSifre = "cssDatabase5441";
 
         public  CssDatabase()
         {
             verileriAl();
         }
 
-        SQLiteConnection con;//Veritabanı bağlantı değişkeni
-        private void verileriAl() 
+        private void verileriAl() //CssSelector Classına veritabanındaki verileri aldık Komutlar Classında kulanılabilsin diye
         {
-            using (con = new SQLiteConnection("Data Source="+ veritabaniAdi + ";Password="+veritabaniSifre))
+            using (var Baglan = new SQLiteConnection("Data Source=CssDatabase.db;Password=cssDatabase5441"))
             {
                 var girisEkrani = cssSelector.GirisEkrani;
                 var anaSayfaBegen = cssSelector.AnaSayfaBegen;
@@ -29,64 +26,117 @@ namespace InstaBot.Codes
                 var istekKontrol = cssSelector.IstekKontrol;
                 var likAl = cssSelector.LinkAl;
 
-                con.Open();
-                var cmd = new SQLiteCommand("SELECT * FROM tbl_GirisEkrani,tbl_AnaSayfa,tbl_TakiptenCik,tbl_YorumyapBegen,tbl_TakipEt,tbl_IstekKontrol,tbl_LinkAl", con);
-                SQLiteDataReader rd = cmd.ExecuteReader();
 
-                while (rd.Read())//tablodaki veri kadar döndürüyorum ve gerekli değişkenleri ekrana yazdırıyorum.
+                SQLiteCommand Sorgu = new SQLiteCommand(Baglan);
+
+                Sorgu.CommandText = "SELECT * FROM tbl_GirisEkrani";
+                Baglan.Open();
+                using (var veriler = Sorgu.ExecuteReader())
                 {
-                    //CssSelector Classına veritabanındaki verileri ekledikki Komutlar Classında kulanılabilsin diye
-                    girisEkrani.kullaniciAdiText = rd["kullaniciAdiText"].ToString();
-                    girisEkrani.sifreText = rd["sifreText"].ToString();
-                    girisEkrani.guvenlikMsjText = rd["guvenlikMsjText"].ToString();
-                    girisEkrani.bilgiButton = rd["bilgiButton"].ToString();
-                    girisEkrani.bildirimleriAcButton = rd["bildirimleriAcButton"].ToString();
-                    girisEkrani.bildirimleriAcButton = rd["bildirimleriAcButton"].ToString();
-                    girisEkrani.bildirimleriAcButton = rd["bildirimleriAcButton"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    anaSayfaBegen.gonderiler = rd["gonderiler"].ToString();
-                    anaSayfaBegen.begeniClass = rd["begeniClass"].ToString();
-                    anaSayfaBegen.isimClasi = rd["isimClasi"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    takiptenCikma.takipEdilenler = rd["takipEdilenler"].ToString();
-                    takiptenCikma.takipDizini = rd["takipDizini"].ToString();
-                    takiptenCikma.hesapDizini = rd["hesapDizini"].ToString();
-                    takiptenCikma.silmeButonu = rd["silmeButonu"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    yorumyapBegen.gonderiler = rd["gonderiler"].ToString();
-                    yorumyapBegen.gonderiEkrani = rd["gonderiEkrani"].ToString();
-                    yorumyapBegen.yorumYapma = rd["yorumYapma"].ToString();
-                    yorumyapBegen.begeniButonu = rd["begeniButonu"].ToString();
-                    yorumyapBegen.yorumYeri = rd["yorumYeri"].ToString();
-                    yorumyapBegen.yorumYapanlar = rd["yorumYapanlar"].ToString();
-                    yorumyapBegen.yorumyapanınAdi = rd["yorumyapanınAdi"].ToString();
-                    yorumyapBegen.ileriButonu = rd["ileriButonu"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    takipEt.anaDizin = rd["anaDizin"].ToString();
-                    takipEt.kullaniciAdi = rd["kullaniciAdi"].ToString();
-                    takipEt.acikHesap = rd["acikHesap"].ToString();
-                    takipEt.gizliHesap = rd["gizliHesap"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    istekKontrol.AtakiptenCik = rd["AtakiptenCik"].ToString();
-                    istekKontrol.GtakiptenCik = rd["GtakiptenCik"].ToString();
-                    istekKontrol.onayButonu = rd["onayButonu"].ToString();
-                    istekKontrol.istekKabul = rd["istekKabul"].ToString();
-                    istekKontrol.gonderi = rd["gonderi"].ToString();
-                    istekKontrol.begenButon = rd["begenButon"].ToString();
-                    istekKontrol.ileriButon = rd["ileriButon"].ToString();
-                    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    likAl.gonderiler = rd["gonderiler"].ToString();
-                    likAl.ileri = rd["ileri"].ToString();
-                    likAl.liClass = rd["liClass"].ToString();
-                    likAl.resim = rd["resim"].ToString();
-                    likAl.video = rd["video"].ToString();
-                    likAl.aciklama = rd["aciklama"].ToString();
-                    likAl.paylasan = rd["paylasan"].ToString();
-                    likAl.playTusu = rd["playTusu"].ToString();
+                    while (veriler.Read())
+                    {
+                        girisEkrani.kullaniciAdiText = veriler["kullaniciAdiText"].ToString();
+                        girisEkrani.sifreText = veriler["sifreText"].ToString();
+                        girisEkrani.guvenlikMsjText = veriler["guvenlikMsjText"].ToString();
+                        girisEkrani.bilgiButton = veriler["bilgiButton"].ToString();
+                        girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
+                        girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
+                        girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
+                    }
+
+                }
+                
+                Sorgu.CommandText = "SELECT * FROM tbl_AnaSayfa";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        anaSayfaBegen.gonderiler = veriler["gonderiler"].ToString();
+                        anaSayfaBegen.begeniClass = veriler["begeniClass"].ToString();
+                        anaSayfaBegen.isimClasi = veriler["isimClasi"].ToString();
+                    }
+
                 }
 
-                con.Close();
-                cmd.Dispose();
+                Sorgu.CommandText = "SELECT * FROM tbl_TakiptenCik";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        takiptenCikma.takipEdilenler = veriler["takipEdilenler"].ToString();
+                        takiptenCikma.hesapDizini = veriler["hesapDizini"].ToString();
+                        takiptenCikma.acilanEkran = veriler["acilanEkran"].ToString();
+                        takiptenCikma.hesapAdi = veriler["hesapAdi"].ToString();
+                        takiptenCikma.silmeButonu = veriler["silmeButonu"].ToString();
+                    }
+
+                }
+
+                Sorgu.CommandText = "SELECT * FROM tbl_YorumyapBegen";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        yorumyapBegen.gonderiler = veriler["gonderiler"].ToString();
+                        yorumyapBegen.yorumYapma = veriler["yorumYapma"].ToString();
+                        yorumyapBegen.begeniButonu = veriler["begeniButonu"].ToString();
+                        yorumyapBegen.yorumYeri = veriler["yorumYeri"].ToString();
+                        yorumyapBegen.yorumYapanlar = veriler["yorumYapanlar"].ToString();
+                        yorumyapBegen.yorumyapanınAdi = veriler["yorumyapanınAdi"].ToString();
+                    }
+
+                }
+
+                Sorgu.CommandText = "SELECT * FROM tbl_TakipEt";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        takipEt.anaDizin = veriler["anaDizin"].ToString();
+                        takipEt.kullaniciAdi = veriler["kullaniciAdi"].ToString();
+                        takipEt.acikHesap = veriler["acikHesap"].ToString();
+                        takipEt.gizliHesap = veriler["gizliHesap"].ToString();
+                    }
+
+                }
+
+                Sorgu.CommandText = "SELECT * FROM tbl_IstekKontrol";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        istekKontrol.AtakiptenCik = veriler["AtakiptenCik"].ToString();
+                        istekKontrol.GtakiptenCik = veriler["GtakiptenCik"].ToString();
+                        istekKontrol.onayButonu = veriler["onayButonu"].ToString();
+                        istekKontrol.istekKabul = veriler["istekKabul"].ToString();
+                        istekKontrol.gonderi = veriler["gonderi"].ToString();
+                        istekKontrol.begenButon = veriler["begenButon"].ToString();
+                        istekKontrol.ileriButon = veriler["ileriButon"].ToString();
+                    }
+
+                }
+
+                Sorgu.CommandText = "SELECT * FROM tbl_LinkAl";
+                using (var veriler = Sorgu.ExecuteReader())
+                {
+                    while (veriler.Read())
+                    {
+                        likAl.gonderiler = veriler["gonderiler"].ToString();
+                        likAl.ileri = veriler["ileri"].ToString();
+                        likAl.liClass = veriler["liClass"].ToString();
+                        likAl.resim = veriler["resim"].ToString();
+                        likAl.video = veriler["video"].ToString();
+                        likAl.aciklama = veriler["aciklama"].ToString();
+                        likAl.paylasan = veriler["paylasan"].ToString();
+                        likAl.playTusu = veriler["playTusu"].ToString();
+                    }
+
+                }
+
+
+
+                Sorgu.Dispose();
+                Baglan.Close();
             }
         }
     }

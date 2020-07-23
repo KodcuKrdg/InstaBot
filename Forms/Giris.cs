@@ -29,20 +29,23 @@ namespace InstaBot.Forms
         AyarlarVeritabani AyarlarVeritabani = AyarlarVeritabani.GetInstance();
         KullaniciSecimleri Secimler = KullaniciSecimleri.GetInstance();
         VeriTabani VeriTabani = VeriTabani.GetInstance();
-        Komutlar komutlar = Komutlar.GetInstance();
+        Komutlar Komutlar = Komutlar.GetInstance();
+        
+        Random random = new Random();
 
         private void Giris_Load(object sender, EventArgs e)
         {
-            komutlar.VeriyiAlacak(this); //Komutlar Classından verileri almak için gerekli ayar
+            Komutlar.VeriyiAlacak(this); //Komutlar Classından verileri almak için gerekli ayar
             KayitliAyarlar();
             ComboBoxAyarı();
+            YorumGrubu();
         }
         public void VeriyiAl(ISubject subject)
         {
-            listBox1.Items.Add((subject as Komutlar).Bilgi);
+            lstBxYapilan.Items.Add((subject as Komutlar).Bilgi);
             // Listbox a veri aklenince en alta alma
-            listBox1.SelectedIndex = listBox1.Items.Count - 1;
-            listBox1.SelectedIndex = -1;
+            lstBxYapilan.SelectedIndex = lstBxYapilan.Items.Count - 1;
+            lstBxYapilan.SelectedIndex = -1;
         }
 
         private void KayitliAyarlar() //Enson seçtiği işlem ayarlarını veritabanından çekiyoruz ve formdaki ilgili kısımları dolduruyoruz
@@ -92,6 +95,16 @@ namespace InstaBot.Forms
             nmrcResimPySayisi.Value = Secimler.ResimPaylas.paylasimSayisi;
             lblResimPaylasimSay.Text = Secimler.ResimPaylas.yapilanPySayisi;
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Paylaş
+            //Bu çarpma işlemleri veritabanına milisaniye cinsinden karşılığğını kaydettiğimiz için ekrana saniye cinsine çevirdik
+            nmrcBegeniMinSr.Value = Secimler.Sureler.minBegen / 1000;
+            nmrcBegeniMaxSr.Value = Secimler.Sureler.maxBegen / 1000;
+            nmrcYorumMinSr.Value = Secimler.Sureler.minYorum / 1000;
+            nmrcYorumMaxSr.Value = Secimler.Sureler.maxYorum / 1000;
+            nmrcTakipEtCkMinSr.Value = Secimler.Sureler.minTakipEtCik  / 1000;
+            nmrcTakipEtCkMaxSr.Value = Secimler.Sureler.maxTakipEtCik  / 1000;
+            nmrcPaylasimMinSr.Value = Secimler.Sureler.minResimPay / 10000;
+            nmrcPaylasimMaxSr.Value = Secimler.Sureler.maxResimPay / 10000;
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ İşlemler Arası Bekleme Süreleri
         }
 
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -124,6 +137,7 @@ namespace InstaBot.Forms
         }
         private void btnBaslat_Click(object sender, EventArgs e)
         {
+            
             string gidilecekYer="";
             string kullaniciAdi = txtKullaniciAdi.Text;
             string sifre = txtSifre.Text;
@@ -133,9 +147,22 @@ namespace InstaBot.Forms
             else if (rdKullaniciAdi.Checked)
                 gidilecekYer = "https://www.instagram.com/";
             Secimler.GidilecekYer.Clear();
-            foreach (var item in chckLst.CheckedItems)
+
+            foreach (var item in chckLst.CheckedItems) // Gidilecek Hashtagler veya Kullanıcı Adları
             {
                 Secimler.GidilecekYer.Add(gidilecekYer + item.ToString() + "/");
+            }
+
+            foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
+            {
+                if (item.grupAdi==cmbYorumGrubu.Text)
+                {
+                    if (chckYorumRasgele.Checked)
+                        Secimler.YapilacakYorumlar.Add(item.yorum+" "+item.yorum.Substring(random.Next(item.yorum.Length-1),1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
+                    else
+                        Secimler.YapilacakYorumlar.Add(item.yorum);
+
+                }
             }
 
             kullaniciAdi = kullaniciAdi.TrimStart();
@@ -147,9 +174,10 @@ namespace InstaBot.Forms
             Secimler.GirisBilgileri.kullaniciAdi = kullaniciAdi;
             Secimler.GirisBilgileri.sifre = sifre;
 
-            //komutlar.Baslat();
-
             AyarlarVeritabani.AyarlarıKaydet();
+            
+            Komutlar.Baslat();
+
         }
         
         //Begeni
@@ -171,6 +199,17 @@ namespace InstaBot.Forms
             Secimler.Begen.anaSayfaBegen = chckAnaSayfaBegen.Checked;
         }
         //Yorum
+        private void YorumGrubu()
+        {
+            if (Secimler.YorumGrubu.Count>0)
+            {
+                foreach (var item in Secimler.YorumGrubu)
+                {
+                    cmbYorumGrubu.Items.Add(item);
+                }
+                
+            }
+        }
         private void chckYorumYap_CheckedChanged(object sender, EventArgs e)
         {
             if (chckYorumYap.Checked == true)
@@ -309,27 +348,45 @@ namespace InstaBot.Forms
         int Sure;
         private void nmrcBegeniYorumMinSr_ValueChanged(object sender, EventArgs e)
         {
-            Sure = Convert.ToInt32(nmrcBegeniYorumMinSr.Value);
+            Sure = Convert.ToInt32(nmrcBegeniMinSr.Value);
 
-            Sure = (1000 * Sure) / 60; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+            Sure *=1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
 
-            Secimler.Sureler.minBegenYorum = Sure;
+            Secimler.Sureler.minBegen = Sure;
         }
 
         private void nmrcBegeniYorumMaxSr_ValueChanged(object sender, EventArgs e)
         {
-            Sure = Convert.ToInt32(nmrcBegeniYorumMaxSr.Value);
+            Sure = Convert.ToInt32(nmrcBegeniMaxSr.Value);
 
-            Sure = (1000 * Sure) / 60; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+            Sure *= 1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
 
-            Secimler.Sureler.maxBegenYorum = Sure;
+            Secimler.Sureler.maxBegen = Sure;
+        }
+
+        private void nmrcYorumMinSr_ValueChanged(object sender, EventArgs e)
+        {
+            Sure = Convert.ToInt32(nmrcYorumMinSr.Value);
+
+            Sure *= 1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+
+            Secimler.Sureler.minYorum = Sure;
+        }
+
+        private void nmrcYorumMaxSr_ValueChanged(object sender, EventArgs e)
+        {
+            Sure = Convert.ToInt32(nmrcYorumMaxSr.Value);
+
+            Sure *= 1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+
+            Secimler.Sureler.maxYorum = Sure;
         }
 
         private void nmrcTakipEtCkMinSr_ValueChanged(object sender, EventArgs e)
         {
             Sure = Convert.ToInt32(nmrcTakipEtCkMinSr.Value);
 
-            Sure = (1000 * Sure) / 60; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+            Sure *= 1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
 
             Secimler.Sureler.minTakipEtCik = Sure;
         }
@@ -338,7 +395,7 @@ namespace InstaBot.Forms
         {
             Sure = Convert.ToInt32(nmrcTakipEtCkMaxSr.Value);
 
-            Sure = (1000 * Sure) / 60; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
+            Sure *= 1000; // burada kulanıcının belirlediği saniyeyi milisaniye cinsinden karşılığını alıyoruz
 
             Secimler.Sureler.maxTakipEtCik = Sure;
         }
@@ -347,7 +404,7 @@ namespace InstaBot.Forms
         {
             Sure = Convert.ToInt32(nmrcPaylasimMinSr.Value);
 
-            Sure *= 1000; // burada kulanıcının belirlediği dk milisaniye cinsinden karşılığını alıyoruz
+            Sure *= 10000; // burada kulanıcının belirlediği dk milisaniye cinsinden karşılığını alıyoruz
 
             Secimler.Sureler.minResimPay = Sure;
         }
@@ -356,7 +413,7 @@ namespace InstaBot.Forms
         {
             Sure = Convert.ToInt32(nmrcPaylasimMaxSr.Value);
 
-            Sure *=1000; // burada kulanıcının belirlediği dk milisaniye cinsinden karşılığını alıyoruz
+            Sure *=10000; // burada kulanıcının belirlediği dk milisaniye cinsinden karşılığını alıyoruz
 
             Secimler.Sureler.maxResimPay = Sure;
         }
@@ -483,8 +540,6 @@ namespace InstaBot.Forms
             }
 
         }
-
-        
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cmbxKulasGrup kısmı ayarları
     }
 }

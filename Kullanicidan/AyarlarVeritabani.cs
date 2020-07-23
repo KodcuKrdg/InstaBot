@@ -83,10 +83,12 @@ namespace InstaBot.Kullanicidan
                     KullaniciSecimleri.YorumYap.yorumGrubu = veriler["yorumGrubu"].ToString();
                     KullaniciSecimleri.YorumYap.yapilanYorumSayisi = veriler["yapilanYorumSayisi"].ToString();
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Yorum Yap
-                    KullaniciSecimleri.Sureler.minBegenYorum = Convert.ToInt32(veriler["minBegenYorum"]);
+                    KullaniciSecimleri.Sureler.minBegen = Convert.ToInt32(veriler["minBegen"]);
+                    KullaniciSecimleri.Sureler.minYorum = Convert.ToInt32(veriler["minYorum"]);
                     KullaniciSecimleri.Sureler.minTakipEtCik = Convert.ToInt32(veriler["minTakipEtCik"]);
                     KullaniciSecimleri.Sureler.minResimPay = Convert.ToInt32(veriler["minResimPay"]);
-                    KullaniciSecimleri.Sureler.maxBegenYorum = Convert.ToInt32(veriler["maxBegenYorum"]);
+                    KullaniciSecimleri.Sureler.maxBegen = Convert.ToInt32(veriler["maxBegen"]); 
+                    KullaniciSecimleri.Sureler.maxYorum = Convert.ToInt32(veriler["maxYorum"]); 
                     KullaniciSecimleri.Sureler.maxTakipEtCik = Convert.ToInt32(veriler["maxTakipEtCik"]);
                     KullaniciSecimleri.Sureler.maxResimPay = Convert.ToInt32(veriler["maxResimPay"]);
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Bekleme Sureleri
@@ -178,12 +180,14 @@ namespace InstaBot.Kullanicidan
             Sorgu.ExecuteNonQuery();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Yorum Yap
 
-            Sorgu.CommandText = "UPDATE tbl_Sureler SET minBegenYorum=@minBegenYorum,minTakipEtCik=@minTakipEtCik,minResimPay=@minResimPay,maxBegenYorum=@maxBegenYorum,maxTakipEtCik=@maxTakipEtCik,maxResimPay=@maxResimPay";
+            Sorgu.CommandText = "UPDATE tbl_Sureler SET minBegen=@minBegen,minYorum=@minYorum,minTakipEtCik=@minTakipEtCik,minResimPay=@minResimPay,maxBegen=@maxBegen,maxYorum=@maxYorum,maxTakipEtCik=@maxTakipEtCik,maxResimPay=@maxResimPay";
 
-            Sorgu.Parameters.AddWithValue("@minBegenYorum", KullaniciSecimleri.Sureler.minBegenYorum.ToString());
+            Sorgu.Parameters.AddWithValue("@minBegen", KullaniciSecimleri.Sureler.minBegen.ToString());
+            Sorgu.Parameters.AddWithValue("@minYorum", KullaniciSecimleri.Sureler.minYorum.ToString());
             Sorgu.Parameters.AddWithValue("@minTakipEtCik", KullaniciSecimleri.Sureler.minTakipEtCik.ToString());
             Sorgu.Parameters.AddWithValue("@minResimPay", KullaniciSecimleri.Sureler.minResimPay.ToString());
-            Sorgu.Parameters.AddWithValue("@maxBegenYorum", KullaniciSecimleri.Sureler.maxBegenYorum.ToString());
+            Sorgu.Parameters.AddWithValue("@maxBegen", KullaniciSecimleri.Sureler.maxBegen.ToString());
+            Sorgu.Parameters.AddWithValue("@maxYorum", KullaniciSecimleri.Sureler.maxYorum.ToString());
             Sorgu.Parameters.AddWithValue("@maxTakipEtCik", KullaniciSecimleri.Sureler.maxTakipEtCik.ToString());
             Sorgu.Parameters.AddWithValue("@maxResimPay", KullaniciSecimleri.Sureler.maxResimPay.ToString());
 

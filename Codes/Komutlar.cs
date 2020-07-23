@@ -17,6 +17,7 @@ namespace InstaBot.Codes
     class Komutlar :ISubject
     {
         private Komutlar() { }
+
         private static Komutlar _instance;
         public static Komutlar GetInstance()
         {
@@ -26,16 +27,21 @@ namespace InstaBot.Codes
             }
             return _instance;
         }
+
         IWebDriver webDriver;
         IJavaScriptExecutor js;
         WebDriverWait bekle;// Elemet yüklenmediyse beklenilecek süre
 
         CssSelectorler CssSelectorler = CssSelectorler.GetInstance();
-        KullaniciSecimleri KullaniciSecimleri = KullaniciSecimleri.GetInstance();
+        KullaniciSecimleri Secimler = KullaniciSecimleri.GetInstance();
         VeriHavuzu VeriHavuzu = VeriHavuzu.GetInstance();
         VeriTabani VeriTabani = VeriTabani.GetInstance();
 
+        Random random = new Random();
+        List<string> paylasimLinki = new List<string>();
+
         bool WebAcik = false;
+
 
         //ISubject İşlemleri
         private List<IObserver> _observers = new List<IObserver>(); // Veri lerin iletileceği Classlar
@@ -56,26 +62,41 @@ namespace InstaBot.Codes
             }
         } // Bu Classta Veri işlenince İletilecek Claslara haber verir
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [Obsolete]
         public void Baslat() 
         {
-            Thread thread = new Thread(new ThreadStart(Basla));
-            thread.Start();
-            
+            Thread ThYapilacaklar = new Thread(Yapilacaklar);
+            ThYapilacaklar.Start();
         }
-
-        [Obsolete]
-        private void Basla() 
+        private void Yapilacaklar()
         {
             GirisYap();
-            AnaSayfaBegen();
-        }
-        //Css selector ile element varmı yokmu kontrolu
-        private bool Yuklendimi(string elementName)
-        {
-            try { webDriver.FindElement(By.CssSelector(elementName)); }
-            catch (NoSuchElementException) { return false; }
-            catch (StaleElementReferenceException) { return false; }
-            return true;
+
+            if (Secimler.Begen.begenecekMi && Secimler.Begen.anaSayfaBegen)
+            {
+                AnaSayfaBegen();
+            }
+            
+            if (Secimler.YorumYap.yorumYapacakMi)
+            {
+                if (paylasimLinki.Count<1)
+                {
+                    PaylasimLinkiAl();
+                }
+                YorumYapBegen();
+            }
+
+            if (Secimler.TakipEt.takipEdicekMi)
+            {
+                TakipEt();
+            }
+
+            if (Secimler.TakiptenCik.takiptenCikacakMi)
+            {
+                TakiptenCik();
+            }
+            
+            
         }
         private void ChromeAyarları()
         {
@@ -95,7 +116,6 @@ namespace InstaBot.Codes
             webDriver.Manage().Window.Maximize();
             WebAcik = true;
         }
-
         public void SeleniumKapat()
         {
             if (WebAcik)
@@ -106,24 +126,25 @@ namespace InstaBot.Codes
             }
             
         }
-        [Obsolete]
         private void GirisYap()
         {
             ChromeAyarları();
 
             webDriver.Navigate().GoToUrl("https://www.instagram.com");
+            Thread.Sleep(random.Next(1000, 2000));
 
-            var kullaniciAdi = bekle.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(CssSelectorler.GirisEkrani.kullaniciAdiText))); //Elementi yüklendiyse alır yüklenmediyse sayfa bekler
-            var parola = bekle.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(CssSelectorler.GirisEkrani.sifreText)));
+            var kullaniciAdi = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.kullaniciAdiText)); 
+            var parola = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.sifreText));
 
-            kullaniciAdi.SendKeys(KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+            kullaniciAdi.SendKeys(Secimler.GirisBilgileri.kullaniciAdi);
 
-            parola.SendKeys(KullaniciSecimleri.GirisBilgileri.sifre); //Buraya süre eklene bilir şifreyi yazınca direk enter tuşuna basıyor
+            parola.SendKeys(Secimler.GirisBilgileri.sifre); //Buraya süre eklene bilir şifreyi yazınca direk enter tuşuna basıyor
             parola.SendKeys(OpenQA.Selenium.Keys.Enter);
 
             if (webDriver.Url== "https://www.instagram.com/accounts/login/two_factor?next=%2F") //2 adımlı doğrulama varsa
             {
-                var guvenlikMsjText = bekle.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(CssSelectorler.GirisEkrani.guvenlikMsjText)));
+                Thread.Sleep(random.Next(1000, 2000));
+                var guvenlikMsjText = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.guvenlikMsjText));
 
                 Application.OpenForms[0].Activate();
 
@@ -133,79 +154,215 @@ namespace InstaBot.Codes
                 Thread.Sleep(1000);
                 guvenlikMsjText.SendKeys(OpenQA.Selenium.Keys.Enter);
             }
+            Thread.Sleep(random.Next(1000, 2000));
 
-            var bilgi = bekle.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(CssSelectorler.GirisEkrani.bilgiButton)));
+            var bilgi = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.bilgiButton));
             bilgi.Click();
+            Thread.Sleep(random.Next(1000, 2000));
 
-            var bildirimleriAc = bekle.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(CssSelectorler.GirisEkrani.bildirimleriAcButton)));
+            var bildirimleriAc = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.bildirimleriAcButton));
             bildirimleriAc.Click();
 
-            Thread.Sleep(1000);
-            
-        }
+            Thread.Sleep(random.Next(1000, 2000));
 
-        [Obsolete]
+        }
         private void AnaSayfaBegen() // sorunları var kontrol ettt 
         {
-            Thread.Sleep(1000);
-            Random random = new Random();
+            Thread.Sleep(random.Next(1000, 2000));
             string isim;
 
             int beğeniSayisi = 0;
+            int Sayac = 20;
             IWebElement begeni;
             List<IWebElement> gonderiler = new List<IWebElement>();
 
-            gonderiler.AddRange(webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler))); // gönderileri aldık
-            while (true)
+            try
             {
-            //Beğendiklerini bir kez daha atayınca ifin istündeki dizinde sorun çıkarıyor o yüzden beğendiğin kısımları döngüye sokmican
-            Git0:
-                foreach (var item in gonderiler)
+                gonderiler.AddRange(webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler))); // gönderileri aldık
+                while (true)
                 {
-                    Thread.Sleep(800);
-                    begeni = item.FindElement(By.CssSelector(CssSelectorler.AnaSayfaBegen.begeniClass));
-                    if (begeni.FindElement(By.TagName("svg")).GetAttribute("aria-label") == "Like") //Gönderinin like kısmını kontrol eden kısım "fr66n" svg nin iki üstündeki dizin
+                //Beğendiklerini bir kez daha atayınca ifin istündeki dizinde sorun çıkarıyor o yüzden beğendiğin kısımları döngüye sokmican
+                Git0:
+                    foreach (var item in gonderiler)
                     {
-                        begeni.FindElement(By.TagName("button")).Click(); //Gönderiyi Beğeniyor
+                        Thread.Sleep(random.Next(Secimler.Sureler.minBegen, Secimler.Sureler.maxBegen));
+                        begeni = item.FindElement(By.CssSelector(CssSelectorler.AnaSayfaBegen.begeniClass)); // Paylaşımın altındaki paylaşının adına tıklıyor sorunu çöz
+                        if (begeni.FindElement(By.TagName("svg")).GetAttribute("aria-label") == "Like") //Gönderinin like kısmını kontrol eden kısım "fr66n" svg nin iki üstündeki dizin
+                        {
+                            begeni.FindElement(By.TagName("button")).Click(); //Gönderiyi Beğeniyor
 
-                        isim = item.FindElement(By.CssSelector(CssSelectorler.AnaSayfaBegen.isimClasi)).GetAttribute("text"); //Gönderiyi paylaşan hesabın adı
+                            isim = item.FindElement(By.CssSelector(CssSelectorler.AnaSayfaBegen.isimClasi)).GetAttribute("text"); //Gönderiyi paylaşan hesabın adı
 
-                        Bilgi = beğeniSayisi.ToString() + " ->" + isim + "---Beğenildi";
-                        VeriHazir();
+                            Bilgi = beğeniSayisi.ToString() + " ->" + isim + "---Beğenildi";
+                            VeriHazir();
 
-                        beğeniSayisi++;
+                            beğeniSayisi++;
+                        }
                     }
-                }
-                if (beğeniSayisi >= 50)
-                {
-                    break;
-                }
-                else // burada scrol aşağı indikçe "article" yani gönderiler maxsimim 8 adet oluyor ve bunun ilk 4 ü bizim beğendiğimiz onları eklemiyoruz
-                {
-                    gonderiler.Clear();
-                    for (int i = 3; i < webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler)).Count; i++)
+                    if (beğeniSayisi >= Sayac)
                     {
-                        gonderiler.Add(webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler))[i]);
+                        break;
                     }
-                    goto Git0;
+                    else // burada scrol aşağı indikçe "article" yani gönderiler maxsimim 8 adet oluyor ve bunun ilk 4 ü bizim beğendiğimiz onları eklemiyoruz
+                    {
+                        gonderiler.Clear();
+                        for (int i = 3; i < webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler)).Count; i++)
+                        {
+                            gonderiler.Add(webDriver.FindElements(By.CssSelector(CssSelectorler.AnaSayfaBegen.gonderiler))[i]);
+                        }
+                        goto Git0;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
+        private void YorumYapBegen() 
+        {
+            IWebElement metinKutusu;
+            IWebElement begenButonu;
 
-        [Obsolete]
+            string bilgi="",yorumYapaninAdi,paylasan = "";
+
+            try
+            {
+                for (int i = 0; i < 5 && paylasimLinki.Count > 0; i++)
+                {
+                    webDriver.Navigate().GoToUrl(paylasimLinki[0]);
+                    paylasimLinki.RemoveAt(0); // hep listenin ilk değerine gidiyor ve gittiği değeri siliyor
+
+                    Thread.Sleep(random.Next(1000, 2000));
+
+                    paylasan = webDriver.FindElement(By.CssSelector(CssSelectorler.LinkAl.paylasan)).GetAttribute("textContent"); // <a> etiketin classı ile aldık 
+
+                    if (Secimler.Begen.begenecekMi)
+                    {
+                        begenButonu = webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.begeniButonu));
+                        string begenilmisMi = begenButonu.FindElement(By.TagName("svg")).GetAttribute("ariaLabel").ToString(); // gönderi önceden beğenildiyse unlike değerini yazar
+                        if (begenilmisMi == "Like" || begenilmisMi == "Beğen")
+                        {
+                            begenButonu.Click();
+                            Thread.Sleep(random.Next(Secimler.Sureler.minBegen, Secimler.Sureler.maxBegen));
+                            bilgi = " Beğenildi ve";
+                        }
+                        else
+                            bilgi = "";
+                    }
+
+                    // gönderi yoruma açık değilse null değeri döndürüyor
+                    if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.YorumyapBegen.yorumYapma + "')") != null)
+                    {
+                        metinKutusu = webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumYeri)).FindElement(By.TagName("textarea")); // yorum yerine tıklayınca text kısmı açılıyor o yüzden iki kere tanımlıyoruz
+                        metinKutusu.Click();
+                        Thread.Sleep(random.Next(200, 300));
+                        metinKutusu = webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumYeri)).FindElement(By.TagName("textarea"));
+                        metinKutusu.SendKeys(Secimler.YapilacakYorumlar[random.Next(Secimler.YapilacakYorumlar.Count - 1)]); // Yorumlar arasında rasgele yorum seçiyor
+                        Thread.Sleep(random.Next(300, 500));
+                        webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumYeri)).FindElement(By.TagName("button")).Click(); // bunu post tuşu ile yap
+                        bilgi += " Yorum yapıldı.";
+                    }
+
+                    //Yorum yapan varsa yapanların linkini alır
+                    if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.YorumyapBegen.yorumYapanlar + "')") != null)
+                    {
+                        if (Secimler.TakipEt.takipEdicekMi) //Takip edileceklerin hesap adını alındığı kısım
+                        {
+                            foreach (var yorumYapanlar in webDriver.FindElements(By.CssSelector(CssSelectorler.YorumyapBegen.yorumYapanlar)))
+                            {
+                                yorumYapaninAdi = yorumYapanlar.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumyapanınAdi)).GetAttribute("href").ToString();
+
+                                if (!VeriHavuzu.TakipEdilecekler.Contains(yorumYapaninAdi)) //"Contains()" ilestede öyle bir değer varsa true döndürüyor
+                                {
+                                    VeriHavuzu.TakipEdilecekler.Add(yorumYapaninAdi);
+                                }
+
+                            }
+                        }
+                    }
+
+                    Bilgi = paylasan + bilgi;
+                    VeriHazir();
+
+                    if (Secimler.ResimAl.resimAlsinMi)
+                    {
+                        ResimVideoLinkAl();
+                    }
+
+                    Thread.Sleep(random.Next(Secimler.Sureler.minYorum, Secimler.Sureler.maxYorum));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void TakipEt()
+        {
+            
+            int acikHesapSay = 0;
+            int gizliHesapSay = 0;
+            string kullaniciAdi;
+            string gidilecekYer="";
+            
+            IWebElement anaDizin;
+            try
+            {
+                for (int i = 0; i < 10 && VeriHavuzu.TakipEdilecekler.Count > 0; i++)
+                {
+                    gidilecekYer = VeriHavuzu.TakipEdilecekler[0];
+                    VeriHavuzu.TakipEdilecekler.RemoveAt(0);
+
+                    webDriver.Navigate().GoToUrl(gidilecekYer);
+                    Thread.Sleep(random.Next(1000, 2000));
+
+                    anaDizin = webDriver.FindElement(By.CssSelector(CssSelectorler.TakipEt.anaDizin)); // Kullanıcı hesap adının ve butonun olduğu dizin
+                    kullaniciAdi = anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.kullaniciAdi)).GetAttribute("textContent").ToString();
+
+                    //açık hesapları Follow Classı ile kapalıların farklı
+                    if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.TakipEt.acikHesap + "')") != null && !Secimler.TakipEt.acikHesaplariTkpEtme) //Açık hesap
+                    {
+                        anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.acikHesap)).Click(); // Takip butonuna tıklandı
+
+                        acikHesapSay++;
+                        VeriHavuzu.TakipEdilenHesaplar.Add(new ListTakipBilgi() { hesap = gidilecekYer, hesapBilgisi = "Açık" }); //VeriTabanina takip edilen hesabın linkini ve gizlimi açıkmı onun bilgisi aktarmak için yeni bir class yaptım ve new dememin sebebi listedeki  eklene değişkenin değerini en son ne yaparsak tüm değişkenler o oluyor
+                        Bilgi = kullaniciAdi + " Takip isteği gönderildi.";
+                        VeriHazir();
+                    }
+                    else if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.TakipEt.gizliHesap + "')") != null) // Gizli Hesap
+                    {
+                        anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.gizliHesap)).Click(); // Takip butonuna tıklandı
+
+                        gizliHesapSay++;
+                        VeriHavuzu.TakipEdilenHesaplar.Add(new ListTakipBilgi() { hesap = gidilecekYer, hesapBilgisi = "Gizli" }); //VeriTabanina takip edilen hesabın linkini ve gizlimi açıkmı onun bilgisi aktarmak için yeni bir class yaptım ve new dememin sebebi listedeki  eklene değişkenin değerini en son ne yaparsak tüm değişkenler o oluyor
+                        Bilgi = kullaniciAdi + " Takip isteği gönderildi.";
+                        VeriHazir();
+                    }
+                    Thread.Sleep(random.Next(Secimler.Sureler.minYorum, Secimler.Sureler.maxYorum));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                VeriTabani.TakipEdilenKaydet(); //Takip edilen hesapları kaydettiğimiz yer
+            }
+        }
         private void TakiptenCik()
         {
             int cikarilanHesapSayisi = 0;
-            IWebElement button, btnTakip, takipDizini, hesapDizini;
-            IWebElement cikButonu;
+            string hesapAdi="";
+            IWebElement button, hesapDizini;
+            BasaGit:
+            webDriver.Navigate().GoToUrl("https://www.instagram.com/" + Secimler.GirisBilgileri.kullaniciAdi);
+            Thread.Sleep(random.Next(1000, 2000));
+            webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.takipEdilenler)).Click(); //Takip edilenler kısmı
 
-            Thread.Sleep(500);
-            webDriver.Navigate().GoToUrl("https://www.instagram.com/" + KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
-            btnTakip = webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.takipEdilenler));
-            btnTakip.Click();
-
-            takipDizini = webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.takipDizini));
-            hesapDizini = takipDizini.FindElement(By.ClassName(CssSelectorler.TakiptenCikma.hesapDizini)); // Kullanıcıları olduğu dizinin üstü
+            hesapDizini = webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.hesapDizini)); // Kullanıcıları olduğu dizinin üstü
 
             List<IWebElement> hesaplar = new List<IWebElement>();
             hesaplar.AddRange(hesapDizini.FindElements(By.TagName("li")));
@@ -213,171 +370,29 @@ namespace InstaBot.Codes
 
             foreach (var item in hesaplar)
             {
-                button = item.FindElement(By.TagName("button"));
-                if (button.GetAttribute("textContent") == "Following")
+                if (js.ExecuteScript("return document.querySelector('"+CssSelectorler.TakiptenCikma.acilanEkran+"')") != null)
                 {
-                    button.Click();
-                    Thread.Sleep(500);
-                    cikButonu = webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.silmeButonu));
-                    cikButonu.Click();
-                    Thread.Sleep(1000);
-                    cikarilanHesapSayisi++;
-                    Bilgi = cikarilanHesapSayisi.ToString() + " - Takipten Çıkıldı";
-                    VeriHazir();
-                }
-                if (cikarilanHesapSayisi%4==0)
-                {
-                    js.ExecuteScript("document.querySelector('.isgrP').scrollBy(0, 200)");
-                    Thread.Sleep(700);
-                }
-                /*if (cikarilanHesapSayisi % 5==0)
-                {
-                    webDriver.Navigate().Refresh();
-                    Thread.Sleep(2000);
-                    hesaplar.Clear();
-                    goto BasaGit;
-
-                }*/
-                if (cikarilanHesapSayisi >= 10)
-                {
-                    break;
-                }
-            }
-        }
-
-        private void YorumYapBegen() 
-        {
-            
-            Thread.Sleep(500);
-            webDriver.Navigate().GoToUrl("https://www.instagram.com/explore/tags/doğadan/");
-            Thread.Sleep(700);
-
-            List<IWebElement> gonderiler = new List<IWebElement>();
-
-            gonderiler.AddRange(webDriver.FindElements(By.CssSelector(CssSelectorler.YorumyapBegen.gonderiler))); //Hashtag deki yüklenen gönderileri aldık bunun ilk 9 u popüler olanlar
-            
-            int yorumSayisi = 0;
-            int gonderiSayac = 0;
-            int yuklendimi = 0;
-            string yorumYapaninAdi;
-            bool takipEdilecek = true;
-            IWebElement yorumYeri;
-            IWebElement begenButonu;
-            gonderiler[gonderiSayac].Click();
-            do
-            {
-
-            Git0:
-                Thread.Sleep(500);
-
-                if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.YorumyapBegen.gonderiEkrani + "')") != null) //gönderiye tıklayınca çıkan ekran açık değilse None dönüyor
-                {
-                    if (gonderiSayac < gonderiler.Count - 1)
+                    button = item.FindElement(By.TagName("button"));
+                    hesapAdi = item.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.hesapAdi)).GetAttribute("title"); //Hesap isiminin yazdığı <a> etiketinin clası
+                    if (button.GetAttribute("textContent") == "Following")
                     {
-                        gonderiler[gonderiSayac].Click();
+                        button.Click();
+                        webDriver.FindElement(By.CssSelector(CssSelectorler.TakiptenCikma.silmeButonu)).Click(); // Takipten çıkma tuşu
+                        cikarilanHesapSayisi++;
+                        Bilgi = hesapAdi + "  Takipten Çıkarıldı.";
+                        VeriHazir();
+                        Thread.Sleep(random.Next(Secimler.Sureler.minTakipEtCik, Secimler.Sureler.maxTakipEtCik));
                     }
-                    else
-                        break;
-                    yuklendimi++;
-                    if (yuklendimi<3) // Üç kere kontrol ediyor
-                    {
-                        goto Git0;
-                    }
-                }
-                begenButonu = webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.begeniButonu));
-                string begenilmisMi = begenButonu.FindElement(By.TagName("svg")).GetAttribute("ariaLabel").ToString(); // gönderi önceden beğenildiyse unlike değerini yazar
-                if (begenilmisMi=="Like" )
-                {
-                    // gönderi yoruma açık değilse null değeri döndürüyor
-                    if (js.ExecuteScript("return document.querySelector('"+CssSelectorler.YorumyapBegen.yorumYapma+"')") != null)
-                    {
-                        yorumYeri = webDriver.FindElement(By.ClassName(CssSelectorler.YorumyapBegen.yorumYeri)); // yorum yerine tıklayınca text kısmı açılıyor o yüzden iki kere tanımlıyoruz
-                        yorumYeri.Click();
-                        Thread.Sleep(500);
-                        yorumYeri = webDriver.FindElement(By.ClassName(CssSelectorler.YorumyapBegen.yorumYeri));
-                        yorumYeri.SendKeys("Bir çiftçi ailesi"); // yorumda yazılacak kısım
-                        if (takipEdilecek) //Takip edileceklerin hesap adını alındığı kısım
-                        {
-                            foreach (var item in webDriver.FindElements(By.ClassName(CssSelectorler.YorumyapBegen.yorumYapanlar)))
-                            {
-                                yorumYapaninAdi= item.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumyapanınAdi)).GetAttribute("href").ToString();
-
-                                if (!VeriHavuzu.TakipEdilecekler.Contains(yorumYapaninAdi)) //"Contains()" ilestede öyle bir değer varsa true döndürüyor
-                                {
-                                    VeriHavuzu.TakipEdilecekler.Add(yorumYapaninAdi);
-                                    Bilgi = yorumYapaninAdi;
-                                    VeriHazir();
-                                }
-                                
-                            }
-                        }
-                        Thread.Sleep(500);
-                        yorumYeri.SendKeys(OpenQA.Selenium.Keys.Enter);
-                        begenButonu.Click();
-
-                        Thread.Sleep(800);
-                        webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.ileriButonu)).Click(); // bir sonraki gödneri
-                    }
-                    else
-                        webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.ileriButonu)).Click();
-                    gonderiSayac++;
-                    yorumSayisi++;
                 }
                 else
-                    webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.ileriButonu)).Click(); // bir sonraki gödneri
+                    goto BasaGit;
 
-
-            } while (yorumSayisi<3);
-            TakipEt();
-        }
-
-        private void TakipEt()
-        {
-            
-            int acikHesapSay = 0;
-            int gizliHesapSay = 0;
-            string kullaniciAdi;
-            
-            IWebElement anaDizin;
-
-            foreach (var item in VeriHavuzu.TakipEdilecekler)
-            {
-                webDriver.Navigate().GoToUrl(item);
-                Thread.Sleep(800);
-
-                anaDizin = webDriver.FindElement(By.CssSelector(CssSelectorler.TakipEt.anaDizin)); // Kullanıcı hesap adının ve butonun olduğu dizin
-                kullaniciAdi = anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.kullaniciAdi)).GetAttribute("textContent").ToString();
-
-                //açık hesapları Follow Classı ile kapalıların farklı
-                if (js.ExecuteScript("return document.querySelector('"+ CssSelectorler.TakipEt.acikHesap + "')") != null) //Açık hesap
-                {
-                    anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.acikHesap)).Click(); // Takip butonuna tıklandı
-                    Thread.Sleep(800);
-                    acikHesapSay++;
-                    VeriHavuzu.TakipEdilenHesaplar.Add(new ListTakipBilgi() { hesap = item,hesapBilgisi="Açık"}); //VeriTabanina takip edilen hesabın linkini ve gizlimi açıkmı onun bilgisi aktarmak için yeni bir class yaptım ve new dememin sebebi listedeki  eklene değişkenin değerini en son ne yaparsak tüm değişkenler o oluyor
-                    Bilgi = kullaniciAdi + " Takip isteği gönderildi.";
-                    VeriHazir();
-                }
-                else if(js.ExecuteScript("return document.querySelector('"+ CssSelectorler.TakipEt.gizliHesap + "')") != null) // Gizli Hesap
-                {
-                    anaDizin.FindElement(By.CssSelector(CssSelectorler.TakipEt.gizliHesap)).Click(); // Takip butonuna tıklandı
-                    Thread.Sleep(800);
-                    gizliHesapSay++;
-                    VeriHavuzu.TakipEdilenHesaplar.Add(new ListTakipBilgi() { hesap = item, hesapBilgisi = "Gizli" }); //VeriTabanina takip edilen hesabın linkini ve gizlimi açıkmı onun bilgisi aktarmak için yeni bir class yaptım ve new dememin sebebi listedeki  eklene değişkenin değerini en son ne yaparsak tüm değişkenler o oluyor
-                    Bilgi = kullaniciAdi + " Takip isteği gönderildi.";
-                    VeriHazir();
-                }
-
-                if (acikHesapSay+gizliHesapSay==40)
+                if (cikarilanHesapSayisi == 10)
                 {
                     break;
                 }
             }
-
-            VeriTabani.TakipEdilenEkle();
-
         }
-
         private void IstekKontrol() 
         {
             VeriTabani.IstekAtilanHesaplar();
@@ -401,7 +416,6 @@ namespace InstaBot.Codes
                             VeriHazir();
 
                             VeriHavuzu.SilinecekIstekIdler.Add(item.id);
-                            Thread.Sleep(800);
                         }
                         else // takip et yazıyorsada VeriTabaninda silinsin
                             VeriHavuzu.SilinecekIstekIdler.Add(item.id);
@@ -419,7 +433,6 @@ namespace InstaBot.Codes
                             Bilgi = item.hesap + " --- çikarıldı";
                             VeriHazir();
                             VeriHavuzu.SilinecekIstekIdler.Add(item.id);
-                            Thread.Sleep(800);
                         }
                         else
                         {
@@ -438,7 +451,7 @@ namespace InstaBot.Codes
                                         if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.IstekKontrol.ileriButon + "')") != null) // bir sonraki resim butonu varmı (yorumyapla aynı css)
                                         {
                                             webDriver.FindElement(By.CssSelector(CssSelectorler.IstekKontrol.ileriButon)).Click(); // bir sonraki gödneri (yorumyapla aynı css)
-                                            Thread.Sleep(800);
+                                            
                                         }
 
                                     }
@@ -449,16 +462,16 @@ namespace InstaBot.Codes
                         }
                         
                     }
+                    Thread.Sleep(random.Next(Secimler.Sureler.minTakipEtCik, Secimler.Sureler.maxTakipEtCik));
                 }
 
                 VeriTabani.IstekleriSil();
             }
         }
-
-        private void LinkAl()
+        private void ResimVideoLinkAl()
         {
             Thread.Sleep(500);
-            webDriver.Navigate().GoToUrl("https://www.instagram.com/explore/locations/1995587203866158/geyve-belediyesi-yoresel-urunler-uretim-merkezi/");
+            webDriver.Navigate().GoToUrl("https://www.instagram.com/explore/tags/keşfet/");
             Thread.Sleep(800);
 
             List<IWebElement> gonderiler = new List<IWebElement>(); // Gonderileri almak ve üzerinde işlem yapabilmek için
@@ -590,6 +603,44 @@ namespace InstaBot.Codes
             }
             
             VeriTabani.ResimVideoLinkiKaydet();
+        }
+        private void PaylasimLinkiAl()
+        {
+            List<string> ilkBakilacaklar = new List<string>();
+            List<string> sonBakilacaklar = new List<string>();
+
+            int alinacakLinkSayisi;
+
+            if ((Secimler.YorumYap.yorumSayisi / Secimler.GidilecekYer.Count) <= 25) // Burada kaçtane link varsa her birinden alınacak gönderi sayısını belirledik
+            {
+                alinacakLinkSayisi = (Secimler.YorumYap.yorumSayisi / Secimler.GidilecekYer.Count);
+            }
+            else
+                alinacakLinkSayisi = 25;
+
+            Thread.Sleep(500);
+
+            for (int i = 0; i < Secimler.GidilecekYer.Count; i++)
+            {
+                webDriver.Navigate().GoToUrl(Secimler.GidilecekYer[i]);
+                Thread.Sleep(1000);
+
+                foreach (var item in webDriver.FindElements(By.CssSelector(CssSelectorler.YorumyapBegen.gonderiler))) // Hashtag deki gönderi aldık
+                {
+                    if ((ilkBakilacaklar.Count + sonBakilacaklar.Count) < (alinacakLinkSayisi * (i + 1))) // her hashtag den belirlenen sayı kadar almak için kontrol
+                    {
+                        if (ilkBakilacaklar.Count <= (9 * (i + 1)))// burada ilk 9 yani popüler olanları aldık
+                            ilkBakilacaklar.Add(item.FindElement(By.TagName("a")).GetAttribute("href"));
+                        else
+                            sonBakilacaklar.Add(item.FindElement(By.TagName("a")).GetAttribute("href"));
+                    }
+
+                }
+
+            }
+
+            paylasimLinki.AddRange(ilkBakilacaklar);
+            paylasimLinki.AddRange(sonBakilacaklar);
         }
     }
 }

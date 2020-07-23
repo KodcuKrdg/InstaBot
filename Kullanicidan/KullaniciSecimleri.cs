@@ -48,7 +48,14 @@ namespace InstaBot.Codes
 
         public List<ListKullaniciAdi> ListKullaniciAdi = new List<ListKullaniciAdi>(); // Kayıtlı Kullanici adları
 
-        public List<string> GidilecekYer = new List<string>();
+        public List<string> GidilecekYer = new List<string>(); // Kullanıcı adları veya hashtagleri hangilerine gidilecekse onları saklandığı yer
+
+        public List<ListYorumlar> ListYorumlar = new List<ListYorumlar>(); // Yapılacak Yorumları veritabanından alıp sakladığımı yer
+
+        public List<string> YorumGrubu = new List<string>(); // Yapılacak yorumların farklı olan grubların sadece adını saklandığı yer sonra grup ayrımı yapa bilmek için
+
+        public List<string> YapilacakYorumlar = new List<string>(); // Yapılacak yorumların farklı olan grubların sadece adını saklandığı yer sonra grup ayrımı yapa bilmek için
+
 
     }
 }

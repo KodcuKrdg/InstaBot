@@ -103,6 +103,7 @@
     <Compile Include="Kullanicidan\BaseClass\TakipKontrol.cs" />
     <Compile Include="Kullanicidan\BaseClass\TakiptenCik.cs" />
     <Compile Include="Codes\VeriHavuzu.cs" />
+    <Compile Include="Kullanicidan\BaseClass\ListYorumlar.cs" />
     <Compile Include="Kullanicidan\BaseClass\YorumYap.cs" />
     <Compile Include="Codes\BitisSuresi.cs" />
     <Compile Include="Codes\BotCode.cs" />

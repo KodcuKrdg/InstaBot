@@ -100,7 +100,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.nmrcPaylasimMaxSr = new System.Windows.Forms.NumericUpDown();
             this.nmrcTakipEtCkMaxSr = new System.Windows.Forms.NumericUpDown();
-            this.nmrcBegeniYorumMaxSr = new System.Windows.Forms.NumericUpDown();
+            this.nmrcBegeniMaxSr = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
             this.nmrcPaylasimMinSr = new System.Windows.Forms.NumericUpDown();
             this.label27 = new System.Windows.Forms.Label();
@@ -108,11 +108,9 @@
             this.nmrcTakipEtCkMinSr = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.nmrcBegeniYorumMinSr = new System.Windows.Forms.NumericUpDown();
+            this.nmrcBegeniMinSr = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.grpBitisSure = new System.Windows.Forms.GroupBox();
-            this.BitisSureleriPnl = new System.Windows.Forms.FlowLayoutPanel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstBxYapilan = new System.Windows.Forms.ListBox();
             this.rdKullaniciAdi = new System.Windows.Forms.RadioButton();
             this.chckTumuSec = new System.Windows.Forms.CheckBox();
             this.chckLst = new System.Windows.Forms.CheckedListBox();
@@ -122,6 +120,14 @@
             this.btnEkle = new System.Windows.Forms.Button();
             this.lblKullaniciHashtag = new System.Windows.Forms.Label();
             this.grpKullaniciHashtag = new System.Windows.Forms.GroupBox();
+            this.tbControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.nmrcYorumMaxSr = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.nmrcYorumMinSr = new System.Windows.Forms.NumericUpDown();
+            this.label29 = new System.Windows.Forms.Label();
             this.grpIslem.SuspendLayout();
             this.pnlIslemler.SuspendLayout();
             this.pnlResimPaylas.SuspendLayout();
@@ -141,13 +147,15 @@
             this.grpSure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcPaylasimMaxSr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcTakipEtCkMaxSr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniYorumMaxSr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniMaxSr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcPaylasimMinSr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcTakipEtCkMinSr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniYorumMinSr)).BeginInit();
-            this.grpBitisSure.SuspendLayout();
-            this.BitisSureleriPnl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniMinSr)).BeginInit();
             this.grpKullaniciHashtag.SuspendLayout();
+            this.tbControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcYorumMaxSr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcYorumMinSr)).BeginInit();
             this.SuspendLayout();
             // 
             // grpIslem
@@ -945,12 +953,17 @@
             // 
             // grpSure
             // 
+            this.grpSure.Controls.Add(this.label24);
+            this.grpSure.Controls.Add(this.nmrcYorumMaxSr);
+            this.grpSure.Controls.Add(this.label25);
+            this.grpSure.Controls.Add(this.nmrcYorumMinSr);
+            this.grpSure.Controls.Add(this.label29);
             this.grpSure.Controls.Add(this.label30);
             this.grpSure.Controls.Add(this.label28);
             this.grpSure.Controls.Add(this.label21);
             this.grpSure.Controls.Add(this.nmrcPaylasimMaxSr);
             this.grpSure.Controls.Add(this.nmrcTakipEtCkMaxSr);
-            this.grpSure.Controls.Add(this.nmrcBegeniYorumMaxSr);
+            this.grpSure.Controls.Add(this.nmrcBegeniMaxSr);
             this.grpSure.Controls.Add(this.label26);
             this.grpSure.Controls.Add(this.nmrcPaylasimMinSr);
             this.grpSure.Controls.Add(this.label27);
@@ -958,12 +971,12 @@
             this.grpSure.Controls.Add(this.nmrcTakipEtCkMinSr);
             this.grpSure.Controls.Add(this.label14);
             this.grpSure.Controls.Add(this.label12);
-            this.grpSure.Controls.Add(this.nmrcBegeniYorumMinSr);
+            this.grpSure.Controls.Add(this.nmrcBegeniMinSr);
             this.grpSure.Controls.Add(this.label6);
             this.grpSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.grpSure.Location = new System.Drawing.Point(375, 229);
+            this.grpSure.Location = new System.Drawing.Point(375, 184);
             this.grpSure.Name = "grpSure";
-            this.grpSure.Size = new System.Drawing.Size(413, 85);
+            this.grpSure.Size = new System.Drawing.Size(413, 109);
             this.grpSure.TabIndex = 15;
             this.grpSure.TabStop = false;
             this.grpSure.Text = "İki İşlem Arası Bekleme Süreleri";
@@ -971,7 +984,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(339, 63);
+            this.label30.Location = new System.Drawing.Point(339, 85);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(43, 15);
             this.label30.TabIndex = 43;
@@ -980,7 +993,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(345, 39);
+            this.label28.Location = new System.Drawing.Point(345, 61);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(42, 15);
             this.label28.TabIndex = 41;
@@ -989,7 +1002,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(324, 17);
+            this.label21.Location = new System.Drawing.Point(285, 17);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(42, 15);
             this.label21.TabIndex = 40;
@@ -997,9 +1010,9 @@
             // 
             // nmrcPaylasimMaxSr
             // 
-            this.nmrcPaylasimMaxSr.Location = new System.Drawing.Point(291, 61);
+            this.nmrcPaylasimMaxSr.Location = new System.Drawing.Point(291, 83);
             this.nmrcPaylasimMaxSr.Maximum = new decimal(new int[] {
-            120,
+            60,
             0,
             0,
             0});
@@ -1020,14 +1033,14 @@
             // 
             // nmrcTakipEtCkMaxSr
             // 
-            this.nmrcTakipEtCkMaxSr.Location = new System.Drawing.Point(296, 38);
+            this.nmrcTakipEtCkMaxSr.Location = new System.Drawing.Point(296, 60);
             this.nmrcTakipEtCkMaxSr.Maximum = new decimal(new int[] {
-            1200,
+            10,
             0,
             0,
             0});
             this.nmrcTakipEtCkMaxSr.Minimum = new decimal(new int[] {
-            20,
+            2,
             0,
             0,
             0});
@@ -1035,39 +1048,39 @@
             this.nmrcTakipEtCkMaxSr.Size = new System.Drawing.Size(43, 21);
             this.nmrcTakipEtCkMaxSr.TabIndex = 37;
             this.nmrcTakipEtCkMaxSr.Value = new decimal(new int[] {
-            150,
+            2,
             0,
             0,
             0});
             this.nmrcTakipEtCkMaxSr.ValueChanged += new System.EventHandler(this.nmrcTakipEtCkMaxSr_ValueChanged);
             // 
-            // nmrcBegeniYorumMaxSr
+            // nmrcBegeniMaxSr
             // 
-            this.nmrcBegeniYorumMaxSr.Location = new System.Drawing.Point(275, 15);
-            this.nmrcBegeniYorumMaxSr.Maximum = new decimal(new int[] {
-            1200,
+            this.nmrcBegeniMaxSr.Location = new System.Drawing.Point(236, 15);
+            this.nmrcBegeniMaxSr.Maximum = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMaxSr.Minimum = new decimal(new int[] {
-            20,
+            this.nmrcBegeniMaxSr.Minimum = new decimal(new int[] {
+            2,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMaxSr.Name = "nmrcBegeniYorumMaxSr";
-            this.nmrcBegeniYorumMaxSr.Size = new System.Drawing.Size(43, 21);
-            this.nmrcBegeniYorumMaxSr.TabIndex = 36;
-            this.nmrcBegeniYorumMaxSr.Value = new decimal(new int[] {
-            150,
+            this.nmrcBegeniMaxSr.Name = "nmrcBegeniMaxSr";
+            this.nmrcBegeniMaxSr.Size = new System.Drawing.Size(43, 21);
+            this.nmrcBegeniMaxSr.TabIndex = 36;
+            this.nmrcBegeniMaxSr.Value = new decimal(new int[] {
+            2,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMaxSr.ValueChanged += new System.EventHandler(this.nmrcBegeniYorumMaxSr_ValueChanged);
+            this.nmrcBegeniMaxSr.ValueChanged += new System.EventHandler(this.nmrcBegeniYorumMaxSr_ValueChanged);
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(192, 63);
+            this.label26.Location = new System.Drawing.Point(192, 85);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(95, 15);
             this.label26.TabIndex = 35;
@@ -1075,9 +1088,9 @@
             // 
             // nmrcPaylasimMinSr
             // 
-            this.nmrcPaylasimMinSr.Location = new System.Drawing.Point(143, 61);
+            this.nmrcPaylasimMinSr.Location = new System.Drawing.Point(143, 83);
             this.nmrcPaylasimMinSr.Maximum = new decimal(new int[] {
-            120,
+            69,
             0,
             0,
             0});
@@ -1099,7 +1112,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(5, 63);
+            this.label27.Location = new System.Drawing.Point(5, 85);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(131, 15);
             this.label27.TabIndex = 33;
@@ -1108,7 +1121,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(202, 40);
+            this.label13.Location = new System.Drawing.Point(202, 62);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(88, 15);
             this.label13.TabIndex = 29;
@@ -1116,14 +1129,14 @@
             // 
             // nmrcTakipEtCkMinSr
             // 
-            this.nmrcTakipEtCkMinSr.Location = new System.Drawing.Point(155, 38);
+            this.nmrcTakipEtCkMinSr.Location = new System.Drawing.Point(155, 60);
             this.nmrcTakipEtCkMinSr.Maximum = new decimal(new int[] {
-            600,
+            9,
             0,
             0,
             0});
             this.nmrcTakipEtCkMinSr.Minimum = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -1131,7 +1144,7 @@
             this.nmrcTakipEtCkMinSr.Size = new System.Drawing.Size(43, 21);
             this.nmrcTakipEtCkMinSr.TabIndex = 28;
             this.nmrcTakipEtCkMinSr.Value = new decimal(new int[] {
-            50,
+            1,
             0,
             0,
             0});
@@ -1140,7 +1153,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 40);
+            this.label14.Location = new System.Drawing.Point(6, 62);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(143, 15);
             this.label14.TabIndex = 27;
@@ -1149,71 +1162,53 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(181, 17);
+            this.label12.Location = new System.Drawing.Point(142, 17);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(88, 15);
             this.label12.TabIndex = 26;
             this.label12.Text = "saniye en fazla";
             // 
-            // nmrcBegeniYorumMinSr
+            // nmrcBegeniMinSr
             // 
-            this.nmrcBegeniYorumMinSr.Location = new System.Drawing.Point(132, 15);
-            this.nmrcBegeniYorumMinSr.Maximum = new decimal(new int[] {
-            600,
+            this.nmrcBegeniMinSr.Location = new System.Drawing.Point(93, 15);
+            this.nmrcBegeniMinSr.Maximum = new decimal(new int[] {
+            9,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMinSr.Minimum = new decimal(new int[] {
-            10,
+            this.nmrcBegeniMinSr.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMinSr.Name = "nmrcBegeniYorumMinSr";
-            this.nmrcBegeniYorumMinSr.Size = new System.Drawing.Size(43, 21);
-            this.nmrcBegeniYorumMinSr.TabIndex = 25;
-            this.nmrcBegeniYorumMinSr.Value = new decimal(new int[] {
-            50,
+            this.nmrcBegeniMinSr.Name = "nmrcBegeniMinSr";
+            this.nmrcBegeniMinSr.Size = new System.Drawing.Size(43, 21);
+            this.nmrcBegeniMinSr.TabIndex = 25;
+            this.nmrcBegeniMinSr.Value = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.nmrcBegeniYorumMinSr.ValueChanged += new System.EventHandler(this.nmrcBegeniYorumMinSr_ValueChanged);
+            this.nmrcBegeniMinSr.ValueChanged += new System.EventHandler(this.nmrcBegeniYorumMinSr_ValueChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(5, 18);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(124, 15);
+            this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 24;
-            this.label6.Text = "Beğeni / Yorum en az";
+            this.label6.Text = "Beğeni  en az";
             // 
-            // grpBitisSure
+            // lstBxYapilan
             // 
-            this.grpBitisSure.Controls.Add(this.BitisSureleriPnl);
-            this.grpBitisSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.grpBitisSure.Location = new System.Drawing.Point(375, 320);
-            this.grpBitisSure.Name = "grpBitisSure";
-            this.grpBitisSure.Size = new System.Drawing.Size(413, 201);
-            this.grpBitisSure.TabIndex = 37;
-            this.grpBitisSure.TabStop = false;
-            this.grpBitisSure.Text = "Bitiş süreleri";
-            // 
-            // BitisSureleriPnl
-            // 
-            this.BitisSureleriPnl.AutoScroll = true;
-            this.BitisSureleriPnl.Controls.Add(this.listBox1);
-            this.BitisSureleriPnl.Location = new System.Drawing.Point(6, 16);
-            this.BitisSureleriPnl.Name = "BitisSureleriPnl";
-            this.BitisSureleriPnl.Size = new System.Drawing.Size(401, 179);
-            this.BitisSureleriPnl.TabIndex = 38;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 3);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(378, 173);
-            this.listBox1.TabIndex = 0;
+            this.lstBxYapilan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lstBxYapilan.FormattingEnabled = true;
+            this.lstBxYapilan.ItemHeight = 20;
+            this.lstBxYapilan.Location = new System.Drawing.Point(3, 3);
+            this.lstBxYapilan.Name = "lstBxYapilan";
+            this.lstBxYapilan.Size = new System.Drawing.Size(393, 184);
+            this.lstBxYapilan.TabIndex = 0;
             // 
             // rdKullaniciAdi
             // 
@@ -1244,7 +1239,7 @@
             this.chckLst.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chckLst.Location = new System.Drawing.Point(199, 41);
             this.chckLst.Name = "chckLst";
-            this.chckLst.Size = new System.Drawing.Size(208, 156);
+            this.chckLst.Size = new System.Drawing.Size(208, 118);
             this.chckLst.TabIndex = 0;
             // 
             // rdHashtag
@@ -1271,14 +1266,14 @@
             // 
             // txtEklenen
             // 
-            this.txtEklenen.Location = new System.Drawing.Point(10, 123);
+            this.txtEklenen.Location = new System.Drawing.Point(10, 112);
             this.txtEklenen.Name = "txtEklenen";
             this.txtEklenen.Size = new System.Drawing.Size(172, 21);
             this.txtEklenen.TabIndex = 5;
             // 
             // btnEkle
             // 
-            this.btnEkle.Location = new System.Drawing.Point(109, 150);
+            this.btnEkle.Location = new System.Drawing.Point(109, 139);
             this.btnEkle.Name = "btnEkle";
             this.btnEkle.Size = new System.Drawing.Size(75, 23);
             this.btnEkle.TabIndex = 6;
@@ -1289,7 +1284,7 @@
             // lblKullaniciHashtag
             // 
             this.lblKullaniciHashtag.AutoSize = true;
-            this.lblKullaniciHashtag.Location = new System.Drawing.Point(7, 96);
+            this.lblKullaniciHashtag.Location = new System.Drawing.Point(7, 85);
             this.lblKullaniciHashtag.Name = "lblKullaniciHashtag";
             this.lblKullaniciHashtag.Size = new System.Drawing.Size(119, 15);
             this.lblKullaniciHashtag.TabIndex = 7;
@@ -1308,10 +1303,114 @@
             this.grpKullaniciHashtag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.grpKullaniciHashtag.Location = new System.Drawing.Point(375, 12);
             this.grpKullaniciHashtag.Name = "grpKullaniciHashtag";
-            this.grpKullaniciHashtag.Size = new System.Drawing.Size(413, 211);
+            this.grpKullaniciHashtag.Size = new System.Drawing.Size(413, 166);
             this.grpKullaniciHashtag.TabIndex = 3;
             this.grpKullaniciHashtag.TabStop = false;
             this.grpKullaniciHashtag.Text = "Kullanıcı Adı / Hashtag Seç";
+            // 
+            // tbControl
+            // 
+            this.tbControl.Controls.Add(this.tabPage1);
+            this.tbControl.Controls.Add(this.tabPage2);
+            this.tbControl.Location = new System.Drawing.Point(375, 299);
+            this.tbControl.Name = "tbControl";
+            this.tbControl.SelectedIndex = 0;
+            this.tbControl.Size = new System.Drawing.Size(413, 217);
+            this.tbControl.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lstBxYapilan);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(405, 191);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Yapılanlar";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(405, 175);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Tahmini Süre";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(279, 40);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(42, 15);
+            this.label24.TabIndex = 48;
+            this.label24.Text = "saniye";
+            // 
+            // nmrcYorumMaxSr
+            // 
+            this.nmrcYorumMaxSr.Location = new System.Drawing.Point(230, 38);
+            this.nmrcYorumMaxSr.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.nmrcYorumMaxSr.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nmrcYorumMaxSr.Name = "nmrcYorumMaxSr";
+            this.nmrcYorumMaxSr.Size = new System.Drawing.Size(43, 21);
+            this.nmrcYorumMaxSr.TabIndex = 47;
+            this.nmrcYorumMaxSr.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nmrcYorumMaxSr.ValueChanged += new System.EventHandler(this.nmrcYorumMaxSr_ValueChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(136, 40);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(88, 15);
+            this.label25.TabIndex = 46;
+            this.label25.Text = "saniye en fazla";
+            // 
+            // nmrcYorumMinSr
+            // 
+            this.nmrcYorumMinSr.Location = new System.Drawing.Point(87, 38);
+            this.nmrcYorumMinSr.Maximum = new decimal(new int[] {
+            11,
+            0,
+            0,
+            0});
+            this.nmrcYorumMinSr.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nmrcYorumMinSr.Name = "nmrcYorumMinSr";
+            this.nmrcYorumMinSr.Size = new System.Drawing.Size(43, 21);
+            this.nmrcYorumMinSr.TabIndex = 45;
+            this.nmrcYorumMinSr.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nmrcYorumMinSr.ValueChanged += new System.EventHandler(this.nmrcYorumMinSr_ValueChanged);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(5, 40);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(76, 15);
+            this.label29.TabIndex = 44;
+            this.label29.Text = "Yormu en az";
             // 
             // Giris
             // 
@@ -1319,8 +1418,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.tbControl);
             this.Controls.Add(this.txtKullaniciAdi);
-            this.Controls.Add(this.grpBitisSure);
             this.Controls.Add(this.grpSure);
             this.Controls.Add(this.btnBaslat);
             this.Controls.Add(this.grpIslem);
@@ -1362,14 +1461,16 @@
             this.grpSure.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcPaylasimMaxSr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcTakipEtCkMaxSr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniYorumMaxSr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniMaxSr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcPaylasimMinSr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmrcTakipEtCkMinSr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniYorumMinSr)).EndInit();
-            this.grpBitisSure.ResumeLayout(false);
-            this.BitisSureleriPnl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcBegeniMinSr)).EndInit();
             this.grpKullaniciHashtag.ResumeLayout(false);
             this.grpKullaniciHashtag.PerformLayout();
+            this.tbControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcYorumMaxSr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmrcYorumMinSr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1436,7 +1537,7 @@
         private System.Windows.Forms.Button btnBaslat;
         private System.Windows.Forms.GroupBox grpSure;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown nmrcBegeniYorumMinSr;
+        private System.Windows.Forms.NumericUpDown nmrcBegeniMinSr;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.NumericUpDown nmrcPaylasimMinSr;
         private System.Windows.Forms.Label label27;
@@ -1444,12 +1545,10 @@
         private System.Windows.Forms.NumericUpDown nmrcTakipEtCkMinSr;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox grpBitisSure;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.FlowLayoutPanel BitisSureleriPnl;
         private System.Windows.Forms.Label lblResimPaylasimSay;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.NumericUpDown nmrcBegeniYorumMaxSr;
+        private System.Windows.Forms.NumericUpDown nmrcBegeniMaxSr;
         private System.Windows.Forms.NumericUpDown nmrcTakipEtCkMaxSr;
         private System.Windows.Forms.NumericUpDown nmrcPaylasimMaxSr;
         private System.Windows.Forms.Label label30;
@@ -1468,7 +1567,15 @@
         private System.Windows.Forms.GroupBox grpKullaniciHashtag;
         private System.Windows.Forms.Label lblResimSayisi;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstBxYapilan;
         private System.Windows.Forms.CheckBox chckAnaSayfaBegen;
+        private System.Windows.Forms.TabControl tbControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown nmrcYorumMaxSr;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.NumericUpDown nmrcYorumMinSr;
+        private System.Windows.Forms.Label label29;
     }
 }

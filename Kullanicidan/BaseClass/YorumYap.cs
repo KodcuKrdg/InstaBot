@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace InstaBot.BaseClass
 {
+    
     class YorumYap
     {
         public bool yorumYapacakMi { get; set; }
         public bool rasgeleHarfEkle { get; set; }
         public int yorumSayisi { get; set; }
         public string yorumGrubu { get; set; }
-        public string yapilanYorumSayisi { get; set; }
+        public int yapilanYorumSayisi { get; set; }
 
     }
 }

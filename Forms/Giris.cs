@@ -46,6 +46,19 @@ namespace InstaBot.Forms
             // Listbox a veri aklenince en alta alma
             lstBxYapilan.SelectedIndex = lstBxYapilan.Items.Count - 1;
             lstBxYapilan.SelectedIndex = -1;
+            
+            YapilanIslemSayilari();
+        }
+
+        private void YapilanIslemSayilari() // Gün içinde yapılan işlemlerin sayısının gerekli labelara atadık onları forma yazar
+        {
+            lblBegeniSayisi.Text = Secimler.Begen.yapilanBegeniSayisi.ToString();
+            lblYorumSayisi.Text = Secimler.YorumYap.yapilanYorumSayisi.ToString();
+            lblTakipSayisi.Text = Secimler.TakipEt.takipEdilenSayi.ToString();
+            lblTakiptenCıkmaSayisi.Text = Secimler.TakiptenCik.takiptenCikarilanSayi.ToString();
+            lblIstekSayisi.Text = Secimler.TakipKontrol.kontrolSayisi.ToString();
+            lblResimSayisi.Text = Secimler.ResimAl.alinanResimSayisi.ToString();
+            lblResimPaylasimSay.Text = Secimler.ResimPaylas.yapilanPySayisi.ToString();
         }
 
         private void KayitliAyarlar() //Enson seçtiği işlem ayarlarını veritabanından çekiyoruz ve formdaki ilgili kısımları dolduruyoruz
@@ -53,14 +66,14 @@ namespace InstaBot.Forms
             chckBegen.Checked = Secimler.Begen.begenecekMi;
             nmrcBegeniSayisi.Value = Secimler.Begen.begeniSayisi;
             chckAnaSayfaBegen.Checked = Secimler.Begen.anaSayfaBegen;
-            lblBegeniSayisi.Text = Secimler.Begen.yapilanBegeniSayisi;
+            lblBegeniSayisi.Text = Secimler.Begen.yapilanBegeniSayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Begen
 
             chckYorumYap.Checked = Secimler.YorumYap.yorumYapacakMi;
             nmrcYorumSayisi.Value = Secimler.YorumYap.yorumSayisi;
             chckYorumRasgele.Checked = Secimler.YorumYap.rasgeleHarfEkle;
             cmbYorumGrubu.Text = Secimler.YorumYap.yorumGrubu;
-            lblYorumSayisi.Text = Secimler.YorumYap.yapilanYorumSayisi;
+            lblYorumSayisi.Text = Secimler.YorumYap.yapilanYorumSayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ YorumYap
 
             chckTakipEt.Checked = Secimler.TakipEt.takipEdicekMi;
@@ -69,7 +82,7 @@ namespace InstaBot.Forms
             chckTakipEttiklerini.Checked = Secimler.TakipEt.takipEttiklerindenTkpEt;
             chckTakipçilerini.Checked = Secimler.TakipEt.takipcilerdenTkpEt;
             chckAcikHesap.Checked = Secimler.TakipEt.acikHesaplariTkpEtme;
-            lblTakipSayisi.Text = Secimler.TakipEt.takipEdilenSayi;
+            lblTakipSayisi.Text = Secimler.TakipEt.takipEdilenSayi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Et
 
             chckTakiptenCık.Checked = Secimler.TakiptenCik.takiptenCikacakMi;
@@ -82,7 +95,7 @@ namespace InstaBot.Forms
             chckAcik.Checked = Secimler.TakipKontrol.acikHesap;
             chckGizli.Checked = Secimler.TakipKontrol.gizliHesap;
             chckIstekKabulBegen.Checked = Secimler.TakipKontrol.gonderiBegen;
-            nmrcTakipSayisi.Value = Secimler.TakipKontrol.begenilecekSayi;
+            nmrcIstekKabulBegeniSayisi.Value = Secimler.TakipKontrol.begenilecekSayi;
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip İsteği Kontrol
 
             chckResimAl.Checked = Secimler.ResimAl.resimAlsinMi;
@@ -107,79 +120,6 @@ namespace InstaBot.Forms
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ İşlemler Arası Bekleme Süreleri
         }
 
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-        private void txtKullaniciAdi_Enter(object sender, EventArgs e)
-        {
-            altpnlKullanici.BackColor = Color.Blue;
-        }
-
-        private void txtKullaniciAdi_Leave(object sender, EventArgs e)
-        {
-            altpnlKullanici.BackColor = Color.Gray;
-        }
-
-        private void txtSifre_Leave(object sender, EventArgs e)
-        {
-            altpnlSifre.BackColor = Color.Gray;
-        }
-
-        private void txtSifre_Enter(object sender, EventArgs e)
-        {
-            altpnlSifre.BackColor = Color.Blue;
-        }
-        private void txtSifre_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnBaslat_Click(btnBaslat, new EventArgs());
-            }
-        }
-        private void btnBaslat_Click(object sender, EventArgs e)
-        {
-            
-            string gidilecekYer="";
-            string kullaniciAdi = txtKullaniciAdi.Text;
-            string sifre = txtSifre.Text;
-
-            if (rdHashtag.Checked)
-                gidilecekYer = "https://www.instagram.com/explore/tags/";
-            else if (rdKullaniciAdi.Checked)
-                gidilecekYer = "https://www.instagram.com/";
-            Secimler.GidilecekYer.Clear();
-
-            foreach (var item in chckLst.CheckedItems) // Gidilecek Hashtagler veya Kullanıcı Adları
-            {
-                Secimler.GidilecekYer.Add(gidilecekYer + item.ToString() + "/");
-            }
-
-            foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
-            {
-                if (item.grupAdi==cmbYorumGrubu.Text)
-                {
-                    if (chckYorumRasgele.Checked)
-                        Secimler.YapilacakYorumlar.Add(item.yorum+" "+item.yorum.Substring(random.Next(item.yorum.Length-1),1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
-                    else
-                        Secimler.YapilacakYorumlar.Add(item.yorum);
-
-                }
-            }
-
-            kullaniciAdi = kullaniciAdi.TrimStart();
-            kullaniciAdi = kullaniciAdi.TrimEnd();
-
-            sifre = sifre.TrimStart();
-            sifre = sifre.TrimEnd();
-
-            Secimler.GirisBilgileri.kullaniciAdi = kullaniciAdi;
-            Secimler.GirisBilgileri.sifre = sifre;
-
-            AyarlarVeritabani.AyarlarıKaydet();
-            
-            Komutlar.Baslat();
-
-        }
-        
         //Begeni
         private void chckBegen_CheckedChanged(object sender, EventArgs e)
         {
@@ -541,5 +481,75 @@ namespace InstaBot.Forms
 
         }
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cmbxKulasGrup kısmı ayarları
+        private void txtKullaniciAdi_Enter(object sender, EventArgs e)
+        {
+            altpnlKullanici.BackColor = Color.Blue;
+        }
+
+        private void txtKullaniciAdi_Leave(object sender, EventArgs e)
+        {
+            altpnlKullanici.BackColor = Color.Gray;
+        }
+
+        private void txtSifre_Leave(object sender, EventArgs e)
+        {
+            altpnlSifre.BackColor = Color.Gray;
+        }
+
+        private void txtSifre_Enter(object sender, EventArgs e)
+        {
+            altpnlSifre.BackColor = Color.Blue;
+        }
+        private void txtSifre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBaslat_Click(btnBaslat, new EventArgs());
+            }
+        }
+        private void btnBaslat_Click(object sender, EventArgs e)
+        {
+
+            string gidilecekYer = "";
+            string kullaniciAdi = txtKullaniciAdi.Text;
+            string sifre = txtSifre.Text;
+
+            if (rdHashtag.Checked)
+                gidilecekYer = "https://www.instagram.com/explore/tags/";
+            else if (rdKullaniciAdi.Checked)
+                gidilecekYer = "https://www.instagram.com/";
+            Secimler.GidilecekYer.Clear();
+
+            foreach (var item in chckLst.CheckedItems) // Gidilecek Hashtagler veya Kullanıcı Adları
+            {
+                Secimler.GidilecekYer.Add(gidilecekYer + item.ToString() + "/");
+            }
+
+            foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
+            {
+                if (item.grupAdi == cmbYorumGrubu.Text)
+                {
+                    if (chckYorumRasgele.Checked)
+                        Secimler.YapilacakYorumlar.Add(item.yorum + " " + item.yorum.Substring(random.Next(item.yorum.Length - 1), 1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
+                    else
+                        Secimler.YapilacakYorumlar.Add(item.yorum);
+
+                }
+            }
+
+            kullaniciAdi = kullaniciAdi.TrimStart();
+            kullaniciAdi = kullaniciAdi.TrimEnd();
+
+            sifre = sifre.TrimStart();
+            sifre = sifre.TrimEnd();
+
+            Secimler.GirisBilgileri.kullaniciAdi = kullaniciAdi;
+            Secimler.GirisBilgileri.sifre = sifre;
+
+            AyarlarVeritabani.AyarlarıKaydet();
+
+            Komutlar.Baslat();
+
+        }
     }
 }

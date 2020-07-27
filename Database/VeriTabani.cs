@@ -129,20 +129,24 @@ namespace InstaBot.Database
 
         public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
         {
-            Sorgu = Baglan.CreateCommand();
-            Baglan.Open();
-            Sorgu.CommandText = "INSERT INTO tbl_TakipAtilan(hesap,hesapBilgisi,kimAtti) VALUES(@hesap,@hesapBilgisi,@kimAtti)";
-            foreach (var item in VeriHavuzu.TakipEdilenHesaplar)
+            if (VeriHavuzu.TakipEdilenHesaplar.Count>0)
             {
-                Sorgu.Parameters.AddWithValue("@hesap", item.hesap);
-                Sorgu.Parameters.AddWithValue("@hesapBilgisi", item.hesapBilgisi);
-                Sorgu.Parameters.AddWithValue("@kimAtti", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
-                Sorgu.ExecuteNonQuery();
-            }
-            Baglan.Close();
-            Sorgu.Dispose();
+                Sorgu = Baglan.CreateCommand();
+                Baglan.Open();
+                Sorgu.CommandText = "INSERT INTO tbl_TakipAtilan(hesap,hesapBilgisi,kimAtti) VALUES(@hesap,@hesapBilgisi,@kimAtti)";
+                foreach (var item in VeriHavuzu.TakipEdilenHesaplar)
+                {
+                    Sorgu.Parameters.AddWithValue("@hesap", item.hesap);
+                    Sorgu.Parameters.AddWithValue("@hesapBilgisi", item.hesapBilgisi);
+                    Sorgu.Parameters.AddWithValue("@kimAtti", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+                    Sorgu.ExecuteNonQuery();
+                }
+                Baglan.Close();
+                Sorgu.Dispose();
 
-            VeriHavuzu.TakipEdilenHesaplar.Clear();
+                VeriHavuzu.TakipEdilenHesaplar.Clear();
+            }
+            
         }
 
         public void IstekAtilanHesaplar() // İstek atılan hesapların veri tabanından bilgilerinin alındığı yer 
@@ -170,39 +174,48 @@ namespace InstaBot.Database
 
         public void IstekleriSil() // İstek atılan hesapları kabul etmişmi ontrol edip siliyoruz
         {
-            Sorgu = Baglan.CreateCommand();
-            Sorgu.CommandText = "DELETE FROM tbl_TakipAtilan WHERE id=@id";
-            Baglan.Open();
-
-            foreach (var item in VeriHavuzu.SilinecekIstekIdler)
+            if (VeriHavuzu.SilinecekIstekIdler.Count > 0)
             {
-                Sorgu.Parameters.AddWithValue("@id", item);
-                Sorgu.ExecuteNonQuery();
-            }
-            Baglan.Close();
-            Sorgu.Dispose();
+                Sorgu = Baglan.CreateCommand();
+                Sorgu.CommandText = "DELETE FROM tbl_TakipAtilan WHERE id=@id";
+                Baglan.Open();
 
-            VeriHavuzu.SilinecekIstekIdler.Clear();
+                foreach (var item in VeriHavuzu.SilinecekIstekIdler)
+                {
+                    Sorgu.Parameters.AddWithValue("@id", item);
+                    Sorgu.ExecuteNonQuery();
+                }
+                Baglan.Close();
+                Sorgu.Dispose();
+
+                VeriHavuzu.SilinecekIstekIdler.Clear();
+            }
+            
         }
 
         public void ResimVideoLinkiKaydet() // hashtagten/profilden alınan resimleri bilgilerini veritabanına kaydediyoruz
         {
-            Sorgu = Baglan.CreateCommand();
-            Baglan.Open();
-            Sorgu.CommandText = "INSERT INTO tbl_ResimVideoLink(link,aciklama,tur,paylasan,anaLink,kimAldi) VALUES(@link,@aciklama,@tur,@paylasan,@anaLink,@kimAldi)";
-            foreach (var item in VeriHavuzu.AlinanResimVidoe)
+            if (VeriHavuzu.AlinanResimVidoe.Count>0)
             {
-                Sorgu.Parameters.AddWithValue("@link", item.link);
-                Sorgu.Parameters.AddWithValue("@aciklama", item.aciklama);
-                Sorgu.Parameters.AddWithValue("@tur", item.tur); 
-                Sorgu.Parameters.AddWithValue("@paylasan", item.paylasan);
-                Sorgu.Parameters.AddWithValue("@anaLink", item.anaLink);
-                Sorgu.Parameters.AddWithValue("@kimAldi", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
-                Sorgu.ExecuteNonQuery();
+                Sorgu = Baglan.CreateCommand();
+                Baglan.Open();
+                Sorgu.CommandText = "INSERT INTO tbl_ResimVideoLink(link,aciklama,tur,paylasan,anaLink,kimAldi) VALUES(@link,@aciklama,@tur,@paylasan,@anaLink,@kimAldi)";
+                foreach (var item in VeriHavuzu.AlinanResimVidoe)
+                {
+                    Sorgu.Parameters.AddWithValue("@link", item.link);
+                    Sorgu.Parameters.AddWithValue("@aciklama", item.aciklama);
+                    Sorgu.Parameters.AddWithValue("@tur", item.tur);
+                    Sorgu.Parameters.AddWithValue("@paylasan", item.paylasan);
+                    Sorgu.Parameters.AddWithValue("@anaLink", item.anaLink);
+                    Sorgu.Parameters.AddWithValue("@kimAldi", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+                    Sorgu.ExecuteNonQuery();
+                }
+                Baglan.Close();
+                Sorgu.Dispose();
+
+                VeriHavuzu.AlinanResimVidoe.Clear();
             }
-            Baglan.Close();
-            Sorgu.Dispose();
-            VeriHavuzu.AlinanResimVidoe.Clear();
+            
         }
     }
 }

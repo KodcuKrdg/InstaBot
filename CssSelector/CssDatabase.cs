@@ -77,7 +77,6 @@ namespace InstaBot.Codes
                 {
                     while (veriler.Read())
                     {
-                        yorumyapBegen.gonderiler = veriler["gonderiler"].ToString();
                         yorumyapBegen.yorumYapma = veriler["yorumYapma"].ToString();
                         yorumyapBegen.begeniButonu = veriler["begeniButonu"].ToString();
                         yorumyapBegen.yorumYeri = veriler["yorumYeri"].ToString();

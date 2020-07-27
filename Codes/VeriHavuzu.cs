@@ -27,5 +27,7 @@ namespace InstaBot.BaseClass
         public List<string> SilinecekIstekIdler = new List<string>(); //İstekleri kontrol edildikten sonra silinecek verilerin idlerinin saklandığı yer
 
         public List<ListAlinanResimVideo> AlinanResimVidoe = new List<ListAlinanResimVideo>(); // hashtaglerden/profilden alınan resimlerin linki kullanıcının kontrol etmeden önceki gerekli bilgiler
+
+        public List<string> PaylasimLinki = new List<string>(); // Gonderilerin linklerini saklandığı yer
     }
 }

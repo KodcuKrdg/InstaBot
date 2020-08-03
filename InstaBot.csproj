@@ -100,7 +100,7 @@
     <Compile Include="Kullanicidan\BaseClass\ResimPaylas.cs" />
     <Compile Include="Kullanicidan\BaseClass\Sureler.cs" />
     <Compile Include="Kullanicidan\BaseClass\TakipEt.cs" />
-    <Compile Include="Kullanicidan\BaseClass\TakipKontrol.cs" />
+    <Compile Include="Kullanicidan\BaseClass\IstekKontrol.cs" />
     <Compile Include="Kullanicidan\BaseClass\TakiptenCik.cs" />
     <Compile Include="Codes\VeriHavuzu.cs" />
     <Compile Include="Kullanicidan\BaseClass\ListYorumlar.cs" />

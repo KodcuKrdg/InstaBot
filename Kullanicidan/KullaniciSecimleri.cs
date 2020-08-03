@@ -30,7 +30,7 @@ namespace InstaBot.Codes
 
         public TakiptenCik TakiptenCik = new TakiptenCik();
 
-        public TakipKontrol TakipKontrol = new TakipKontrol();
+        public IstekKontrol IstekKontrol = new IstekKontrol();
 
         public ResimAl ResimAl = new ResimAl();
 

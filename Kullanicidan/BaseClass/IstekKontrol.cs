@@ -7,13 +7,14 @@ using System.Windows.Forms;
 
 namespace InstaBot.BaseClass
 {
-    class TakipKontrol
+    class IstekKontrol
     {
         public bool takipKontrolEdilsinMi { get; set; }
         public bool acikHesap { get; set; }
         public bool gizliHesap { get; set; }
         public bool gonderiBegen { get; set; }
-        public string kontrolSayisi { get; set; }
+        public int IstekSayisi { get; set; }
+        public int kontrolSayisi { get; set; }
         public int begenilecekSayi { get; set; }
 
     }

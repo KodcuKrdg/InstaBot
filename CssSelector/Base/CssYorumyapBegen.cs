@@ -13,5 +13,6 @@ namespace InstaBot.CssSelector.Base
         public string yorumYeri { get; set; }
         public string yorumYapanlar { get; set; }
         public string yorumyapanınAdi { get; set; }
+        public string dahaFazlaButonu { get; set; }
     }
 }

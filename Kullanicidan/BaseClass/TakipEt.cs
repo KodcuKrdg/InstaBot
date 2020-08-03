@@ -12,7 +12,7 @@ namespace InstaBot.BaseClass
         public bool yorumlardanTkpEt { get; set; }
         public bool takipEttiklerindenTkpEt { get; set; }
         public bool takipcilerdenTkpEt { get; set; }
-        public bool acikHesaplariTkpEtme { get; set; }
+        public bool acikHesaplariTkpEt { get; set; }
         public int takipEtmeSayisi { get; set; }
         public int takipEdilenSayi { get; set; }
     }

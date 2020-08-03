@@ -35,7 +35,7 @@ namespace InstaBot.Kullanicidan
         private void VerileriAl()
         {
             Sorgu = Baglan.CreateCommand();
-            Sorgu.CommandText = "SELECT * FROM tbl_Begen,tbl_GirisBilgileri,tbl_ResimAl,tbl_ResimPaylas,tbl_TakipEt,tbl_TakipKontrol,tbl_TakiptenCik,tbl_YorumYap,tbl_Sureler";
+            Sorgu.CommandText = "SELECT * FROM tbl_Begen,tbl_GirisBilgileri,tbl_ResimAl,tbl_ResimPaylas,tbl_TakipEt,tbl_IstekKontrol,tbl_TakiptenCik,tbl_YorumYap,tbl_Sureler";
             Baglan.Open();
             using (var veriler = Sorgu.ExecuteReader())
             {
@@ -63,20 +63,20 @@ namespace InstaBot.Kullanicidan
                     Secimler.TakipEt.yorumlardanTkpEt = Convert.ToBoolean(veriler["yorumlardanTkpEt"]);
                     Secimler.TakipEt.takipEttiklerindenTkpEt = Convert.ToBoolean(veriler["takipEttiklerindenTkpEt"]);
                     Secimler.TakipEt.takipcilerdenTkpEt = Convert.ToBoolean(veriler["takipcilerdenTkpEt"]);
-                    Secimler.TakipEt.acikHesaplariTkpEtme = Convert.ToBoolean(veriler["acikHesaplariTkpEtme"]);
+                    Secimler.TakipEt.acikHesaplariTkpEt = Convert.ToBoolean(veriler["acikHesaplariTkpEt"]);
                     Secimler.TakipEt.takipEtmeSayisi = Convert.ToInt32(veriler["takipEtmeSayisi"]);
                     Secimler.TakipEt.takipEdilenSayi = Convert.ToInt32(veriler["takipEdilenSayi"]);
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Et
-                    Secimler.TakipKontrol.takipKontrolEdilsinMi = Convert.ToBoolean(veriler["takipKontrolEdilsinMi"]);
-                    Secimler.TakipKontrol.acikHesap = Convert.ToBoolean(veriler["acikHesap"]);
-                    Secimler.TakipKontrol.gizliHesap = Convert.ToBoolean(veriler["gizliHesap"]);
-                    Secimler.TakipKontrol.gonderiBegen = Convert.ToBoolean(veriler["gonderiBegen"]);
-                    Secimler.TakipKontrol.kontrolSayisi = veriler["kontrolSayisi"].ToString();
-                    Secimler.TakipKontrol.begenilecekSayi = Convert.ToInt32(veriler["begenilecekSayi"]);
+                    Secimler.IstekKontrol.takipKontrolEdilsinMi = Convert.ToBoolean(veriler["takipKontrolEdilsinMi"]);
+                    Secimler.IstekKontrol.acikHesap = Convert.ToBoolean(veriler["acikHesap"]);
+                    Secimler.IstekKontrol.gizliHesap = Convert.ToBoolean(veriler["gizliHesap"]);
+                    Secimler.IstekKontrol.gonderiBegen = Convert.ToBoolean(veriler["gonderiBegen"]);
+                    Secimler.IstekKontrol.kontrolSayisi = Convert.ToInt32(veriler["kontrolSayisi"]);
+                    Secimler.IstekKontrol.begenilecekSayi = Convert.ToInt32(veriler["begenilecekSayi"]);
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip İstekleri Kontrol
                     Secimler.TakiptenCik.takiptenCikacakMi = Convert.ToBoolean(veriler["takiptenCikacakMi"]);
                     Secimler.TakiptenCik.takiptenCikmaSayisi = Convert.ToInt32(veriler["takiptenCikmaSayisi"]);
-                    Secimler.TakiptenCik.takiptenCikarilanSayi = veriler["takiptenCikarilanSayi"].ToString();
+                    Secimler.TakiptenCik.takiptenCikarilanSayi = Convert.ToInt32(veriler["takiptenCikarilanSayi"]);
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takipten Çıkma
                     Secimler.YorumYap.yorumYapacakMi = Convert.ToBoolean(veriler["yorumYapacakMi"]);
                     Secimler.YorumYap.rasgeleHarfEkle = Convert.ToBoolean(veriler["rasgeleHarfEkle"]);
@@ -140,26 +140,26 @@ namespace InstaBot.Kullanicidan
             Sorgu.ExecuteNonQuery();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Paylaş
 
-            Sorgu.CommandText = "UPDATE tbl_TakipEt SET takipEdicekMi=@takipEdicekMi,yorumlardanTkpEt=@yorumlardanTkpEt,takipEttiklerindenTkpEt=@takipEttiklerindenTkpEt,takipcilerdenTkpEt=@takipcilerdenTkpEt,acikHesaplariTkpEtme=@acikHesaplariTkpEtme,takipEtmeSayisi=@takipEtmeSayisi";
+            Sorgu.CommandText = "UPDATE tbl_TakipEt SET takipEdicekMi=@takipEdicekMi,yorumlardanTkpEt=@yorumlardanTkpEt,takipEttiklerindenTkpEt=@takipEttiklerindenTkpEt,takipcilerdenTkpEt=@takipcilerdenTkpEt,acikHesaplariTkpEt=@acikHesaplariTkpEt,takipEtmeSayisi=@takipEtmeSayisi";
 
             Sorgu.Parameters.AddWithValue("@takipEdicekMi", Secimler.TakipEt.takipEdicekMi.ToString());
             Sorgu.Parameters.AddWithValue("@yorumlardanTkpEt", Secimler.TakipEt.yorumlardanTkpEt.ToString());
             Sorgu.Parameters.AddWithValue("@takipEttiklerindenTkpEt", Secimler.TakipEt.takipEttiklerindenTkpEt.ToString());
             Sorgu.Parameters.AddWithValue("@takipcilerdenTkpEt", Secimler.TakipEt.takipcilerdenTkpEt.ToString());
-            Sorgu.Parameters.AddWithValue("@acikHesaplariTkpEtme", Secimler.TakipEt.acikHesaplariTkpEtme.ToString());
+            Sorgu.Parameters.AddWithValue("@acikHesaplariTkpEt", Secimler.TakipEt.acikHesaplariTkpEt.ToString());
             Sorgu.Parameters.AddWithValue("@takipEtmeSayisi", Secimler.TakipEt.takipEtmeSayisi.ToString());
 
             Sorgu.ExecuteNonQuery();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Et
 
-            Sorgu.CommandText = "UPDATE tbl_TakipKontrol SET takipKontrolEdilsinMi=@takipKontrolEdilsinMi,acikHesap=@acikHesap,gizliHesap=@gizliHesap,gonderiBegen=@gonderiBegen,kontrolSayisi=@kontrolSayisi,begenilecekSayi=@begenilecekSayi";
+            Sorgu.CommandText = "UPDATE tbl_IstekKontrol SET takipKontrolEdilsinMi=@takipKontrolEdilsinMi,acikHesap=@acikHesap,gizliHesap=@gizliHesap,gonderiBegen=@gonderiBegen,kontrolSayisi=@kontrolSayisi,begenilecekSayi=@begenilecekSayi";
 
-            Sorgu.Parameters.AddWithValue("@takipKontrolEdilsinMi", Secimler.TakipKontrol.takipKontrolEdilsinMi.ToString());
-            Sorgu.Parameters.AddWithValue("@acikHesap", Secimler.TakipKontrol.acikHesap.ToString());
-            Sorgu.Parameters.AddWithValue("@gizliHesap", Secimler.TakipKontrol.gizliHesap.ToString());
-            Sorgu.Parameters.AddWithValue("@gonderiBegen", Secimler.TakipKontrol.gonderiBegen.ToString());
-            Sorgu.Parameters.AddWithValue("@kontrolSayisi", Secimler.TakipKontrol.kontrolSayisi.ToString());
-            Sorgu.Parameters.AddWithValue("@begenilecekSayi", Secimler.TakipKontrol.begenilecekSayi.ToString());
+            Sorgu.Parameters.AddWithValue("@takipKontrolEdilsinMi", Secimler.IstekKontrol.takipKontrolEdilsinMi.ToString());
+            Sorgu.Parameters.AddWithValue("@acikHesap", Secimler.IstekKontrol.acikHesap.ToString());
+            Sorgu.Parameters.AddWithValue("@gizliHesap", Secimler.IstekKontrol.gizliHesap.ToString());
+            Sorgu.Parameters.AddWithValue("@gonderiBegen", Secimler.IstekKontrol.gonderiBegen.ToString());
+            Sorgu.Parameters.AddWithValue("@kontrolSayisi", Secimler.IstekKontrol.kontrolSayisi.ToString());
+            Sorgu.Parameters.AddWithValue("@begenilecekSayi", Secimler.IstekKontrol.begenilecekSayi.ToString());
 
             Sorgu.ExecuteNonQuery();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip İstekleri Kontrol

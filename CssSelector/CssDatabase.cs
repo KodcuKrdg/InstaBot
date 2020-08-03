@@ -82,6 +82,7 @@ namespace InstaBot.Codes
                         yorumyapBegen.yorumYeri = veriler["yorumYeri"].ToString();
                         yorumyapBegen.yorumYapanlar = veriler["yorumYapanlar"].ToString();
                         yorumyapBegen.yorumyapanınAdi = veriler["yorumyapanınAdi"].ToString();
+                        yorumyapBegen.dahaFazlaButonu = veriler["dahaFazlaButonu"].ToString();
                     }
 
                 }

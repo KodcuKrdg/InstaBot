@@ -13,7 +13,8 @@ namespace InstaBot.Database
     {
         private VeriTabani() 
         { 
-            GerekliVerileriAl(); 
+            GerekliVerileriAl();
+            IstekAtilanHesaplar();
         }
 
         private static VeriTabani _instance;
@@ -30,13 +31,16 @@ namespace InstaBot.Database
 
 
         VeriHavuzu VeriHavuzu = VeriHavuzu.GetInstance();
-        KullaniciSecimleri KullaniciSecimleri = KullaniciSecimleri.GetInstance();
+        KullaniciSecimleri Secimler = KullaniciSecimleri.GetInstance();
 
         SQLiteConnection Baglan = new SQLiteConnection("Data Source=Database.db;Password=Database5441");
         SQLiteCommand Sorgu;
 
         public void GerekliVerileriAl()
         {
+            Secimler.ListHashtags.Clear();
+            Secimler.ListKullaniciAdi.Clear();
+            Secimler.ListYorumlar.Clear();
             Sorgu = Baglan.CreateCommand();
             Sorgu.CommandText = "SELECT * FROM tbl_Hashtag order by grupAdi ASC";
             Baglan.Open();
@@ -46,11 +50,11 @@ namespace InstaBot.Database
                 {
                     //"Contains()" listenin içinde o değer var mı yok mu kontrol eder bizim kullanım amacımız farklı grupları ayırt edip grup adlarını alıp kullanıcıya sunmak
                     //böylelikle seçtiği gruba dahil olan değerleri bir döngü ile ala bilmek
-                    if (!KullaniciSecimleri.HashtagGrup.Contains(veriler["grupAdi"].ToString())) 
+                    if (!Secimler.HashtagGrup.Contains(veriler["grupAdi"].ToString())) 
                     {
-                        KullaniciSecimleri.HashtagGrup.Add(veriler["grupAdi"].ToString());
+                        Secimler.HashtagGrup.Add(veriler["grupAdi"].ToString());
                     }
-                    KullaniciSecimleri.ListHashtags.Add(new ListHashtag()
+                    Secimler.ListHashtags.Add(new ListHashtag()
                     {
                         id = veriler["id"].ToString(),
                         hashtag = veriler["hashtag"].ToString(),
@@ -67,11 +71,11 @@ namespace InstaBot.Database
                 {
                     //"Contains()" listenin içinde o değer var mı yok mu kontrol eder bizim kullanım amacımız farklı grupları ayırt edip grup adlarını alıp kullanıcıya sunmak
                     //böylelikle seçtiği gruba dahil olan değerleri bir döngü ile ala bilmek
-                    if (!KullaniciSecimleri.KullaniciAdigGrup.Contains(veriler["grupAdi"].ToString()))
+                    if (!Secimler.KullaniciAdigGrup.Contains(veriler["grupAdi"].ToString()))
                     {
-                        KullaniciSecimleri.KullaniciAdigGrup.Add(veriler["grupAdi"].ToString());
+                        Secimler.KullaniciAdigGrup.Add(veriler["grupAdi"].ToString());
                     }
-                    KullaniciSecimleri.ListKullaniciAdi.Add(new ListKullaniciAdi()
+                    Secimler.ListKullaniciAdi.Add(new ListKullaniciAdi()
                     {
                         id = veriler["id"].ToString(),
                         kullaniciAdi = veriler["kullaniciAdi"].ToString(),
@@ -88,11 +92,11 @@ namespace InstaBot.Database
                 {
                     //"Contains()" listenin içinde o değer var mı yok mu kontrol eder bizim kullanım amacımız farklı grupları ayırt edip grup adlarını alıp kullanıcıya sunmak
                     //böylelikle seçtiği gruba dahil olan değerleri bir döngü ile ala bilmek
-                    if (!KullaniciSecimleri.YorumGrubu.Contains(veriler["grupAdi"].ToString()))
+                    if (!Secimler.YorumGrubu.Contains(veriler["grupAdi"].ToString()))
                     {
-                        KullaniciSecimleri.YorumGrubu.Add(veriler["grupAdi"].ToString());
+                        Secimler.YorumGrubu.Add(veriler["grupAdi"].ToString());
                     }
-                    KullaniciSecimleri.ListYorumlar.Add(new ListYorumlar()
+                    Secimler.ListYorumlar.Add(new ListYorumlar()
                     {
                         id = veriler["id"].ToString(),
                         yorum = veriler["yorum"].ToString(),
@@ -125,6 +129,8 @@ namespace InstaBot.Database
 
             Baglan.Close();
             Sorgu.Dispose();
+
+            GerekliVerileriAl();// YEni Bir değer eklenince ListHashtag ve ListKullanici Adi Classları tekrardan doldurulsun diye
         }
 
         public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
@@ -133,12 +139,13 @@ namespace InstaBot.Database
             {
                 Sorgu = Baglan.CreateCommand();
                 Baglan.Open();
-                Sorgu.CommandText = "INSERT INTO tbl_TakipAtilan(hesap,hesapBilgisi,kimAtti) VALUES(@hesap,@hesapBilgisi,@kimAtti)";
+                Sorgu.CommandText = "INSERT INTO tbl_TakipAtilan(hesapAdi,hesapLinki,hesap,tarih,kimAtti) VALUES(@hesapAdi,@hesapLinki,@hesap,date(),@kimAtti)";
                 foreach (var item in VeriHavuzu.TakipEdilenHesaplar)
                 {
+                    Sorgu.Parameters.AddWithValue("@hesapAdi", item.hesapAdi);
+                    Sorgu.Parameters.AddWithValue("@hesapLinki", item.hesapLinki);
                     Sorgu.Parameters.AddWithValue("@hesap", item.hesap);
-                    Sorgu.Parameters.AddWithValue("@hesapBilgisi", item.hesapBilgisi);
-                    Sorgu.Parameters.AddWithValue("@kimAtti", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+                    Sorgu.Parameters.AddWithValue("@kimAtti", Secimler.GirisBilgileri.kullaniciAdi);
                     Sorgu.ExecuteNonQuery();
                 }
                 Baglan.Close();
@@ -152,8 +159,8 @@ namespace InstaBot.Database
         public void IstekAtilanHesaplar() // İstek atılan hesapların veri tabanından bilgilerinin alındığı yer 
         {
             Sorgu = Baglan.CreateCommand();
-            Sorgu.CommandText = "SELECT * FROM tbl_TakipAtilan WHERE kimAtti=@kimAtti";
-            Sorgu.Parameters.AddWithValue("@kimAtti", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+            Sorgu.CommandText = "SELECT * FROM tbl_TakipAtilan WHERE kimAtti=@kimAtti and tarih<date()"; // "tarih<date()" kaydedilen tarih eğer bugün değilse
+            Sorgu.Parameters.AddWithValue("@kimAtti", Secimler.GirisBilgileri.kullaniciAdi);
             Baglan.Open();
             using (var veriler = Sorgu.ExecuteReader())
             {
@@ -162,14 +169,17 @@ namespace InstaBot.Database
                     VeriHavuzu.IstekAtilanHesaplar.Add(new ListIstekBilgi()
                     {
                         id = veriler["id"].ToString(),
+                        hesapAdi = veriler["hesapAdi"].ToString(),
+                        hesapLinki = veriler["hesapLinki"].ToString(),
                         hesap = veriler["hesap"].ToString(),
-                        hesapBilgisi = veriler["hesapBilgisi"].ToString()
-                    });
+                    }) ;
                 }
             }
 
             Baglan.Close();
             Sorgu.Dispose();
+
+            Secimler.IstekKontrol.IstekSayisi = VeriHavuzu.IstekAtilanHesaplar.Count; // Veritabanında kaçtane istek atılan hesap bilgisi varsa kulanıcıya sayısını göstermek için
         }
 
         public void IstekleriSil() // İstek atılan hesapları kabul etmişmi ontrol edip siliyoruz
@@ -207,7 +217,7 @@ namespace InstaBot.Database
                     Sorgu.Parameters.AddWithValue("@tur", item.tur);
                     Sorgu.Parameters.AddWithValue("@paylasan", item.paylasan);
                     Sorgu.Parameters.AddWithValue("@anaLink", item.anaLink);
-                    Sorgu.Parameters.AddWithValue("@kimAldi", KullaniciSecimleri.GirisBilgileri.kullaniciAdi);
+                    Sorgu.Parameters.AddWithValue("@kimAldi", Secimler.GirisBilgileri.kullaniciAdi);
                     Sorgu.ExecuteNonQuery();
                 }
                 Baglan.Close();

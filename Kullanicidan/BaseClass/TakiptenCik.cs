@@ -10,7 +10,7 @@ namespace InstaBot.BaseClass
     {
         public bool takiptenCikacakMi { get; set; }
         public int takiptenCikmaSayisi { get; set; }
-        public string takiptenCikarilanSayi { get; set; }
+        public int takiptenCikarilanSayi { get; set; }
 
     }
 }

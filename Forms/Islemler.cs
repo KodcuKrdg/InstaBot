@@ -1,6 +1,7 @@
 ﻿using InstaBot.Codes;
 using InstaBot.Database;
 using InstaBot.Kullanicidan;
+using InstaBot.Kullanicidan.BaseClass;
 using InstaBot.MyDesign;
 using InstaBot.Ob;
 using OpenQA.Selenium.Interactions;
@@ -19,9 +20,9 @@ using System.Windows.Forms;
 
 namespace InstaBot.Forms
 {
-    public partial class Giris : Form,IObserver
+    public partial class Islemler : Form,IObserver
     {
-        public Giris()
+        public Islemler()
         {
             Control.CheckForIllegalCrossThreadCalls = false; // Threadlerin birbiri ile çakışmasını önlemek için
             InitializeComponent();
@@ -36,16 +37,21 @@ namespace InstaBot.Forms
         private void Giris_Load(object sender, EventArgs e)
         {
             Komutlar.VeriyiAlacak(this); //Komutlar Classından verileri almak için gerekli ayar
+            KulHasListeVerileri();
             KayitliAyarlar();
-            ComboBoxAyarı();
             YorumGrubu();
         }
         public void VeriyiAl(ISubject subject)
         {
-            lstBxYapilan.Items.Add((subject as Komutlar).Bilgi);
+            
             // Listbox a veri aklenince en alta alma
-            lstBxYapilan.SelectedIndex = lstBxYapilan.Items.Count - 1;
-            lstBxYapilan.SelectedIndex = -1;
+            if ((subject as Komutlar).Bilgi != "") // Gelen Boş ise yapılan işlem sayılarını yeniliyor demektir
+            {
+                lstBxYapilan.Items.Add((subject as Komutlar).Bilgi);
+                lstBxYapilan.SelectedIndex = lstBxYapilan.Items.Count - 1;
+                lstBxYapilan.SelectedIndex = -1;
+            }
+            
             
             YapilanIslemSayilari();
         }
@@ -56,9 +62,15 @@ namespace InstaBot.Forms
             lblYorumSayisi.Text = Secimler.YorumYap.yapilanYorumSayisi.ToString();
             lblTakipSayisi.Text = Secimler.TakipEt.takipEdilenSayi.ToString();
             lblTakiptenCıkmaSayisi.Text = Secimler.TakiptenCik.takiptenCikarilanSayi.ToString();
-            lblIstekSayisi.Text = Secimler.TakipKontrol.kontrolSayisi.ToString();
             lblResimSayisi.Text = Secimler.ResimAl.alinanResimSayisi.ToString();
             lblResimPaylasimSay.Text = Secimler.ResimPaylas.yapilanPySayisi.ToString();
+
+            lblIstekSayisi.Text = Secimler.IstekKontrol.IstekSayisi.ToString();
+            if (Secimler.IstekKontrol.IstekSayisi == 0) // Kontrol edilecek takip isteği yok o zmn takip isteği kontrol kısmını kapalı olsun
+            {
+                chckIstekKontrol.Checked = false;
+                chckIstekKontrol.Enabled = false;
+            }
         }
 
         private void KayitliAyarlar() //Enson seçtiği işlem ayarlarını veritabanından çekiyoruz ve formdaki ilgili kısımları dolduruyoruz
@@ -81,21 +93,35 @@ namespace InstaBot.Forms
             chckYorumYapanlardan.Checked = Secimler.TakipEt.yorumlardanTkpEt;
             chckTakipEttiklerini.Checked = Secimler.TakipEt.takipEttiklerindenTkpEt;
             chckTakipçilerini.Checked = Secimler.TakipEt.takipcilerdenTkpEt;
-            chckAcikHesap.Checked = Secimler.TakipEt.acikHesaplariTkpEtme;
+            chckAcikHesap.Checked = Secimler.TakipEt.acikHesaplariTkpEt;
             lblTakipSayisi.Text = Secimler.TakipEt.takipEdilenSayi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Et
 
             chckTakiptenCık.Checked = Secimler.TakiptenCik.takiptenCikacakMi;
             nmrcTakiptenCkSayisi.Value = Secimler.TakiptenCik.takiptenCikmaSayisi;
-            lblTakiptenCıkmaSayisi.Text = Secimler.TakiptenCik.takiptenCikarilanSayi;
+            lblTakiptenCıkmaSayisi.Text = Secimler.TakiptenCik.takiptenCikarilanSayi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Çık
 
-            chckIstekKontrol.Checked = Secimler.TakipKontrol.takipKontrolEdilsinMi;
-            lblIstekSayisi.Text = Secimler.TakipKontrol.kontrolSayisi;
-            chckAcik.Checked = Secimler.TakipKontrol.acikHesap;
-            chckGizli.Checked = Secimler.TakipKontrol.gizliHesap;
-            chckIstekKabulBegen.Checked = Secimler.TakipKontrol.gonderiBegen;
-            nmrcIstekKabulBegeniSayisi.Value = Secimler.TakipKontrol.begenilecekSayi;
+            chckIstekKontrol.Checked = Secimler.IstekKontrol.takipKontrolEdilsinMi;
+            lblIstekSayisi.Text = Secimler.IstekKontrol.IstekSayisi.ToString();
+            nmrcMaxKontrolSayisi.Maximum = Secimler.IstekKontrol.IstekSayisi;
+            chckAcik.Checked = Secimler.IstekKontrol.acikHesap;
+            chckGizli.Checked = Secimler.IstekKontrol.gizliHesap;
+            chckIstekKabulBegen.Checked = Secimler.IstekKontrol.gonderiBegen;
+            nmrcIstekKabulBegeniSayisi.Value = Secimler.IstekKontrol.begenilecekSayi;
+
+            if (Secimler.IstekKontrol.IstekSayisi > Secimler.IstekKontrol.kontrolSayisi) // Maxsimum değer önceki kontrol sayısından büyükse yazsın küçükse istek atılan sayıyı yazsın
+            {
+                nmrcMaxKontrolSayisi.Value = Secimler.IstekKontrol.kontrolSayisi;
+            }
+            else
+                nmrcMaxKontrolSayisi.Value = Secimler.IstekKontrol.IstekSayisi;
+
+            if (Secimler.IstekKontrol.IstekSayisi == 0) // Kontrol edilecek takip isteği yok o zmn takip isteği kontrol kısmını kapalı olsun
+            {
+                chckIstekKontrol.Checked = false;
+                chckIstekKontrol.Enabled = false;
+            }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip İsteği Kontrol
 
             chckResimAl.Checked = Secimler.ResimAl.resimAlsinMi;
@@ -118,6 +144,9 @@ namespace InstaBot.Forms
             nmrcPaylasimMinSr.Value = Secimler.Sureler.minResimPay / 10000;
             nmrcPaylasimMaxSr.Value = Secimler.Sureler.maxResimPay / 10000;
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ İşlemler Arası Bekleme Süreleri
+
+            rdHashtag.Checked = false; //Bunun sebebi rdHastag metodundaki işlemler yapılsın diye
+            rdHashtag.Checked = true; //Bunun sebebi rdHastag metodundaki işlemler yapılsın diye
         }
 
         //Begeni
@@ -147,7 +176,6 @@ namespace InstaBot.Forms
                 {
                     cmbYorumGrubu.Items.Add(item);
                 }
-                
             }
         }
         private void chckYorumYap_CheckedChanged(object sender, EventArgs e)
@@ -165,7 +193,19 @@ namespace InstaBot.Forms
         }
         private void cmbYorumGrubu_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int sayac = 1;
             Secimler.YorumYap.yorumGrubu = cmbYorumGrubu.Text;
+
+            lstBxYapilan.Items.Clear();
+            lstBxYapilan.Items.Add("Seçitiği yorum grubundaki yorumlar");
+            foreach (var item in Secimler.ListYorumlar) // Yorum seçilince içindeki yorumları gösteriyoruz
+            {
+                if (item.grupAdi == cmbYorumGrubu.Text)
+                {
+                    lstBxYapilan.Items.Add(sayac.ToString()+" -> "+item.yorum);
+                    sayac++;
+                }
+            }
         }
         private void chckYorumRasgele_CheckedChanged(object sender, EventArgs e)
         {
@@ -199,7 +239,7 @@ namespace InstaBot.Forms
         }
         private void chckAcikHesap_CheckedChanged(object sender, EventArgs e)
         {
-            Secimler.TakipEt.acikHesaplariTkpEtme = chckAcikHesap.Checked;
+            Secimler.TakipEt.acikHesaplariTkpEt = chckAcikHesap.Checked;
         }
         //Takipten Çık
         private void chckTakiptenCık_CheckedChanged(object sender, EventArgs e)
@@ -223,16 +263,16 @@ namespace InstaBot.Forms
             else
                 pnlTakipIstegiKontrol.Enabled = false;
 
-            Secimler.TakipKontrol.takipKontrolEdilsinMi = chckIstekKontrol.Checked;
+            Secimler.IstekKontrol.takipKontrolEdilsinMi = chckIstekKontrol.Checked;
         }
-        private void chckTakipKabulEtmeyenler_CheckedChanged(object sender, EventArgs e)
+        private void chckAcik_CheckedChanged(object sender, EventArgs e)
         {
-            Secimler.TakipKontrol.acikHesap = chckGizli.Checked;
+            Secimler.IstekKontrol.acikHesap = chckAcik.Checked;
         }
 
-        private void chckBeniTakipEtmeyenler_CheckedChanged(object sender, EventArgs e)
+        private void chckGizli_CheckedChanged(object sender, EventArgs e)
         {
-            Secimler.TakipKontrol.gizliHesap = chckGizli.Checked;
+            Secimler.IstekKontrol.gizliHesap = chckGizli.Checked;
         }
 
         private void chckIstekKabulBegen_CheckedChanged(object sender, EventArgs e)
@@ -242,12 +282,12 @@ namespace InstaBot.Forms
             else
                 nmrcIstekKabulBegeniSayisi.Enabled = true;
 
-            Secimler.TakipKontrol.gonderiBegen = chckIstekKabulBegen.Checked;
+            Secimler.IstekKontrol.gonderiBegen = chckIstekKabulBegen.Checked;
         }
 
         private void nmrcIstekKabulBegeniSayisi_ValueChanged(object sender, EventArgs e)
         {
-            Secimler.TakipKontrol.begenilecekSayi = Convert.ToInt32(nmrcIstekKabulBegeniSayisi.Value);
+            Secimler.IstekKontrol.begenilecekSayi = Convert.ToInt32(nmrcIstekKabulBegeniSayisi.Value);
         }
 
         //Resim Al
@@ -358,7 +398,7 @@ namespace InstaBot.Forms
             Secimler.Sureler.maxResimPay = Sure;
         }
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ bekleme sürelerini numarikten alıp milisaniye cinsine çevirip KullaniciSecimleri.cs ye kaydettik
-        private void ComboBoxAyarı() // burada veritabanından kullanıcı ve hashtaglerin grup adlarını combobox a ekledik
+        private void KulHasListeVerileri() // burada veritabanından kullanıcı ve hashtaglerin grup adlarını combobox a ekledik
         {
             if (rdHashtag.Checked)
             {
@@ -430,6 +470,26 @@ namespace InstaBot.Forms
 
         private void rdHashtag_CheckedChanged(object sender, EventArgs e)
         {
+            if (rdHashtag.Checked)
+            {
+                chckTakipEttiklerini.Checked = false;
+                chckTakipEttiklerini.Enabled = false;
+
+                chckTakipçilerini.Checked = false;
+                chckTakipçilerini.Enabled = false;
+
+                chckYorumYapanlardan.Enabled = true;
+            }
+            else
+            {
+                chckTakipEttiklerini.Enabled = true;
+
+                chckTakipçilerini.Enabled = true;
+
+                chckYorumYapanlardan.Checked = false;
+                chckYorumYapanlardan.Enabled = false;
+            }
+            txtEklenen.Clear();
             cmbKulHasGrup.Items.Clear();
             chckTumuSec.Checked = false;
             if (rdHashtag.Checked)
@@ -452,13 +512,14 @@ namespace InstaBot.Forms
             string eklenen = txtEklenen.Text;
             eklenen = eklenen.TrimStart().TrimEnd();
             grupAdi = grupAdi.TrimStart().TrimEnd();
+            chckLst.Items.Add(eklenen);
             if (rdHashtag.Checked)
             {
                 VeriTabani.KullaniciHashtagEkle("tbl_Hashtag", grupAdi,eklenen);
             }
             else if (rdKullaniciAdi.Checked)
                 VeriTabani.KullaniciHashtagEkle("tbl_KullaniciAdi", grupAdi, eklenen);
-
+            txtEklenen.Clear();
         }
 
         //Kullanıcı/Hashtag Listesinden Tümünü Seçme
@@ -500,6 +561,8 @@ namespace InstaBot.Forms
         {
             altpnlSifre.BackColor = Color.Blue;
         }
+
+        [Obsolete]
         private void txtSifre_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -507,6 +570,25 @@ namespace InstaBot.Forms
                 btnBaslat_Click(btnBaslat, new EventArgs());
             }
         }
+        private void IslemleriKapaAc(bool kapaAc)
+        {
+
+            for (int i = 0; i < pnlIslemler.Controls.Count ; i++) 
+            {
+                //son iki özellik aktif değil
+                if (pnlIslemler.Controls[i].Name!= "chckResimAl" && pnlIslemler.Controls[i].Name != "pnlResimAl" && pnlIslemler.Controls[i].Name != "chckResimYukle" && pnlIslemler.Controls[i].Name != "pnlResimPaylas")
+                {
+                    pnlIslemler.Controls[i].Enabled = kapaAc;
+                }
+                
+            }
+
+            grpKullaniciHashtag.Enabled = kapaAc;
+            grpSure.Enabled = kapaAc;
+            txtKullaniciAdi.Enabled = kapaAc;
+            txtSifre.Enabled = kapaAc;
+        }
+        [Obsolete]
         private void btnBaslat_Click(object sender, EventArgs e)
         {
 
@@ -514,28 +596,8 @@ namespace InstaBot.Forms
             string kullaniciAdi = txtKullaniciAdi.Text;
             string sifre = txtSifre.Text;
 
-            if (rdHashtag.Checked)
-                gidilecekYer = "https://www.instagram.com/explore/tags/";
-            else if (rdKullaniciAdi.Checked)
-                gidilecekYer = "https://www.instagram.com/";
-            Secimler.GidilecekYer.Clear();
-
-            foreach (var item in chckLst.CheckedItems) // Gidilecek Hashtagler veya Kullanıcı Adları
-            {
-                Secimler.GidilecekYer.Add(gidilecekYer + item.ToString() + "/");
-            }
-
-            foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
-            {
-                if (item.grupAdi == cmbYorumGrubu.Text)
-                {
-                    if (chckYorumRasgele.Checked)
-                        Secimler.YapilacakYorumlar.Add(item.yorum + " " + item.yorum.Substring(random.Next(item.yorum.Length - 1), 1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
-                    else
-                        Secimler.YapilacakYorumlar.Add(item.yorum);
-
-                }
-            }
+            txtEklenen.Clear();
+            lstBxYapilan.Items.Clear();
 
             kullaniciAdi = kullaniciAdi.TrimStart();
             kullaniciAdi = kullaniciAdi.TrimEnd();
@@ -548,8 +610,64 @@ namespace InstaBot.Forms
 
             AyarlarVeritabani.AyarlarıKaydet();
 
-            Komutlar.Baslat();
+            if (btnBaslat.Text == "Başlat")
+            {
+                
+                if (Secimler.YorumYap.yorumYapacakMi || Secimler.TakipEt.takipEdicekMi)
+                {
+                    if (chckLst.CheckedItems.Count == 0)
+                    {
+                        MessageBox.Show("Lütfen Hashtag veya Kullanıcı Adi seçin!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        if (rdHashtag.Checked)
+                            gidilecekYer = "https://www.instagram.com/explore/tags/";
+                        else if (rdKullaniciAdi.Checked)
+                            gidilecekYer = "https://www.instagram.com/";
+                        Secimler.GidilecekYer.Clear();
 
+                        foreach (var item in chckLst.CheckedItems) // Gidilecek Hashtagler veya Kullanıcı Adları
+                        {
+                            Secimler.GidilecekYer.Add(gidilecekYer + item.ToString() + "/");
+                        }
+
+                        foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
+                        {
+                            if (item.grupAdi == cmbYorumGrubu.Text)
+                            {
+                                if (chckYorumRasgele.Checked)
+                                    Secimler.YapilacakYorumlar.Add(item.yorum + " " + item.yorum.Substring(random.Next(item.yorum.Length - 1), 1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
+                                else
+                                    Secimler.YapilacakYorumlar.Add(item.yorum);
+
+                            }
+                        }
+                        btnBaslat.Text = "Bitir";
+                        Komutlar.Baslat();
+                        IslemleriKapaAc(false);
+                    }
+                }
+                else
+                {
+                    IslemleriKapaAc(false);
+                    Komutlar.Baslat();
+                    btnBaslat.Text = "Bitir";
+                }
+            }
+            else
+            {
+
+                Komutlar.Bitir();
+                IslemleriKapaAc(true);
+                btnBaslat.Text = "Başlat";
+            }
         }
+
+        private void nmrcMaxKontrolSayisi_ValueChanged(object sender, EventArgs e)
+        {
+            Secimler.IstekKontrol.kontrolSayisi = Convert.ToInt32(nmrcMaxKontrolSayisi.Value);
+        }
+
     }
 }

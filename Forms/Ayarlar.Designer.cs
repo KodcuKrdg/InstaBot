@@ -106,6 +106,7 @@
             // 
             // btnKullaniciGrupAdi
             // 
+            this.btnKullaniciGrupAdi.Enabled = false;
             this.btnKullaniciGrupAdi.Location = new System.Drawing.Point(249, 40);
             this.btnKullaniciGrupAdi.Name = "btnKullaniciGrupAdi";
             this.btnKullaniciGrupAdi.Size = new System.Drawing.Size(93, 23);
@@ -221,6 +222,7 @@
             // 
             // btnHashtagAdiDuznele
             // 
+            this.btnHashtagAdiDuznele.Enabled = false;
             this.btnHashtagAdiDuznele.Location = new System.Drawing.Point(249, 43);
             this.btnHashtagAdiDuznele.Name = "btnHashtagAdiDuznele";
             this.btnHashtagAdiDuznele.Size = new System.Drawing.Size(93, 24);
@@ -319,7 +321,6 @@
             this.grpYorum.TabIndex = 17;
             this.grpYorum.TabStop = false;
             this.grpYorum.Text = "Yorum Ekle/Düzenle";
-            this.grpYorum.Enter += new System.EventHandler(this.grpYorum_Enter);
             // 
             // btnGrupYorumSil
             // 
@@ -337,6 +338,7 @@
             // 
             // btnGrupYorumDuzenle
             // 
+            this.btnGrupYorumDuzenle.Enabled = false;
             this.btnGrupYorumDuzenle.Location = new System.Drawing.Point(249, 43);
             this.btnGrupYorumDuzenle.Name = "btnGrupYorumDuzenle";
             this.btnGrupYorumDuzenle.Size = new System.Drawing.Size(93, 23);
@@ -441,6 +443,7 @@
             this.btnSil.Text = "Sil";
             this.btnSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // lstBx
             // 

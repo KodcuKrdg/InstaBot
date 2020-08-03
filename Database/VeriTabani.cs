@@ -164,19 +164,19 @@ namespace InstaBot.Database
             Sorgu.Dispose();
 
         } //Grup adlarını değiştirme
-        public void GruplarıSil(string nereyi, string grupAdi)
+        public void GruplarıSil(string nerenin, string grupAdi)
         {
             Sorgu = Baglan.CreateCommand();
             Baglan.Open();
-            if (nereyi == "tbl_Hashtag")
+            if (nerenin == "tbl_Hashtag")
             {
                 Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE grupAdi=@grupAdi";
             }
-            else if (nereyi == "tbl_KullaniciAdi")
+            else if (nerenin == "tbl_KullaniciAdi")
             {
                 Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE grupAdi=@grupAdi";
             }
-            else if (nereyi == "tbl_Yorumlar")
+            else if (nerenin == "tbl_Yorumlar")
             {
                 Sorgu.CommandText = "DELETE FROM tbl_Yorumlar WHERE grupAdi=@grupAdi";
             }
@@ -189,6 +189,30 @@ namespace InstaBot.Database
             Sorgu.Dispose();
 
         } //Grupları silme
+        public void KullaniciHashtagYorumSil(string nerenin, string id)
+        {
+            Sorgu = Baglan.CreateCommand();
+            Baglan.Open();
+            if (nerenin == "tbl_Hashtag")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE id=@id";
+            }
+            else if (nerenin == "tbl_KullaniciAdi")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE id=@id";
+            }
+            else if (nerenin == "tbl_Yorumlar")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Yorumlar WHERE id=@id";
+            }
+
+            Sorgu.Parameters.AddWithValue("@id", id);
+
+            Sorgu.ExecuteNonQuery();
+
+            Baglan.Close();
+            Sorgu.Dispose();
+        }
 
         public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
         {

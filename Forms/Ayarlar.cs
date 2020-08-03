@@ -20,12 +20,10 @@ namespace InstaBot.Forms
             InitializeComponent();
         }
 
-        private void grpYorum_Enter(object sender, EventArgs e)
-        {
-
-        }
         VeriTabani VeriTabani = VeriTabani.GetInstance();
         KullaniciSecimleri Secimler = KullaniciSecimleri.GetInstance();
+
+        List<ListListedekiDeger> listedekiDeger = new List<ListListedekiDeger>();
         private void Ayarlar_Load(object sender, EventArgs e)
         {
             ComboxAyarları();
@@ -68,13 +66,16 @@ namespace InstaBot.Forms
         private void cmbYorum_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtYorumGrupAdi.Text = cmbYorum.Text;
+            btnGrupYorumDuzenle.Enabled = true;
             int sayac = 1;
             lstBx.Items.Clear();
+            listedekiDeger.Clear();
             foreach (var item in Secimler.ListYorumlar)
             {
                 if (item.grupAdi== cmbYorum.Text)
                 {
                     lstBx.Items.Add(sayac.ToString()+" -> "+item.yorum);
+                    listedekiDeger.Add(new ListListedekiDeger { id = item.id, anaDeger = item.yorum, nerenin = "tbl_Yorumlar", grupAdi = item.grupAdi });
                     sayac++;
                 }
                 
@@ -227,7 +228,7 @@ namespace InstaBot.Forms
 
         private void btnGrupYorumSil_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(cmbYorum.Text + " grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
+            if (MessageBox.Show("'" + cmbYorum.Text + "' grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
             {
                 VeriTabani.GruplarıSil("tbl_Yorumlar", cmbYorum.Text);
                 Secimler.YorumGrubu.Remove(cmbYorum.Text);
@@ -301,7 +302,7 @@ namespace InstaBot.Forms
 
         private void btnHastagGrupSil_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(cmbHashtag.Text + " grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("'" + cmbHashtag.Text + "' grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 VeriTabani.GruplarıSil("tbl_Hashtag", cmbHashtag.Text);
                 Secimler.HashtagGrup.Remove(cmbHashtag.Text);
@@ -317,13 +318,16 @@ namespace InstaBot.Forms
         private void cmbHashtag_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtHashtagGrupAdi.Text = cmbHashtag.Text;
+            btnHashtagAdiDuznele.Enabled = true;
             int sayac = 1;
             lstBx.Items.Clear();
+            listedekiDeger.Clear();
             foreach (var item in Secimler.ListHashtags)
             {
                 if (item.grupAdi == cmbHashtag.Text)
                 {
                     lstBx.Items.Add(sayac.ToString() + " -> " + item.hashtag);
+                    listedekiDeger.Add(new ListListedekiDeger { id = item.id, anaDeger = item.hashtag, nerenin = "tbl_Hashtag", grupAdi = item.grupAdi });
                     sayac++;
                 }
 
@@ -419,13 +423,16 @@ namespace InstaBot.Forms
         private void cmbKullanici_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtKullaniciGrupAdi.Text = cmbKullanici.Text;
+            btnKullaniciGrupAdi.Enabled = true;
             int sayac = 1;
             lstBx.Items.Clear();
+            listedekiDeger.Clear();
             foreach (var item in Secimler.ListKullaniciAdi)
             {
                 if (item.grupAdi == cmbKullanici.Text)
                 {
                     lstBx.Items.Add(sayac.ToString() + " -> " + item.kullaniciAdi);
+                    listedekiDeger.Add(new ListListedekiDeger { id = item.id, anaDeger = item.kullaniciAdi, nerenin = "tbl_KullaniciAdi", grupAdi = item.grupAdi });
                     sayac++;
                 }
 
@@ -494,7 +501,7 @@ namespace InstaBot.Forms
 
         private void btnKullaniciGrupSil_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(cmbHashtag.Text + " grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("'" + cmbKullanici.Text + "' grubu silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 VeriTabani.GruplarıSil("tbl_KullaniciAdi", cmbKullanici.Text);
                 Secimler.KullaniciAdiGrup.Remove(cmbKullanici.Text);
@@ -593,5 +600,66 @@ namespace InstaBot.Forms
             }
         }
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Kullanıcı Adı
+
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            
+            if (MessageBox.Show("'"+listedekiDeger[lstBx.SelectedIndex].anaDeger + "' silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int sayac = 1;
+
+                VeriTabani.KullaniciHashtagYorumSil(listedekiDeger[lstBx.SelectedIndex].nerenin, listedekiDeger[lstBx.SelectedIndex].id);
+
+                if (listedekiDeger[lstBx.SelectedIndex].nerenin == "tbl_Yorumlar")
+                {
+                    for (int i = 0; i < Secimler.ListYorumlar.Count; i++)
+                    {
+                        if (Secimler.ListYorumlar[i].id == listedekiDeger[lstBx.SelectedIndex].id)
+                        {
+                            Secimler.ListYorumlar.RemoveAt(i);
+                        }
+                    }
+
+                }
+                else if (listedekiDeger[lstBx.SelectedIndex].nerenin == "tbl_Hashtag")
+                {
+                    for (int i = 0; i < Secimler.ListHashtags.Count; i++)
+                    {
+                        if (Secimler.ListHashtags[i].id == listedekiDeger[lstBx.SelectedIndex].id)
+                        {
+                            Secimler.ListHashtags.RemoveAt(i);
+                        }
+                    }
+                }
+                else if (listedekiDeger[lstBx.SelectedIndex].nerenin == "tbl_KullaniciAdi")
+                {
+                    for (int i = 0; i < Secimler.ListKullaniciAdi.Count; i++)
+                    {
+                        if (Secimler.ListKullaniciAdi[i].id == listedekiDeger[lstBx.SelectedIndex].id) //çıkarılan değeri sbulup silmek için
+                        {
+                            Secimler.ListKullaniciAdi.RemoveAt(i); // çıkarılan değeri sildik
+                        }
+                    }
+                }
+                listedekiDeger.RemoveAt(lstBx.SelectedIndex); // Burada silinen değeri lsiteden sildik
+                lstBx.Items.Clear();
+                foreach (var item in listedekiDeger)
+                {
+                    lstBx.Items.Add(sayac.ToString() + " - > " + item.anaDeger);
+                    sayac++;
+                }
+            }
+            
+
+        }
+
     }
+}
+
+class ListListedekiDeger // Listbox a eklenen değerleri düzenlemek için oluşturduğum bir class
+{
+    public string id { get; set; }
+    public string anaDeger { get; set; }
+    public string nerenin { get; set; }
+    public string grupAdi { get; set; }
 }

@@ -28,7 +28,6 @@ D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.xml
 D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.Support.xml
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.AnaSayfa.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Ayarlar.resources
-D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Giris.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Gonderiler.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_FinishTime.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_Post.resources
@@ -39,3 +38,4 @@ D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csproj.CopyComplete
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.exe
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.pdb
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Islemler.resources

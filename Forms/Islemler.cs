@@ -410,7 +410,7 @@ namespace InstaBot.Forms
             }
             else if (rdKullaniciAdi.Checked)
             {
-                foreach (var item in Secimler.KullaniciAdigGrup) // kullanıcı adi gruplarını Ekledik
+                foreach (var item in Secimler.KullaniciAdiGrup) // kullanıcı adi gruplarını Ekledik
                 {
                     cmbKulHasGrup.Items.Add(item);
                 }
@@ -455,7 +455,7 @@ namespace InstaBot.Forms
             chckTumuSec.Checked = false;
             if (rdKullaniciAdi.Checked)
             {
-                foreach (var item in Secimler.KullaniciAdigGrup) // grupları Ekledik
+                foreach (var item in Secimler.KullaniciAdiGrup) // grupları Ekledik
                 {
                     cmbKulHasGrup.Items.Add(item);
                 }
@@ -515,10 +515,10 @@ namespace InstaBot.Forms
             chckLst.Items.Add(eklenen);
             if (rdHashtag.Checked)
             {
-                VeriTabani.KullaniciHashtagEkle("tbl_Hashtag", grupAdi,eklenen);
+                VeriTabani.KullaniciHashtagYorumEkle("tbl_Hashtag", grupAdi,eklenen);
             }
             else if (rdKullaniciAdi.Checked)
-                VeriTabani.KullaniciHashtagEkle("tbl_KullaniciAdi", grupAdi, eklenen);
+                VeriTabani.KullaniciHashtagYorumEkle("tbl_KullaniciAdi", grupAdi, eklenen);
             txtEklenen.Clear();
         }
 

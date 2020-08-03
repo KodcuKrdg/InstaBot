@@ -74,7 +74,7 @@ namespace InstaBot
 
         private void AnaSayfa_Load(object sender, EventArgs e)
         {
-            openChildForm(new Islemler());
+            openChildForm(new Ayarlar());
 
         }
 
@@ -93,9 +93,5 @@ namespace InstaBot
             openChildForm(new Islemler());
         }
 
-        private void AnaSayfa_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
     }
 }

@@ -44,7 +44,7 @@ namespace InstaBot.Codes
 
         public List<string> HashtagGrup = new List<string>(); //Hashtagler de kaç farklı grup varsa onların tutulduğu yer
 
-        public List<string> KullaniciAdigGrup = new List<string>(); //Kullanici Adi kısmında kaç farklı grup varsa onları isimleri
+        public List<string> KullaniciAdiGrup = new List<string>(); //Kullanici Adi kısmında kaç farklı grup varsa onları isimleri
 
         public List<ListKullaniciAdi> ListKullaniciAdi = new List<ListKullaniciAdi>(); // Kayıtlı Kullanici adları
 

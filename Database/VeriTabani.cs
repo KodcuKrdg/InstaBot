@@ -12,8 +12,8 @@ namespace InstaBot.Database
     class VeriTabani
     {
         private VeriTabani() 
-        { 
-            GerekliVerileriAl();
+        {
+            KullaniciHashtagYorumAl();
             IstekAtilanHesaplar();
         }
 
@@ -36,13 +36,14 @@ namespace InstaBot.Database
         SQLiteConnection Baglan = new SQLiteConnection("Data Source=Database.db;Password=Database5441");
         SQLiteCommand Sorgu;
 
-        public void GerekliVerileriAl()
+        public void KullaniciHashtagYorumAl()
         {
             Secimler.ListHashtags.Clear();
             Secimler.ListKullaniciAdi.Clear();
             Secimler.ListYorumlar.Clear();
+
             Sorgu = Baglan.CreateCommand();
-            Sorgu.CommandText = "SELECT * FROM tbl_Hashtag order by grupAdi ASC";
+            Sorgu.CommandText = "SELECT * FROM tbl_Hashtag order by id ASC";
             Baglan.Open();
             using (var veriler = Sorgu.ExecuteReader())
             {
@@ -64,16 +65,16 @@ namespace InstaBot.Database
             }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Hashtag
 
-            Sorgu.CommandText = "SELECT * FROM tbl_KullaniciAdi order by grupAdi ASC";
+            Sorgu.CommandText = "SELECT * FROM tbl_KullaniciAdi order by id ASC";
             using (var veriler = Sorgu.ExecuteReader())
             {
                 while (veriler.Read())
                 {
                     //"Contains()" listenin içinde o değer var mı yok mu kontrol eder bizim kullanım amacımız farklı grupları ayırt edip grup adlarını alıp kullanıcıya sunmak
                     //böylelikle seçtiği gruba dahil olan değerleri bir döngü ile ala bilmek
-                    if (!Secimler.KullaniciAdigGrup.Contains(veriler["grupAdi"].ToString()))
+                    if (!Secimler.KullaniciAdiGrup.Contains(veriler["grupAdi"].ToString()))
                     {
-                        Secimler.KullaniciAdigGrup.Add(veriler["grupAdi"].ToString());
+                        Secimler.KullaniciAdiGrup.Add(veriler["grupAdi"].ToString());
                     }
                     Secimler.ListKullaniciAdi.Add(new ListKullaniciAdi()
                     {
@@ -85,7 +86,7 @@ namespace InstaBot.Database
             }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Kullanici Adları
 
-            Sorgu.CommandText = "SELECT * FROM tbl_Yorumlar order by grupAdi ASC";
+            Sorgu.CommandText = "SELECT * FROM tbl_Yorumlar order by id ASC";
             using (var veriler = Sorgu.ExecuteReader())
             {
                 while (veriler.Read())
@@ -109,7 +110,7 @@ namespace InstaBot.Database
             Sorgu.Dispose();
         }
 
-        public void KullaniciHashtagEkle(string nereye,string grupAdi,string eklenen) //Kullanici Hashtag grubunun içindeki yeni veri ekleme kısmı
+        public void KullaniciHashtagYorumEkle(string nereye,string grupAdi,string eklenen) //Kullanici Hashtag grubunun içindeki yeni veri ekleme kısmı
         {
             Sorgu = Baglan.CreateCommand();
             Baglan.Open();
@@ -121,6 +122,10 @@ namespace InstaBot.Database
             {
                 Sorgu.CommandText = "INSERT INTO tbl_KullaniciAdi(kullaniciAdi,grupAdi) VALUES(@eklenen,@grupAdi)";
             }
+            else if (nereye == "tbl_Yorumlar")
+            {
+                Sorgu.CommandText = "INSERT INTO tbl_Yorumlar(yorum,grupAdi) VALUES(@eklenen,@grupAdi)";
+            }
 
             Sorgu.Parameters.AddWithValue("@eklenen", eklenen);
             Sorgu.Parameters.AddWithValue("@grupAdi", grupAdi);
@@ -130,8 +135,60 @@ namespace InstaBot.Database
             Baglan.Close();
             Sorgu.Dispose();
 
-            GerekliVerileriAl();// YEni Bir değer eklenince ListHashtag ve ListKullanici Adi Classları tekrardan doldurulsun diye
+            KullaniciHashtagYorumAl();// YEni Bir değer eklenince ListHashtag ve ListKullanici Adi Classları tekrardan doldurulsun diye
         }
+
+        public void GrupAdlariniGuncelle(string nereye, string eskiAd, string yeniAd)
+        {
+            Sorgu = Baglan.CreateCommand();
+            Baglan.Open();
+            if (nereye == "tbl_Hashtag")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Hashtag set grupAdi=@yeniAd WHERE grupAdi=@eskiAd";
+            }
+            else if (nereye == "tbl_KullaniciAdi")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Hashtag set grupAdi=@yeniAd WHERE grupAdi=@eskiAd";
+            }
+            else if (nereye == "tbl_Yorumlar")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Yorumlar set grupAdi=@yeniAd WHERE grupAdi=@eskiAd";
+            }
+
+            Sorgu.Parameters.AddWithValue("@yeniAd", yeniAd);
+            Sorgu.Parameters.AddWithValue("@eskiAd", eskiAd);
+
+            Sorgu.ExecuteNonQuery();
+
+            Baglan.Close();
+            Sorgu.Dispose();
+
+        } //Grup adlarını değiştirme
+        public void GruplarıSil(string nereyi, string grupAdi)
+        {
+            Sorgu = Baglan.CreateCommand();
+            Baglan.Open();
+            if (nereyi == "tbl_Hashtag")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE grupAdi=@grupAdi";
+            }
+            else if (nereyi == "tbl_KullaniciAdi")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE grupAdi=@grupAdi";
+            }
+            else if (nereyi == "tbl_Yorumlar")
+            {
+                Sorgu.CommandText = "DELETE FROM tbl_Yorumlar WHERE grupAdi=@grupAdi";
+            }
+
+            Sorgu.Parameters.AddWithValue("@grupAdi", grupAdi);
+
+            Sorgu.ExecuteNonQuery();
+
+            Baglan.Close();
+            Sorgu.Dispose();
+
+        } //Grupları silme
 
         public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
         {

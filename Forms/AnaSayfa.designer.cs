@@ -31,17 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnaSayfa));
             this.pnlUst = new System.Windows.Forms.Panel();
             this.pcCancel = new System.Windows.Forms.PictureBox();
-            this.pcAyarlar = new System.Windows.Forms.PictureBox();
-            this.pcGonderiler = new System.Windows.Forms.PictureBox();
-            this.pcGiris = new System.Windows.Forms.PictureBox();
             this.pcLogo = new System.Windows.Forms.PictureBox();
+            this.pcGiris = new System.Windows.Forms.PictureBox();
+            this.pcGonderiler = new System.Windows.Forms.PictureBox();
+            this.pcAyarlar = new System.Windows.Forms.PictureBox();
             this.pnlSag = new System.Windows.Forms.Panel();
             this.pnlUst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcCancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcAyarlar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcGonderiler)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcGiris)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcGiris)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcGonderiler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcAyarlar)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlUst
@@ -72,27 +72,16 @@
             this.pcCancel.TabStop = false;
             this.pcCancel.Click += new System.EventHandler(this.pcCancel_Click);
             // 
-            // pcAyarlar
+            // pcLogo
             // 
-            this.pcAyarlar.Image = ((System.Drawing.Image)(resources.GetObject("pcAyarlar.Image")));
-            this.pcAyarlar.Location = new System.Drawing.Point(68, 8);
-            this.pcAyarlar.Name = "pcAyarlar";
-            this.pcAyarlar.Size = new System.Drawing.Size(135, 42);
-            this.pcAyarlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcAyarlar.TabIndex = 6;
-            this.pcAyarlar.TabStop = false;
-            this.pcAyarlar.Click += new System.EventHandler(this.pcAyarlar_Click);
-            // 
-            // pcGonderiler
-            // 
-            this.pcGonderiler.Image = ((System.Drawing.Image)(resources.GetObject("pcGonderiler.Image")));
-            this.pcGonderiler.Location = new System.Drawing.Point(209, 8);
-            this.pcGonderiler.Name = "pcGonderiler";
-            this.pcGonderiler.Size = new System.Drawing.Size(135, 42);
-            this.pcGonderiler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcGonderiler.TabIndex = 5;
-            this.pcGonderiler.TabStop = false;
-            this.pcGonderiler.Click += new System.EventHandler(this.pcGonderiler_Click);
+            this.pcLogo.Image = ((System.Drawing.Image)(resources.GetObject("pcLogo.Image")));
+            this.pcLogo.Location = new System.Drawing.Point(12, 10);
+            this.pcLogo.Name = "pcLogo";
+            this.pcLogo.Size = new System.Drawing.Size(40, 40);
+            this.pcLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcLogo.TabIndex = 0;
+            this.pcLogo.TabStop = false;
+            this.pcLogo.Click += new System.EventHandler(this.pcLogo_Click);
             // 
             // pcGiris
             // 
@@ -105,16 +94,27 @@
             this.pcGiris.TabStop = false;
             this.pcGiris.Click += new System.EventHandler(this.pcGiris_Click);
             // 
-            // pcLogo
+            // pcGonderiler
             // 
-            this.pcLogo.Image = ((System.Drawing.Image)(resources.GetObject("pcLogo.Image")));
-            this.pcLogo.Location = new System.Drawing.Point(12, 10);
-            this.pcLogo.Name = "pcLogo";
-            this.pcLogo.Size = new System.Drawing.Size(40, 40);
-            this.pcLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcLogo.TabIndex = 0;
-            this.pcLogo.TabStop = false;
-            this.pcLogo.Click += new System.EventHandler(this.pcLogo_Click);
+            this.pcGonderiler.Image = ((System.Drawing.Image)(resources.GetObject("pcGonderiler.Image")));
+            this.pcGonderiler.Location = new System.Drawing.Point(209, 8);
+            this.pcGonderiler.Name = "pcGonderiler";
+            this.pcGonderiler.Size = new System.Drawing.Size(135, 42);
+            this.pcGonderiler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcGonderiler.TabIndex = 5;
+            this.pcGonderiler.TabStop = false;
+            this.pcGonderiler.Click += new System.EventHandler(this.pcGonderiler_Click);
+            // 
+            // pcAyarlar
+            // 
+            this.pcAyarlar.Image = ((System.Drawing.Image)(resources.GetObject("pcAyarlar.Image")));
+            this.pcAyarlar.Location = new System.Drawing.Point(68, 8);
+            this.pcAyarlar.Name = "pcAyarlar";
+            this.pcAyarlar.Size = new System.Drawing.Size(135, 42);
+            this.pcAyarlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcAyarlar.TabIndex = 6;
+            this.pcAyarlar.TabStop = false;
+            this.pcAyarlar.Click += new System.EventHandler(this.pcAyarlar_Click);
             // 
             // pnlSag
             // 
@@ -139,10 +139,10 @@
             this.Load += new System.EventHandler(this.AnaSayfa_Load);
             this.pnlUst.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcCancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcAyarlar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcGonderiler)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcGiris)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcGiris)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcGonderiler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcAyarlar)).EndInit();
             this.ResumeLayout(false);
 
         }

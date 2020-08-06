@@ -148,7 +148,7 @@ namespace InstaBot.Database
             }
             else if (nereye == "tbl_KullaniciAdi")
             {
-                Sorgu.CommandText = "UPDATE tbl_Hashtag set grupAdi=@yeniAd WHERE grupAdi=@eskiAd";
+                Sorgu.CommandText = "UPDATE tbl_KullaniciAdi set grupAdi=@yeniAd WHERE grupAdi=@eskiAd";
             }
             else if (nereye == "tbl_Yorumlar")
             {
@@ -163,7 +163,33 @@ namespace InstaBot.Database
             Baglan.Close();
             Sorgu.Dispose();
 
-        } //Grup adlarını değiştirme
+        } //Grup adlarını Güncelleme
+        public void YorumHashtagKullaniciGuncelle(string nereye, string id, string yeniVeri)
+        {
+            Sorgu = Baglan.CreateCommand();
+            Baglan.Open();
+            if (nereye == "tbl_Hashtag")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Hashtag set hashtag=@yeniVeri WHERE id=@id";
+            }
+            else if (nereye == "tbl_KullaniciAdi")
+            {
+                Sorgu.CommandText = "UPDATE tbl_KullaniciAdi set kullaniciAdi=@yeniVeri WHERE id=@id";
+            }
+            else if (nereye == "tbl_Yorumlar")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Yorumlar set yorum=@yeniVeri WHERE id=@id";
+            }
+
+            Sorgu.Parameters.AddWithValue("@id", id);
+            Sorgu.Parameters.AddWithValue("@yeniVeri", yeniVeri);
+
+            Sorgu.ExecuteNonQuery();
+
+            Baglan.Close();
+            Sorgu.Dispose();
+
+        } //Yorum Hashtag Kullanıcı Güncelleme
         public void GruplarıSil(string nerenin, string grupAdi)
         {
             Sorgu = Baglan.CreateCommand();
@@ -174,7 +200,7 @@ namespace InstaBot.Database
             }
             else if (nerenin == "tbl_KullaniciAdi")
             {
-                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE grupAdi=@grupAdi";
+                Sorgu.CommandText = "DELETE FROM tbl_KullaniciAdi WHERE grupAdi=@grupAdi";
             }
             else if (nerenin == "tbl_Yorumlar")
             {
@@ -199,7 +225,7 @@ namespace InstaBot.Database
             }
             else if (nerenin == "tbl_KullaniciAdi")
             {
-                Sorgu.CommandText = "DELETE FROM tbl_Hashtag WHERE id=@id";
+                Sorgu.CommandText = "DELETE FROM tbl_KullaniciAdi WHERE id=@id";
             }
             else if (nerenin == "tbl_Yorumlar")
             {

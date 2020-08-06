@@ -42,7 +42,7 @@
             this.txtKullaniciAdi = new System.Windows.Forms.TextBox();
             this.grpHashtag = new System.Windows.Forms.GroupBox();
             this.btnHastagGrupSil = new System.Windows.Forms.Button();
-            this.btnHashtagAdiDuznele = new System.Windows.Forms.Button();
+            this.btnGrupHashtag = new System.Windows.Forms.Button();
             this.btnHashtagGrupEkle = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -92,6 +92,7 @@
             // 
             // btnKullaniciGrupSil
             // 
+            this.btnKullaniciGrupSil.Enabled = false;
             this.btnKullaniciGrupSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnKullaniciGrupSil.Image = ((System.Drawing.Image)(resources.GetObject("btnKullaniciGrupSil.Image")));
             this.btnKullaniciGrupSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -171,6 +172,7 @@
             // 
             // btnKullaniciEkle
             // 
+            this.btnKullaniciEkle.Enabled = false;
             this.btnKullaniciEkle.Location = new System.Drawing.Point(92, 97);
             this.btnKullaniciEkle.Name = "btnKullaniciEkle";
             this.btnKullaniciEkle.Size = new System.Drawing.Size(137, 35);
@@ -181,6 +183,7 @@
             // 
             // txtKullaniciAdi
             // 
+            this.txtKullaniciAdi.Enabled = false;
             this.txtKullaniciAdi.Location = new System.Drawing.Point(92, 70);
             this.txtKullaniciAdi.Name = "txtKullaniciAdi";
             this.txtKullaniciAdi.Size = new System.Drawing.Size(329, 22);
@@ -189,7 +192,7 @@
             // grpHashtag
             // 
             this.grpHashtag.Controls.Add(this.btnHastagGrupSil);
-            this.grpHashtag.Controls.Add(this.btnHashtagAdiDuznele);
+            this.grpHashtag.Controls.Add(this.btnGrupHashtag);
             this.grpHashtag.Controls.Add(this.btnHashtagGrupEkle);
             this.grpHashtag.Controls.Add(this.label4);
             this.grpHashtag.Controls.Add(this.label5);
@@ -208,6 +211,7 @@
             // 
             // btnHastagGrupSil
             // 
+            this.btnHastagGrupSil.Enabled = false;
             this.btnHastagGrupSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnHastagGrupSil.Image = ((System.Drawing.Image)(resources.GetObject("btnHastagGrupSil.Image")));
             this.btnHastagGrupSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -220,16 +224,16 @@
             this.btnHastagGrupSil.UseVisualStyleBackColor = true;
             this.btnHastagGrupSil.Click += new System.EventHandler(this.btnHastagGrupSil_Click);
             // 
-            // btnHashtagAdiDuznele
+            // btnGrupHashtag
             // 
-            this.btnHashtagAdiDuznele.Enabled = false;
-            this.btnHashtagAdiDuznele.Location = new System.Drawing.Point(249, 43);
-            this.btnHashtagAdiDuznele.Name = "btnHashtagAdiDuznele";
-            this.btnHashtagAdiDuznele.Size = new System.Drawing.Size(93, 24);
-            this.btnHashtagAdiDuznele.TabIndex = 11;
-            this.btnHashtagAdiDuznele.Text = "Adı Düzenle";
-            this.btnHashtagAdiDuznele.UseVisualStyleBackColor = true;
-            this.btnHashtagAdiDuznele.Click += new System.EventHandler(this.btnHashtagAdiDuznele_Click);
+            this.btnGrupHashtag.Enabled = false;
+            this.btnGrupHashtag.Location = new System.Drawing.Point(249, 43);
+            this.btnGrupHashtag.Name = "btnGrupHashtag";
+            this.btnGrupHashtag.Size = new System.Drawing.Size(93, 24);
+            this.btnGrupHashtag.TabIndex = 11;
+            this.btnGrupHashtag.Text = "Adı Düzenle";
+            this.btnGrupHashtag.UseVisualStyleBackColor = true;
+            this.btnGrupHashtag.Click += new System.EventHandler(this.btnHashtagAdiDuznele_Click);
             // 
             // btnHashtagGrupEkle
             // 
@@ -287,6 +291,7 @@
             // 
             // btnHashtagEkle
             // 
+            this.btnHashtagEkle.Enabled = false;
             this.btnHashtagEkle.Location = new System.Drawing.Point(76, 101);
             this.btnHashtagEkle.Name = "btnHashtagEkle";
             this.btnHashtagEkle.Size = new System.Drawing.Size(120, 35);
@@ -297,6 +302,7 @@
             // 
             // txtHashtagEkle
             // 
+            this.txtHashtagEkle.Enabled = false;
             this.txtHashtagEkle.Location = new System.Drawing.Point(76, 73);
             this.txtHashtagEkle.Name = "txtHashtagEkle";
             this.txtHashtagEkle.Size = new System.Drawing.Size(345, 22);
@@ -324,6 +330,7 @@
             // 
             // btnGrupYorumSil
             // 
+            this.btnGrupYorumSil.Enabled = false;
             this.btnGrupYorumSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnGrupYorumSil.Image = ((System.Drawing.Image)(resources.GetObject("btnGrupYorumSil.Image")));
             this.btnGrupYorumSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -403,6 +410,7 @@
             // 
             // btnYorumEkle
             // 
+            this.btnYorumEkle.Enabled = false;
             this.btnYorumEkle.Location = new System.Drawing.Point(76, 98);
             this.btnYorumEkle.Name = "btnYorumEkle";
             this.btnYorumEkle.Size = new System.Drawing.Size(120, 35);
@@ -413,6 +421,7 @@
             // 
             // txtYorum
             // 
+            this.txtYorum.Enabled = false;
             this.txtYorum.Location = new System.Drawing.Point(76, 70);
             this.txtYorum.Name = "txtYorum";
             this.txtYorum.Size = new System.Drawing.Size(345, 22);
@@ -420,6 +429,7 @@
             // 
             // btnDuzenle
             // 
+            this.btnDuzenle.Enabled = false;
             this.btnDuzenle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnDuzenle.Image = ((System.Drawing.Image)(resources.GetObject("btnDuzenle.Image")));
             this.btnDuzenle.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -427,12 +437,14 @@
             this.btnDuzenle.Name = "btnDuzenle";
             this.btnDuzenle.Size = new System.Drawing.Size(130, 50);
             this.btnDuzenle.TabIndex = 16;
-            this.btnDuzenle.Text = "Düzenle";
+            this.btnDuzenle.Text = "Düzelt";
             this.btnDuzenle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDuzenle.UseVisualStyleBackColor = true;
+            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click_1);
             // 
             // btnSil
             // 
+            this.btnSil.Enabled = false;
             this.btnSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSil.Image = ((System.Drawing.Image)(resources.GetObject("btnSil.Image")));
             this.btnSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -454,6 +466,7 @@
             this.lstBx.Name = "lstBx";
             this.lstBx.Size = new System.Drawing.Size(316, 464);
             this.lstBx.TabIndex = 14;
+            this.lstBx.SelectedIndexChanged += new System.EventHandler(this.lstBx_SelectedIndexChanged);
             // 
             // Ayarlar
             // 
@@ -496,7 +509,7 @@
         private System.Windows.Forms.TextBox txtKullaniciAdi;
         private System.Windows.Forms.GroupBox grpHashtag;
         private System.Windows.Forms.Button btnHastagGrupSil;
-        private System.Windows.Forms.Button btnHashtagAdiDuznele;
+        private System.Windows.Forms.Button btnGrupHashtag;
         private System.Windows.Forms.Button btnHashtagGrupEkle;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

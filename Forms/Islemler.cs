@@ -38,8 +38,8 @@ namespace InstaBot.Forms
         {
             Komutlar.VeriyiAlacak(this); //Komutlar Classından verileri almak için gerekli ayar
             KulHasListeVerileri();
-            KayitliAyarlar();
             YorumGrubu();
+            KayitliAyarlar();
         }
         public void VeriyiAl(ISubject subject)
         {
@@ -75,16 +75,25 @@ namespace InstaBot.Forms
 
         private void KayitliAyarlar() //Enson seçtiği işlem ayarlarını veritabanından çekiyoruz ve formdaki ilgili kısımları dolduruyoruz
         {
+            txtKullaniciAdi.Text = Secimler.GirisBilgileri.kullaniciAdi;
+            txtSifre.Text = Secimler.GirisBilgileri.sifre;
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Giriş bilgileri
             chckBegen.Checked = Secimler.Begen.begenecekMi;
             nmrcBegeniSayisi.Value = Secimler.Begen.begeniSayisi;
             chckAnaSayfaBegen.Checked = Secimler.Begen.anaSayfaBegen;
+            nmrcAnaSySayi.Value = Secimler.Begen.anaSyBegeniSayisi;
             lblBegeniSayisi.Text = Secimler.Begen.yapilanBegeniSayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Begen
 
             chckYorumYap.Checked = Secimler.YorumYap.yorumYapacakMi;
             nmrcYorumSayisi.Value = Secimler.YorumYap.yorumSayisi;
             chckYorumRasgele.Checked = Secimler.YorumYap.rasgeleHarfEkle;
-            cmbYorumGrubu.Text = Secimler.YorumYap.yorumGrubu;
+
+            if (Secimler.YorumGrubu.Contains(Secimler.YorumYap.yorumGrubu)) // Son yapıulan yorum grubu eğer silinmediyse
+            {
+                cmbYorumGrubu.Text = Secimler.YorumYap.yorumGrubu;
+            }
+            
             lblYorumSayisi.Text = Secimler.YorumYap.yapilanYorumSayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ YorumYap
 
@@ -181,7 +190,18 @@ namespace InstaBot.Forms
         private void chckYorumYap_CheckedChanged(object sender, EventArgs e)
         {
             if (chckYorumYap.Checked == true)
-                pnlYorum.Enabled = true;
+            {
+                if (cmbYorumGrubu.Items.Count>0)
+                {
+                    pnlYorum.Enabled = true;
+                }
+                else
+                {
+                    pnlYorum.Enabled = false;
+                    chckYorumYap.Checked = false;
+                    MessageBox.Show("Lütfen Yorum grubu oluşturunuz!", "Yorum Yok", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             else
                 pnlYorum.Enabled = false;
 
@@ -193,19 +213,23 @@ namespace InstaBot.Forms
         }
         private void cmbYorumGrubu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int sayac = 1;
-            Secimler.YorumYap.yorumGrubu = cmbYorumGrubu.Text;
-
-            lstBxYapilan.Items.Clear();
-            lstBxYapilan.Items.Add("Seçitiği yorum grubundaki yorumlar");
-            foreach (var item in Secimler.ListYorumlar) // Yorum seçilince içindeki yorumları gösteriyoruz
+            if (Secimler.YorumYap.yorumYapacakMi) // Açılınca ycmbyorum dolduruluyor ve listboxta gösteriliyor adam yorum yapmıcaksa göstermesin
             {
-                if (item.grupAdi == cmbYorumGrubu.Text)
+                int sayac = 1;
+                Secimler.YorumYap.yorumGrubu = cmbYorumGrubu.Text;
+
+                lstBxYapilan.Items.Clear();
+                lstBxYapilan.Items.Add("Seçitiği yorum grubundaki yorumlar");
+                foreach (var item in Secimler.ListYorumlar) // Yorum seçilince içindeki yorumları gösteriyoruz
                 {
-                    lstBxYapilan.Items.Add(sayac.ToString()+" -> "+item.yorum);
-                    sayac++;
+                    if (item.grupAdi == cmbYorumGrubu.Text)
+                    {
+                        lstBxYapilan.Items.Add(sayac.ToString() + " -> " + item.yorum);
+                        sayac++;
+                    }
                 }
             }
+            
         }
         private void chckYorumRasgele_CheckedChanged(object sender, EventArgs e)
         {
@@ -669,5 +693,9 @@ namespace InstaBot.Forms
             Secimler.IstekKontrol.kontrolSayisi = Convert.ToInt32(nmrcMaxKontrolSayisi.Value);
         }
 
+        private void nmrcAnaSySayi_ValueChanged(object sender, EventArgs e)
+        {
+            Secimler.Begen.anaSyBegeniSayisi = Convert.ToInt32(nmrcAnaSySayi.Value);
+        }
     }
 }

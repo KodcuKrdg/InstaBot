@@ -14,7 +14,7 @@ namespace InstaBot.CssSelector
         public string kullaniciAdiText { get; set; }
         public string sifreText { get; set; }
         public string guvenlikMsjText { get; set; }
-        public string bilgiButton { get; set; }
+        public string kayitButon { get; set; }
         public string bildirimleriAcButton { get; set; }
     }
 }

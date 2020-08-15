@@ -335,29 +335,28 @@ namespace InstaBot.Codes
             parola.SendKeys(Secimler.GirisBilgileri.sifre); //Buraya süre eklene bilir şifreyi yazınca direk enter tuşuna basıyor
             parola.SendKeys(OpenQA.Selenium.Keys.Enter);
 
+            Thread.Sleep(random.Next(2000, 3000));
+
             if (webDriver.Url== "https://www.instagram.com/accounts/login/two_factor?next=%2F") //2 adımlı doğrulama varsa
             {
-                Thread.Sleep(random.Next(1000, 2000));
-                var guvenlikMsjText = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.guvenlikMsjText));
-
                 Application.OpenForms[0].Activate();
 
                 string IsimGirisi = Interaction.InputBox("Bilgi Girişi", "Adınızı Giriniz.");
+                var guvenlikMsjText = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.guvenlikMsjText));
                 guvenlikMsjText.SendKeys(IsimGirisi);
+                guvenlikMsjText.SendKeys(OpenQA.Selenium.Keys.Enter);
 
                 Thread.Sleep(1000);
-                guvenlikMsjText.SendKeys(OpenQA.Selenium.Keys.Enter);
             }
             Thread.Sleep(random.Next(1000, 2000));
 
-            var bilgi = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.bilgiButton));
-            bilgi.Click();
-            Thread.Sleep(random.Next(1000, 2000));
-
-            var bildirimleriAc = webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.bildirimleriAcButton));
-            bildirimleriAc.Click();
+            webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.kayitButon)).Click();
 
             Thread.Sleep(random.Next(1000, 2000));
+
+            webDriver.FindElement(By.CssSelector(CssSelectorler.GirisEkrani.bildirimleriAcButton)).Click();
+
+            
 
         }
         private void AnaSayfaBegen() 
@@ -428,7 +427,7 @@ namespace InstaBot.Codes
                     }
                     catch (Exception)
                     {
-                        beğeniSayisi++;
+                        SayacAnaSyBegen--;
                         Bilgi = "Anasayfadaki paylaşımı beğenirken bir hata ile karşılaşıldı.";
                         VeriHazir();
                     }
@@ -483,7 +482,7 @@ namespace InstaBot.Codes
                     else
                         bilgi = "";
                     // gönderi yoruma açık değilse null değeri döndürüyor
-                    if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.YorumyapBegen.yorumYapma + "')") != null)
+                    if (js.ExecuteScript("return document.querySelector('" + CssSelectorler.YorumyapBegen.yorumYapma + "')") != null) //yorumYapma clkasını değiştir
                     {
                         metinKutusu = webDriver.FindElement(By.CssSelector(CssSelectorler.YorumyapBegen.yorumYeri)).FindElement(By.TagName("textarea")); // yorum yerine tıklayınca text kısmı açılıyor o yüzden iki kere tanımlıyoruz
                         metinKutusu.Click();
@@ -512,6 +511,7 @@ namespace InstaBot.Codes
                 }
                 catch (Exception)
                 {
+                    SayacYorumYap--; 
                     Bilgi = "Yorum yapılırken bir hatai le karşılaşıldı.";
                     VeriHazir();
                 }
@@ -572,6 +572,7 @@ namespace InstaBot.Codes
                 }
                 catch 
                 {
+                    SayacTakipEt--;
                     Bilgi = "Takip isteği göndderilirken hata ile karşılaşıldı.";
                     VeriHazir();
                 }
@@ -797,6 +798,7 @@ namespace InstaBot.Codes
             }
             catch (Exception)
             {
+                SayacTakiptenCik--;
                 Bilgi = "Takipten çıkarken bir hata ile karşılaşıldı";
                 VeriHazir();
             }
@@ -904,6 +906,7 @@ namespace InstaBot.Codes
                     }
                     catch (Exception)
                     {
+                        SayacIstekKontrol--;
                         Bilgi = "İstek Kontrol edilirken bir hata ile karşılaşıldı.";
                         VeriHazir();
                     }

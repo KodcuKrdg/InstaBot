@@ -38,9 +38,7 @@ namespace InstaBot.Codes
                         girisEkrani.kullaniciAdiText = veriler["kullaniciAdiText"].ToString();
                         girisEkrani.sifreText = veriler["sifreText"].ToString();
                         girisEkrani.guvenlikMsjText = veriler["guvenlikMsjText"].ToString();
-                        girisEkrani.bilgiButton = veriler["bilgiButton"].ToString();
-                        girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
-                        girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
+                        girisEkrani.kayitButon = veriler["kayitButon"].ToString();
                         girisEkrani.bildirimleriAcButton = veriler["bildirimleriAcButton"].ToString();
                     }
 

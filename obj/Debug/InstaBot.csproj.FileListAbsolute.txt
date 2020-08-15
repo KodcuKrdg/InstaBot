@@ -27,7 +27,6 @@ D:\Kodlar\C#\InstaBot\bin\Debug\System.ValueTuple.xml
 D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.xml
 D:\Kodlar\C#\InstaBot\bin\Debug\WebDriver.Support.xml
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.AnaSayfa.resources
-D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Ayarlar.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Gonderiler.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_FinishTime.resources
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.MyDesign.My_Post.resources
@@ -37,5 +36,17 @@ D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csproj.CoreCompileInputs.cache
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csproj.CopyComplete
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.exe
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.pdb
-D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Islemler.resources
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Listeler.resources
+D:\Kodlar\C#\InstaBot\bin\Debug\Newtonsoft.Json.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\Newtonsoft.Json.xml
+D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.dll
+D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.pdb
+D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.xml
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Guncelleme.resources
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.TrustInfo.xml
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.exe.manifest
+D:\Kodlar\C#\InstaBot\bin\Debug\InstaBot.exe.manifest
+D:\Kodlar\C#\InstaBot\bin\Debug\InstaBot.application
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.application

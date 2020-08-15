@@ -1,5 +1,6 @@
 ﻿using InstaBot.BaseClass;
 using InstaBot.Codes;
+using InstaBot.Kullanicidan;
 using InstaBot.Kullanicidan.BaseClass;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace InstaBot.Database
     {
         private VeriTabani() 
         {
+            AyarlarVeritabani ayarlarVeritabani = AyarlarVeritabani.GetInstance();
             KullaniciHashtagYorumAl();
             IstekAtilanHesaplar();
         }
@@ -35,7 +37,48 @@ namespace InstaBot.Database
 
         SQLiteConnection Baglan = new SQLiteConnection("Data Source=Database.db;Password=Database5441");
         SQLiteCommand Sorgu;
+        public string[] VersiyonlariAl()
+        {
+            string[] versiyonlar = new string[2];
+            Sorgu = Baglan.CreateCommand();
+            Sorgu.CommandText = "SELECT * FROM tbl_Versiyon";
+            Baglan.Open();
+            using (var veriler = Sorgu.ExecuteReader())
+            {
+                while (veriler.Read())
+                {
+                    versiyonlar[0] = veriler["guncellemeApVer"].ToString();
+                    versiyonlar[1] = veriler["ApVer"].ToString();
+                }
+            }
+            Baglan.Close();
+            Sorgu.Dispose();
 
+            return versiyonlar;
+        }
+
+        public void VersiyonlariGuncelle(string hangisi,string versiyon)
+        {
+            Sorgu = Baglan.CreateCommand();
+            Baglan.Open();
+            if (hangisi == "guncellemeApVer")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Versiyon set guncellemeApVer=@versiyon";
+            }
+            else if (hangisi == "ApVer")
+            {
+                Sorgu.CommandText = "UPDATE tbl_Versiyon set apVer=@versiyon";
+            }
+            
+
+            Sorgu.Parameters.AddWithValue("@versiyon", versiyon);
+
+            Sorgu.ExecuteNonQuery();
+
+            Baglan.Close();
+            Sorgu.Dispose();
+
+        }
         public void KullaniciHashtagYorumAl()
         {
             Secimler.ListHashtags.Clear();
@@ -109,7 +152,6 @@ namespace InstaBot.Database
             Baglan.Close();
             Sorgu.Dispose();
         }
-
         public void KullaniciHashtagYorumEkle(string nereye,string grupAdi,string eklenen) //Kullanici Hashtag grubunun içindeki yeni veri ekleme kısmı
         {
             Sorgu = Baglan.CreateCommand();
@@ -137,7 +179,6 @@ namespace InstaBot.Database
 
             KullaniciHashtagYorumAl();// YEni Bir değer eklenince ListHashtag ve ListKullanici Adi Classları tekrardan doldurulsun diye
         }
-
         public void GrupAdlariniGuncelle(string nereye, string eskiAd, string yeniAd)
         {
             Sorgu = Baglan.CreateCommand();

@@ -10,6 +10,6 @@ namespace InstaBot.BaseClass
     {
         public bool resimAlsinMi { get; set; }
         public int resimSayisi { get; set; }
-        public string alinanResimSayisi { get; set; }
+        public int alinanResimSayisi { get; set; }
     }
 }

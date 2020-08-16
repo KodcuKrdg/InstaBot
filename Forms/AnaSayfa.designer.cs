@@ -43,7 +43,7 @@
             // 
             // pnlUst
             // 
-            this.pnlUst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pnlUst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.pnlUst.Controls.Add(this.btnGonderi);
             this.pnlUst.Controls.Add(this.btnList);
             this.pnlUst.Controls.Add(this.pcLogo);
@@ -124,7 +124,7 @@
             // 
             // pnlSag
             // 
-            this.pnlSag.BackColor = System.Drawing.Color.White;
+            this.pnlSag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.pnlSag.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSag.Location = new System.Drawing.Point(0, 60);
             this.pnlSag.Name = "pnlSag";

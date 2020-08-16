@@ -12,6 +12,7 @@ using InstaBot.BaseClass;
 using InstaBot.Database;
 using InstaBot.Codes.BaseVeriHavuzu;
 using InstaBot.Forms;
+using InstaBot.Kullanicidan;
 
 namespace InstaBot.Codes
 {
@@ -36,9 +37,10 @@ namespace InstaBot.Codes
         KullaniciSecimleri Secimler = KullaniciSecimleri.GetInstance();
         VeriHavuzu VeriHavuzu = VeriHavuzu.GetInstance();
         VeriTabani VeriTabani = VeriTabani.GetInstance();
+        AyarlarVeritabani AyarlarVeritabani = AyarlarVeritabani.GetInstance();
 
         Random random = new Random();
-
+        private List<string> YapilacakYorumlar = new List<string>();
 
         //ISubject İşlemleri
         private List<IObserver> _observers = new List<IObserver>(); // Veri lerin iletileceği Classlar
@@ -80,7 +82,8 @@ namespace InstaBot.Codes
         {
             VeriHavuzu.PaylasimLinki.Clear(); 
             VeriHavuzu.TakipEdilecekler.Clear();
-           
+            YapilacakYorumlar.Clear();
+
             ThYapilacaklar = new Thread(Yapilacaklar);
             ThYapilacaklar.Start();
         }
@@ -108,6 +111,7 @@ namespace InstaBot.Codes
             
         }
 
+        [Obsolete]
         private void Yapilacaklar()
         {
             try
@@ -233,6 +237,7 @@ namespace InstaBot.Codes
             {
                 Bilgi = "Tüm işlemler bitmiştir.";
                 VeriHazir();
+                Bitir();
             }
 
         }
@@ -279,6 +284,20 @@ namespace InstaBot.Codes
                     GirYorumYap = true;
 
                     SayacYorumYap = Secimler.YorumYap.yorumSayisi;
+
+                    if (Secimler.YorumYap.rasgeleHarfEkle)
+                    {
+                        foreach (var item in Secimler.ListYorumlar) // Yapılacak Yorumlar
+                        {
+                            if (item.grupAdi == Secimler.YorumYap.yorumGrubu)
+                            {
+                                if (Secimler.YorumYap.rasgeleHarfEkle)
+                                    YapilacakYorumlar.Add(item.yorum + " " + item.yorum.Substring(random.Next(item.yorum.Length - 1), 1)); // burada yorumun için rasgele bir harf seçtik ve sonuna bir boşluk ekleyip harfi yerleştirdik yorumu farklılaştırdık
+                                else
+                                    YapilacakYorumlar.Add(item.yorum);
+                            }
+                        }
+                    }
                 }
                 else
                     GirYorumYap = false;
@@ -319,6 +338,7 @@ namespace InstaBot.Codes
             else
                 GirIstekKontrol = false;
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip Kontrol
+
         }
         private void GirisYap()
         {
@@ -435,6 +455,10 @@ namespace InstaBot.Codes
                 }
             }
             catch {}
+            finally
+            {
+                AyarlarVeritabani.IslemSayisi("Begen");
+            }
             
         }
         private void YorumYap() 
@@ -519,6 +543,7 @@ namespace InstaBot.Codes
 
             }
 
+            AyarlarVeritabani.IslemSayisi("Yorum");
             VeriTabani.ResimVideoLinkiKaydet();
         }
         private void TakipEt()
@@ -583,6 +608,7 @@ namespace InstaBot.Codes
 
             }
             //Yapılan işleri veritabanına kaydedilen yer
+            AyarlarVeritabani.IslemSayisi("TakipEt");
             VeriTabani.TakipEdilenKaydet();
             
         }
@@ -801,6 +827,10 @@ namespace InstaBot.Codes
                 SayacTakiptenCik--;
                 Bilgi = "Takipten çıkarken bir hata ile karşılaşıldı";
                 VeriHazir();
+            }
+            finally
+            {
+                AyarlarVeritabani.IslemSayisi("TakiptenCik");
             }
             
         }

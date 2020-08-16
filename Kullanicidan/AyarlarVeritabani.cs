@@ -52,12 +52,12 @@ namespace InstaBot.Kullanicidan
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Giris Bilgileri
                     Secimler.ResimAl.resimAlsinMi = Convert.ToBoolean(veriler["resimAlsinMi"]);
                     Secimler.ResimAl.resimSayisi = Convert.ToInt32(veriler["resimSayisi"]);
-                    Secimler.ResimAl.alinanResimSayisi = veriler["alinanResimSayisi"].ToString();
+                    Secimler.ResimAl.alinanResimSayisi = Convert.ToInt32(veriler["alinanResimSayisi"].ToString());
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Al
                     Secimler.ResimPaylas.resimPaylasacakMi = Convert.ToBoolean(veriler["resimPaylasacakMi"]);
                     Secimler.ResimPaylas.resimGrubu = veriler["resimGrubu"].ToString();
                     Secimler.ResimPaylas.paylasimSayisi = Convert.ToInt32(veriler["paylasimSayisi"]);
-                    Secimler.ResimPaylas.yapilanPySayisi = veriler["yapilanPySayisi"].ToString();
+                    Secimler.ResimPaylas.yapilanPySayisi = Convert.ToInt32(veriler["yapilanPySayisi"].ToString());
                     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Paylaş
                     Secimler.TakipEt.takipEdicekMi = Convert.ToBoolean(veriler["takipEdicekMi"]);
                     Secimler.TakipEt.yorumlardanTkpEt = Convert.ToBoolean(veriler["yorumlardanTkpEt"]);
@@ -98,6 +98,8 @@ namespace InstaBot.Kullanicidan
 
             Baglan.Close();
             Sorgu.Dispose();
+
+            TarihSıfırla();
         } // Kulanıcının enson işlem yaptığı ayarları veritabanından aldık
 
         public void AyarlarıKaydet()
@@ -197,8 +199,110 @@ namespace InstaBot.Kullanicidan
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Bekleme Sureleri
             Baglan.Close();
             Sorgu.Dispose();
-
         } // işleme başladığı anda ayarları veritabanına ekledik
-        
+        private void TarihSıfırla() 
+        {
+            string tarih = null;
+            Sorgu = Baglan.CreateCommand();
+            Sorgu.CommandText = "SELECT * FROM tbl_Tarih WHERE tarih<date()";
+            Baglan.Open();
+
+            using (var veriler = Sorgu.ExecuteReader()) // Gün içinde yapılan işlemn sayısını bir sonraki gün sıfırlamak için 
+            {
+                while (veriler.Read())
+                {
+                    tarih = veriler["tarih"].ToString();
+                }
+            }
+
+            if (tarih != null)
+            {
+                Secimler.Begen.yapilanBegeniSayisi = 0;
+                Secimler.YorumYap.yapilanYorumSayisi = 0;
+                Secimler.TakipEt.takipEdilenSayi = 0;
+                Secimler.TakiptenCik.takiptenCikarilanSayi = 0;
+                Secimler.ResimAl.alinanResimSayisi = 0;
+                Secimler.ResimPaylas.yapilanPySayisi = 0;
+
+
+                Sorgu.CommandText = "UPDATE tbl_Begen SET yapilanBegeniSayisi=@yapilanBegeniSayisi";
+                Sorgu.Parameters.AddWithValue("@yapilanBegeniSayisi", Secimler.Begen.yapilanBegeniSayisi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_YorumYap SET yapilanYorumSayisi=@yapilanYorumSayisi";
+                Sorgu.Parameters.AddWithValue("@yapilanYorumSayisi", Secimler.YorumYap.yapilanYorumSayisi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_TakipEt SET takipEdilenSayi=@takipEdilenSayi";
+                Sorgu.Parameters.AddWithValue("@takipEdilenSayi", Secimler.TakipEt.takipEdilenSayi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_TakiptenCik SET takiptenCikarilanSayi=@takiptenCikarilanSayi";
+                Sorgu.Parameters.AddWithValue("@takiptenCikarilanSayi", Secimler.TakiptenCik.takiptenCikarilanSayi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_ResimAl SET alinanResimSayisi=@alinanResimSayisi";
+                Sorgu.Parameters.AddWithValue("@alinanResimSayisi", Secimler.ResimAl.alinanResimSayisi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_ResimPaylas SET yapilanPySayisi=@yapilanPySayisi";
+                Sorgu.Parameters.AddWithValue("@yapilanPySayisi", Secimler.ResimPaylas.yapilanPySayisi.ToString());
+                Sorgu.ExecuteNonQuery();
+
+                Sorgu.CommandText = "UPDATE tbl_Tarih SET tarih=date()"; //Tarihi günceledik
+                Sorgu.ExecuteNonQuery();
+            }
+            Baglan.Close();
+            Sorgu.Dispose();
+        }
+        public void IslemSayisi(string tablo)
+        {
+            TarihSıfırla();
+            Sorgu = Baglan.CreateCommand();
+
+            switch (tablo)
+            {
+                case "Begen": 
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_Begen SET yapilanBegeniSayisi=@yapilanBegeniSayisi";
+                        Sorgu.Parameters.AddWithValue("@yapilanBegeniSayisi", Secimler.Begen.yapilanBegeniSayisi.ToString());
+                        break;
+                    }
+                case "Yorum":
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_YorumYap SET yapilanYorumSayisi=@yapilanYorumSayisi";
+                        Sorgu.Parameters.AddWithValue("@yapilanYorumSayisi", Secimler.YorumYap.yapilanYorumSayisi.ToString());
+                        break;
+                    }
+                case "TakipEt":
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_TakipEt SET takipEdilenSayi=@takipEdilenSayi";
+                        Sorgu.Parameters.AddWithValue("@takipEdilenSayi", Secimler.TakipEt.takipEdilenSayi.ToString());
+                        break;
+                    }
+                case "TakiptenCik":
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_TakiptenCik SET takiptenCikarilanSayi=@takiptenCikarilanSayi";
+                        Sorgu.Parameters.AddWithValue("@takiptenCikarilanSayi", Secimler.TakiptenCik.takiptenCikarilanSayi.ToString());
+                        break;
+                    }
+                case "ResimAl":
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_ResimAl SET alinanResimSayisi=@alinanResimSayisi";
+                        Sorgu.Parameters.AddWithValue("@alinanResimSayisi", Secimler.ResimAl.alinanResimSayisi.ToString());
+                        break;
+                    }
+                case "ResimPaylas":
+                    {
+                        Sorgu.CommandText = "UPDATE tbl_ResimPaylas SET yapilanPySayisi=@yapilanPySayisi";
+                        Sorgu.Parameters.AddWithValue("@yapilanPySayisi", Secimler.ResimPaylas.yapilanPySayisi.ToString());
+                        break;
+                    }
+            }
+            Baglan.Open();
+            Sorgu.ExecuteNonQuery();
+            Sorgu.Dispose();
+            Baglan.Close();
+        }
     }
 }

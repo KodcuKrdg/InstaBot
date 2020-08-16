@@ -280,7 +280,6 @@ namespace InstaBot.Database
             Baglan.Close();
             Sorgu.Dispose();
         }
-
         public void TakipEdilenKaydet() //ListTakipBilgisi takip edilen hesapların linki ve gizli mi onun bilgisini aktarılmasına yardımcı olan class
         {
             if (VeriHavuzu.TakipEdilenHesaplar.Count>0)
@@ -303,9 +302,9 @@ namespace InstaBot.Database
             }
             
         }
-
         public void IstekAtilanHesaplar() // İstek atılan hesapların veri tabanından bilgilerinin alındığı yer 
         {
+            VeriHavuzu.IstekAtilanHesaplar.Clear();
             Sorgu = Baglan.CreateCommand();
             Sorgu.CommandText = "SELECT * FROM tbl_TakipAtilan WHERE kimAtti=@kimAtti and tarih<date()"; // "tarih<date()" kaydedilen tarih eğer bugün değilse
             Sorgu.Parameters.AddWithValue("@kimAtti", Secimler.GirisBilgileri.kullaniciAdi);
@@ -329,7 +328,6 @@ namespace InstaBot.Database
 
             Secimler.IstekKontrol.IstekSayisi = VeriHavuzu.IstekAtilanHesaplar.Count; // Veritabanında kaçtane istek atılan hesap bilgisi varsa kulanıcıya sayısını göstermek için
         }
-
         public void IstekleriSil() // İstek atılan hesapları kabul etmişmi ontrol edip siliyoruz
         {
             if (VeriHavuzu.SilinecekIstekIdler.Count > 0)
@@ -350,7 +348,6 @@ namespace InstaBot.Database
             }
             
         }
-
         public void ResimVideoLinkiKaydet() // hashtagten/profilden alınan resimleri bilgilerini veritabanına kaydediyoruz
         {
             if (VeriHavuzu.AlinanResimVidoe.Count>0)

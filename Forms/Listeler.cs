@@ -786,7 +786,6 @@ namespace InstaBot.Forms
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-
             if (MessageBox.Show("'"+listedekiDeger[lstBx.SelectedIndex].anaDeger + "' silinicektir!", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 int sayac = 1;
@@ -842,6 +841,9 @@ namespace InstaBot.Forms
                     lstBx.Items.Add(sayac.ToString() + " -> " + item.anaDeger);
                     sayac++;
                 }
+
+                btnDuzenle.Enabled = false;
+                btnSil.Enabled = false;
             }
         }
 

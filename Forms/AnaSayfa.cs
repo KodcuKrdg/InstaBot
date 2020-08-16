@@ -26,38 +26,15 @@ namespace InstaBot
         VeriTabani VeriTabani = VeriTabani.GetInstance();
         private void AnaSayfa_Load(object sender, EventArgs e)
         {
-            string adres = "https://karadagyazilim.com/versiyon.php";
-            string gelenHamVeri, apVer, guncellemeApVer;
-
-            WebClient client = new WebClient();
-            Stream stream = client.OpenRead(adres);
-            StreamReader streamReader = new StreamReader(stream);
-
-            gelenHamVeri = streamReader.ReadToEnd();
-
-            apVer = gelenHamVeri.Split('/')[0].Split('=')[1]; // versiyonları aldık 
-            guncellemeApVer = gelenHamVeri.Split('/')[1].Split('=')[1];
-
-            var versiyonlar = VeriTabani.VersiyonlariAl();
-            if (guncellemeApVer!= versiyonlar[0]) //Guncelleme uygulamanın versiyonu
-            {
-                Guncelleme guncelleme = new Guncelleme();
-                guncelleme.versiyon = guncellemeApVer;
-                guncelleme.Show();
-            }
-
-            if (guncellemeApVer != versiyonlar[1])
-            {
-            }
-
+                BtnIslem_Click(BtnIslem, new EventArgs());
         }
 
         [Obsolete]
         private void pcCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
             Komutlar komutlar = Komutlar.GetInstance();
             komutlar.Bitir();
+            this.Close();
         }
 
         private bool mouseDown; //Formu sürüklemek için
@@ -86,7 +63,7 @@ namespace InstaBot
         public void openChildForm(Form childForm)
         {
             if (activeForm != null)
-                activeForm.Close();
+                activeForm.Hide();
 
             activeForm = childForm;
             childForm.TopLevel = false;
@@ -97,25 +74,41 @@ namespace InstaBot
             childForm.BringToFront();
             childForm.Show();
         }
-
+        Islemler Islemler;
         private void pcLogo_Click(object sender, EventArgs e)
         {
-            openChildForm(new Islemler());
+            if (Islemler==null)
+            {
+                Islemler = new Islemler();
+            }
+            openChildForm(Islemler);
         }
 
         private void BtnIslem_Click(object sender, EventArgs e)
         {
-            openChildForm(new Islemler());
+            if (Islemler == null)
+            {
+                Islemler = new Islemler();
+            }
+            openChildForm(Islemler);
         }
-
+        Listeler listeler;
         private void btnList_Click(object sender, EventArgs e)
         {
-            openChildForm(new Listeler());
+            if (listeler == null)
+            {
+                listeler = new Listeler();
+            }
+            openChildForm(listeler);
         }
-
+        Gonderiler gonderiler;
         private void btnGonderi_Click(object sender, EventArgs e)
         {
-            openChildForm(new Gonderiler());
+            if (gonderiler == null)
+            {
+                gonderiler = new Gonderiler();
+            }
+            openChildForm(gonderiler);
         }
     }
 }

@@ -131,17 +131,22 @@ namespace InstaBot.Forms
                 chckIstekKontrol.Checked = false;
                 chckIstekKontrol.Enabled = false;
             }
+            else
+            {
+                chckIstekKontrol.Checked = true;
+                chckIstekKontrol.Enabled = true;
+            }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Takip İsteği Kontrol
 
             chckResimAl.Checked = Secimler.ResimAl.resimAlsinMi;
             nmrcResimAlmaSayisi.Value = Secimler.ResimAl.resimSayisi;
-            lblResimSayisi.Text = Secimler.ResimAl.alinanResimSayisi;
+            lblResimSayisi.Text = Secimler.ResimAl.alinanResimSayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Al
 
             chckResimYukle.Checked = Secimler.ResimPaylas.resimPaylasacakMi;
             cmbResimPaylas.Text = Secimler.ResimPaylas.resimGrubu;
             nmrcResimPySayisi.Value = Secimler.ResimPaylas.paylasimSayisi;
-            lblResimPaylasimSay.Text = Secimler.ResimPaylas.yapilanPySayisi;
+            lblResimPaylasimSay.Text = Secimler.ResimPaylas.yapilanPySayisi.ToString();
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Resim Paylaş
             //Bu çarpma işlemleri veritabanına milisaniye cinsinden karşılığğını kaydettiğimiz için ekrana saniye cinsine çevirdik
             nmrcBegeniMinSr.Value = Secimler.Sureler.minBegen / 1000;
@@ -239,7 +244,15 @@ namespace InstaBot.Forms
         private void chckTakipEt_CheckedChanged(object sender, EventArgs e)
         {
             if (chckTakipEt.Checked == true)
+            {
                 pnlTakipEt.Enabled = true;
+                if (chckYorumYapanlardan.Enabled)
+                {
+                    chckYorumYapanlardan.Checked = true;
+                }
+                else
+                    chckTakipçilerini.Checked = true;
+            }
             else
                 pnlTakipEt.Enabled = false;
 
@@ -637,9 +650,22 @@ namespace InstaBot.Forms
             if (btnBaslat.Text == "Başlat")
             {
                 
-                if (Secimler.YorumYap.yorumYapacakMi || Secimler.TakipEt.takipEdicekMi)
+                if (Secimler.YorumYap.yorumYapacakMi || Secimler.TakipEt.takipEdicekMi) // chckliste seçilecek bireşy yok ve seçim yapmamış
                 {
-                    if (chckLst.CheckedItems.Count == 0)
+                    if (chckLst.Items.Count==0 && chckLst.CheckedItems.Count == 0)
+                    {
+                        if (rdHashtag.Checked)
+                        {
+                            MessageBox.Show("Hiç hashtag yoktur. Lütfen 'Listeler' sayfasından hashtag ekleyin!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        if (rdKullaniciAdi.Checked)
+                        {
+                            MessageBox.Show("Hiç kulanıcı adı yoktur. Lütfen 'Listeler' sayfasından kullanıcı adı ekleyin!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        
+                    }
+                    else if (chckLst.CheckedItems.Count == 0) // Chckliste seçilecek değer var fakat seçim yapmamış
                     {
                         MessageBox.Show("Lütfen Hashtag veya Kullanıcı Adi seçin!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -681,7 +707,6 @@ namespace InstaBot.Forms
             }
             else
             {
-
                 Komutlar.Bitir();
                 IslemleriKapaAc(true);
                 btnBaslat.Text = "Başlat";
@@ -696,6 +721,13 @@ namespace InstaBot.Forms
         private void nmrcAnaSySayi_ValueChanged(object sender, EventArgs e)
         {
             Secimler.Begen.anaSyBegeniSayisi = Convert.ToInt32(nmrcAnaSySayi.Value);
+        }
+
+        private void txtKullaniciAdi_TextChanged(object sender, EventArgs e)
+        {
+            Secimler.GirisBilgileri.kullaniciAdi = txtKullaniciAdi.Text;
+            VeriTabani.IstekAtilanHesaplar();
+            KayitliAyarlar();
         }
     }
 }

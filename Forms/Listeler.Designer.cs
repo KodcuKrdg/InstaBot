@@ -72,6 +72,7 @@
             // 
             // grpKullanicilar
             // 
+            this.grpKullanicilar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
             this.grpKullanicilar.Controls.Add(this.btnKullaniciGrupSil);
             this.grpKullanicilar.Controls.Add(this.btnKullaniciGrupAdi);
             this.grpKullanicilar.Controls.Add(this.btnKullaniciGrupEkle);
@@ -83,7 +84,8 @@
             this.grpKullanicilar.Controls.Add(this.btnKullaniciEkle);
             this.grpKullanicilar.Controls.Add(this.txtKullaniciAdi);
             this.grpKullanicilar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.grpKullanicilar.Location = new System.Drawing.Point(18, 366);
+            this.grpKullanicilar.ForeColor = System.Drawing.Color.White;
+            this.grpKullanicilar.Location = new System.Drawing.Point(18, 375);
             this.grpKullanicilar.Name = "grpKullanicilar";
             this.grpKullanicilar.Size = new System.Drawing.Size(430, 140);
             this.grpKullanicilar.TabIndex = 19;
@@ -92,6 +94,7 @@
             // 
             // btnKullaniciGrupSil
             // 
+            this.btnKullaniciGrupSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnKullaniciGrupSil.Enabled = false;
             this.btnKullaniciGrupSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnKullaniciGrupSil.Image = ((System.Drawing.Image)(resources.GetObject("btnKullaniciGrupSil.Image")));
@@ -99,31 +102,33 @@
             this.btnKullaniciGrupSil.Location = new System.Drawing.Point(348, 14);
             this.btnKullaniciGrupSil.Name = "btnKullaniciGrupSil";
             this.btnKullaniciGrupSil.Size = new System.Drawing.Size(73, 49);
-            this.btnKullaniciGrupSil.TabIndex = 6;
+            this.btnKullaniciGrupSil.TabIndex = 15;
             this.btnKullaniciGrupSil.Text = "Sil";
             this.btnKullaniciGrupSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnKullaniciGrupSil.UseVisualStyleBackColor = true;
+            this.btnKullaniciGrupSil.UseVisualStyleBackColor = false;
             this.btnKullaniciGrupSil.Click += new System.EventHandler(this.btnKullaniciGrupSil_Click);
             // 
             // btnKullaniciGrupAdi
             // 
+            this.btnKullaniciGrupAdi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnKullaniciGrupAdi.Enabled = false;
             this.btnKullaniciGrupAdi.Location = new System.Drawing.Point(249, 40);
             this.btnKullaniciGrupAdi.Name = "btnKullaniciGrupAdi";
             this.btnKullaniciGrupAdi.Size = new System.Drawing.Size(93, 23);
-            this.btnKullaniciGrupAdi.TabIndex = 11;
+            this.btnKullaniciGrupAdi.TabIndex = 14;
             this.btnKullaniciGrupAdi.Text = "Adı Düzenle";
-            this.btnKullaniciGrupAdi.UseVisualStyleBackColor = true;
+            this.btnKullaniciGrupAdi.UseVisualStyleBackColor = false;
             this.btnKullaniciGrupAdi.Click += new System.EventHandler(this.btnKullaniciGrupDuzenle_Click);
             // 
             // btnKullaniciGrupEkle
             // 
+            this.btnKullaniciGrupEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnKullaniciGrupEkle.Location = new System.Drawing.Point(249, 14);
             this.btnKullaniciGrupEkle.Name = "btnKullaniciGrupEkle";
             this.btnKullaniciGrupEkle.Size = new System.Drawing.Size(93, 23);
-            this.btnKullaniciGrupEkle.TabIndex = 10;
+            this.btnKullaniciGrupEkle.TabIndex = 13;
             this.btnKullaniciGrupEkle.Text = "Grup Ekle";
-            this.btnKullaniciGrupEkle.UseVisualStyleBackColor = true;
+            this.btnKullaniciGrupEkle.UseVisualStyleBackColor = false;
             this.btnKullaniciGrupEkle.Click += new System.EventHandler(this.btnKullaniciGrupEkle_Click);
             // 
             // label7
@@ -164,21 +169,23 @@
             // cmbKullanici
             // 
             this.cmbKullanici.FormattingEnabled = true;
+            this.cmbKullanici.ItemHeight = 16;
             this.cmbKullanici.Location = new System.Drawing.Point(92, 17);
             this.cmbKullanici.Name = "cmbKullanici";
             this.cmbKullanici.Size = new System.Drawing.Size(151, 24);
-            this.cmbKullanici.TabIndex = 1;
+            this.cmbKullanici.TabIndex = 12;
             this.cmbKullanici.SelectedIndexChanged += new System.EventHandler(this.cmbKullanici_SelectedIndexChanged);
             // 
             // btnKullaniciEkle
             // 
+            this.btnKullaniciEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnKullaniciEkle.Enabled = false;
             this.btnKullaniciEkle.Location = new System.Drawing.Point(92, 97);
             this.btnKullaniciEkle.Name = "btnKullaniciEkle";
             this.btnKullaniciEkle.Size = new System.Drawing.Size(137, 35);
-            this.btnKullaniciEkle.TabIndex = 5;
+            this.btnKullaniciEkle.TabIndex = 17;
             this.btnKullaniciEkle.Text = "Kullanıcı Adı Ekle";
-            this.btnKullaniciEkle.UseVisualStyleBackColor = true;
+            this.btnKullaniciEkle.UseVisualStyleBackColor = false;
             this.btnKullaniciEkle.Click += new System.EventHandler(this.btnKullaniciEkle_Click);
             // 
             // txtKullaniciAdi
@@ -187,10 +194,11 @@
             this.txtKullaniciAdi.Location = new System.Drawing.Point(92, 70);
             this.txtKullaniciAdi.Name = "txtKullaniciAdi";
             this.txtKullaniciAdi.Size = new System.Drawing.Size(329, 22);
-            this.txtKullaniciAdi.TabIndex = 4;
+            this.txtKullaniciAdi.TabIndex = 16;
             // 
             // grpHashtag
             // 
+            this.grpHashtag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
             this.grpHashtag.Controls.Add(this.btnHastagGrupSil);
             this.grpHashtag.Controls.Add(this.btnGrupHashtag);
             this.grpHashtag.Controls.Add(this.btnHashtagGrupEkle);
@@ -202,7 +210,8 @@
             this.grpHashtag.Controls.Add(this.btnHashtagEkle);
             this.grpHashtag.Controls.Add(this.txtHashtagEkle);
             this.grpHashtag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.grpHashtag.Location = new System.Drawing.Point(18, 198);
+            this.grpHashtag.ForeColor = System.Drawing.Color.White;
+            this.grpHashtag.Location = new System.Drawing.Point(18, 204);
             this.grpHashtag.Name = "grpHashtag";
             this.grpHashtag.Size = new System.Drawing.Size(430, 140);
             this.grpHashtag.TabIndex = 18;
@@ -211,6 +220,7 @@
             // 
             // btnHastagGrupSil
             // 
+            this.btnHastagGrupSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnHastagGrupSil.Enabled = false;
             this.btnHastagGrupSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnHastagGrupSil.Image = ((System.Drawing.Image)(resources.GetObject("btnHastagGrupSil.Image")));
@@ -218,31 +228,33 @@
             this.btnHastagGrupSil.Location = new System.Drawing.Point(348, 18);
             this.btnHastagGrupSil.Name = "btnHastagGrupSil";
             this.btnHastagGrupSil.Size = new System.Drawing.Size(73, 49);
-            this.btnHastagGrupSil.TabIndex = 6;
+            this.btnHastagGrupSil.TabIndex = 9;
             this.btnHastagGrupSil.Text = "Sil";
             this.btnHastagGrupSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnHastagGrupSil.UseVisualStyleBackColor = true;
+            this.btnHastagGrupSil.UseVisualStyleBackColor = false;
             this.btnHastagGrupSil.Click += new System.EventHandler(this.btnHastagGrupSil_Click);
             // 
             // btnGrupHashtag
             // 
+            this.btnGrupHashtag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnGrupHashtag.Enabled = false;
             this.btnGrupHashtag.Location = new System.Drawing.Point(249, 43);
             this.btnGrupHashtag.Name = "btnGrupHashtag";
             this.btnGrupHashtag.Size = new System.Drawing.Size(93, 24);
-            this.btnGrupHashtag.TabIndex = 11;
+            this.btnGrupHashtag.TabIndex = 8;
             this.btnGrupHashtag.Text = "Adı Düzenle";
-            this.btnGrupHashtag.UseVisualStyleBackColor = true;
+            this.btnGrupHashtag.UseVisualStyleBackColor = false;
             this.btnGrupHashtag.Click += new System.EventHandler(this.btnHashtagAdiDuznele_Click);
             // 
             // btnHashtagGrupEkle
             // 
+            this.btnHashtagGrupEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnHashtagGrupEkle.Location = new System.Drawing.Point(249, 17);
             this.btnHashtagGrupEkle.Name = "btnHashtagGrupEkle";
             this.btnHashtagGrupEkle.Size = new System.Drawing.Size(93, 23);
-            this.btnHashtagGrupEkle.TabIndex = 10;
+            this.btnHashtagGrupEkle.TabIndex = 7;
             this.btnHashtagGrupEkle.Text = "Grup Ekle";
-            this.btnHashtagGrupEkle.UseVisualStyleBackColor = true;
+            this.btnHashtagGrupEkle.UseVisualStyleBackColor = false;
             this.btnHashtagGrupEkle.Click += new System.EventHandler(this.btnHashtagGrupEkle_Click);
             // 
             // label4
@@ -286,18 +298,19 @@
             this.cmbHashtag.Location = new System.Drawing.Point(76, 19);
             this.cmbHashtag.Name = "cmbHashtag";
             this.cmbHashtag.Size = new System.Drawing.Size(167, 24);
-            this.cmbHashtag.TabIndex = 1;
+            this.cmbHashtag.TabIndex = 6;
             this.cmbHashtag.SelectedIndexChanged += new System.EventHandler(this.cmbHashtag_SelectedIndexChanged);
             // 
             // btnHashtagEkle
             // 
+            this.btnHashtagEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnHashtagEkle.Enabled = false;
             this.btnHashtagEkle.Location = new System.Drawing.Point(76, 101);
             this.btnHashtagEkle.Name = "btnHashtagEkle";
             this.btnHashtagEkle.Size = new System.Drawing.Size(120, 35);
-            this.btnHashtagEkle.TabIndex = 5;
+            this.btnHashtagEkle.TabIndex = 11;
             this.btnHashtagEkle.Text = "Hashtag Ekle";
-            this.btnHashtagEkle.UseVisualStyleBackColor = true;
+            this.btnHashtagEkle.UseVisualStyleBackColor = false;
             this.btnHashtagEkle.Click += new System.EventHandler(this.btnHashtagEkle_Click);
             // 
             // txtHashtagEkle
@@ -306,10 +319,11 @@
             this.txtHashtagEkle.Location = new System.Drawing.Point(76, 73);
             this.txtHashtagEkle.Name = "txtHashtagEkle";
             this.txtHashtagEkle.Size = new System.Drawing.Size(345, 22);
-            this.txtHashtagEkle.TabIndex = 4;
+            this.txtHashtagEkle.TabIndex = 10;
             // 
             // grpYorum
             // 
+            this.grpYorum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
             this.grpYorum.Controls.Add(this.btnGrupYorumSil);
             this.grpYorum.Controls.Add(this.btnGrupYorumDuzenle);
             this.grpYorum.Controls.Add(this.btnGrupYorumEkle);
@@ -321,6 +335,7 @@
             this.grpYorum.Controls.Add(this.btnYorumEkle);
             this.grpYorum.Controls.Add(this.txtYorum);
             this.grpYorum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.grpYorum.ForeColor = System.Drawing.Color.White;
             this.grpYorum.Location = new System.Drawing.Point(18, 33);
             this.grpYorum.Name = "grpYorum";
             this.grpYorum.Size = new System.Drawing.Size(430, 140);
@@ -330,6 +345,7 @@
             // 
             // btnGrupYorumSil
             // 
+            this.btnGrupYorumSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnGrupYorumSil.Enabled = false;
             this.btnGrupYorumSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnGrupYorumSil.Image = ((System.Drawing.Image)(resources.GetObject("btnGrupYorumSil.Image")));
@@ -337,31 +353,33 @@
             this.btnGrupYorumSil.Location = new System.Drawing.Point(348, 17);
             this.btnGrupYorumSil.Name = "btnGrupYorumSil";
             this.btnGrupYorumSil.Size = new System.Drawing.Size(73, 49);
-            this.btnGrupYorumSil.TabIndex = 6;
+            this.btnGrupYorumSil.TabIndex = 3;
             this.btnGrupYorumSil.Text = "Sil";
             this.btnGrupYorumSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGrupYorumSil.UseVisualStyleBackColor = true;
+            this.btnGrupYorumSil.UseVisualStyleBackColor = false;
             this.btnGrupYorumSil.Click += new System.EventHandler(this.btnGrupYorumSil_Click);
             // 
             // btnGrupYorumDuzenle
             // 
+            this.btnGrupYorumDuzenle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnGrupYorumDuzenle.Enabled = false;
             this.btnGrupYorumDuzenle.Location = new System.Drawing.Point(249, 43);
             this.btnGrupYorumDuzenle.Name = "btnGrupYorumDuzenle";
             this.btnGrupYorumDuzenle.Size = new System.Drawing.Size(93, 23);
-            this.btnGrupYorumDuzenle.TabIndex = 11;
+            this.btnGrupYorumDuzenle.TabIndex = 2;
             this.btnGrupYorumDuzenle.Text = "Adı Düzenle";
-            this.btnGrupYorumDuzenle.UseVisualStyleBackColor = true;
+            this.btnGrupYorumDuzenle.UseVisualStyleBackColor = false;
             this.btnGrupYorumDuzenle.Click += new System.EventHandler(this.btnGrupYorumDuzenle_Click);
             // 
             // btnGrupYorumEkle
             // 
+            this.btnGrupYorumEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnGrupYorumEkle.Location = new System.Drawing.Point(249, 17);
             this.btnGrupYorumEkle.Name = "btnGrupYorumEkle";
             this.btnGrupYorumEkle.Size = new System.Drawing.Size(93, 23);
-            this.btnGrupYorumEkle.TabIndex = 10;
+            this.btnGrupYorumEkle.TabIndex = 1;
             this.btnGrupYorumEkle.Text = "Grup Ekle";
-            this.btnGrupYorumEkle.UseVisualStyleBackColor = true;
+            this.btnGrupYorumEkle.UseVisualStyleBackColor = false;
             this.btnGrupYorumEkle.Click += new System.EventHandler(this.btnGrupYorumEkle_Click);
             // 
             // label3
@@ -405,18 +423,19 @@
             this.cmbYorum.Location = new System.Drawing.Point(76, 17);
             this.cmbYorum.Name = "cmbYorum";
             this.cmbYorum.Size = new System.Drawing.Size(167, 24);
-            this.cmbYorum.TabIndex = 1;
+            this.cmbYorum.TabIndex = 0;
             this.cmbYorum.SelectedIndexChanged += new System.EventHandler(this.cmbYorum_SelectedIndexChanged);
             // 
             // btnYorumEkle
             // 
+            this.btnYorumEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnYorumEkle.Enabled = false;
             this.btnYorumEkle.Location = new System.Drawing.Point(76, 98);
             this.btnYorumEkle.Name = "btnYorumEkle";
             this.btnYorumEkle.Size = new System.Drawing.Size(120, 35);
             this.btnYorumEkle.TabIndex = 5;
             this.btnYorumEkle.Text = "Yorum Ekle";
-            this.btnYorumEkle.UseVisualStyleBackColor = true;
+            this.btnYorumEkle.UseVisualStyleBackColor = false;
             this.btnYorumEkle.Click += new System.EventHandler(this.btnYorumEkle_Click);
             // 
             // txtYorum
@@ -429,6 +448,7 @@
             // 
             // btnDuzenle
             // 
+            this.btnDuzenle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnDuzenle.Enabled = false;
             this.btnDuzenle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnDuzenle.Image = ((System.Drawing.Image)(resources.GetObject("btnDuzenle.Image")));
@@ -436,14 +456,15 @@
             this.btnDuzenle.Location = new System.Drawing.Point(466, 518);
             this.btnDuzenle.Name = "btnDuzenle";
             this.btnDuzenle.Size = new System.Drawing.Size(130, 50);
-            this.btnDuzenle.TabIndex = 16;
+            this.btnDuzenle.TabIndex = 19;
             this.btnDuzenle.Text = "Düzelt";
             this.btnDuzenle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDuzenle.UseVisualStyleBackColor = true;
+            this.btnDuzenle.UseVisualStyleBackColor = false;
             this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click_1);
             // 
             // btnSil
             // 
+            this.btnSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.btnSil.Enabled = false;
             this.btnSil.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSil.Image = ((System.Drawing.Image)(resources.GetObject("btnSil.Image")));
@@ -451,28 +472,29 @@
             this.btnSil.Location = new System.Drawing.Point(652, 518);
             this.btnSil.Name = "btnSil";
             this.btnSil.Size = new System.Drawing.Size(130, 50);
-            this.btnSil.TabIndex = 15;
+            this.btnSil.TabIndex = 20;
             this.btnSil.Text = "Sil";
             this.btnSil.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.UseVisualStyleBackColor = false;
             this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // lstBx
             // 
+            this.lstBx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lstBx.FormattingEnabled = true;
             this.lstBx.ItemHeight = 20;
-            this.lstBx.Location = new System.Drawing.Point(466, 40);
+            this.lstBx.Location = new System.Drawing.Point(466, 33);
             this.lstBx.Name = "lstBx";
-            this.lstBx.Size = new System.Drawing.Size(316, 464);
-            this.lstBx.TabIndex = 14;
+            this.lstBx.Size = new System.Drawing.Size(316, 482);
+            this.lstBx.TabIndex = 18;
             this.lstBx.SelectedIndexChanged += new System.EventHandler(this.lstBx_SelectedIndexChanged);
             // 
-            // Ayarlar
+            // Listeler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.grpKullanicilar);
             this.Controls.Add(this.grpHashtag);
@@ -480,8 +502,9 @@
             this.Controls.Add(this.btnDuzenle);
             this.Controls.Add(this.btnSil);
             this.Controls.Add(this.lstBx);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Ayarlar";
+            this.Name = "Listeler";
             this.Text = "Ayarlar";
             this.Load += new System.EventHandler(this.Ayarlar_Load);
             this.grpKullanicilar.ResumeLayout(false);

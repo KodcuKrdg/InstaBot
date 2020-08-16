@@ -11,6 +11,6 @@ namespace InstaBot.BaseClass
         public bool resimPaylasacakMi { get; set; }
         public string resimGrubu { get; set; }
         public int paylasimSayisi { get; set; }
-        public string yapilanPySayisi { get; set; }
+        public int yapilanPySayisi { get; set; }
     }
 }

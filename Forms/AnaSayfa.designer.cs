@@ -70,6 +70,7 @@
             this.btnGonderi.Text = "Gönderiler";
             this.btnGonderi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGonderi.UseVisualStyleBackColor = true;
+            this.btnGonderi.Visible = false;
             this.btnGonderi.Click += new System.EventHandler(this.btnGonderi_Click);
             // 
             // btnList

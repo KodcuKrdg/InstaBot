@@ -73,6 +73,7 @@ namespace InstaBot
             pnlSag.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            
         }
         Islemler Islemler;
         private void pcLogo_Click(object sender, EventArgs e)
@@ -82,6 +83,7 @@ namespace InstaBot
                 Islemler = new Islemler();
             }
             openChildForm(Islemler);
+            Islemler.YenidenLoad();
         }
 
         private void BtnIslem_Click(object sender, EventArgs e)
@@ -91,6 +93,7 @@ namespace InstaBot
                 Islemler = new Islemler();
             }
             openChildForm(Islemler);
+            Islemler.YenidenLoad();
         }
         Listeler listeler;
         private void btnList_Click(object sender, EventArgs e)
@@ -100,6 +103,7 @@ namespace InstaBot
                 listeler = new Listeler();
             }
             openChildForm(listeler);
+            listeler.YenidenLoad();
         }
         Gonderiler gonderiler;
         private void btnGonderi_Click(object sender, EventArgs e)

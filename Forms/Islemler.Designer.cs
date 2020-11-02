@@ -222,6 +222,7 @@
             this.pnlResimPaylas.Name = "pnlResimPaylas";
             this.pnlResimPaylas.Size = new System.Drawing.Size(310, 90);
             this.pnlResimPaylas.TabIndex = 36;
+            this.pnlResimPaylas.Visible = false;
             // 
             // lblResimPaylasimSay
             // 
@@ -305,6 +306,7 @@
             this.pnlResimAl.Name = "pnlResimAl";
             this.pnlResimAl.Size = new System.Drawing.Size(310, 55);
             this.pnlResimAl.TabIndex = 35;
+            this.pnlResimAl.Visible = false;
             // 
             // lblResimSayisi
             // 
@@ -602,6 +604,7 @@
             this.chckResimYukle.TabIndex = 25;
             this.chckResimYukle.Text = "Resim Paylaş";
             this.chckResimYukle.UseVisualStyleBackColor = true;
+            this.chckResimYukle.Visible = false;
             this.chckResimYukle.CheckedChanged += new System.EventHandler(this.chckResimYukle_CheckedChanged);
             // 
             // chckResimAl
@@ -614,6 +617,7 @@
             this.chckResimAl.TabIndex = 23;
             this.chckResimAl.Text = "Resim Al";
             this.chckResimAl.UseVisualStyleBackColor = true;
+            this.chckResimAl.Visible = false;
             this.chckResimAl.CheckedChanged += new System.EventHandler(this.chckResimAl_CheckedChanged);
             // 
             // pnlTakipEt

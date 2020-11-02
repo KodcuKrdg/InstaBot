@@ -44,9 +44,9 @@ D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.dll
 D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.pdb
 D:\Kodlar\C#\InstaBot\bin\Debug\DotNetZip.xml
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.Forms.Guncelleme.resources
-D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.TrustInfo.xml
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.exe.manifest
 D:\Kodlar\C#\InstaBot\bin\Debug\InstaBot.exe.manifest
 D:\Kodlar\C#\InstaBot\bin\Debug\InstaBot.application
 D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.application
+D:\Kodlar\C#\InstaBot\obj\Debug\InstaBot.csprojAssemblyReference.cache

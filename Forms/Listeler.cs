@@ -28,7 +28,10 @@ namespace InstaBot.Forms
         {
             ComboxAyarları();
         }
-
+        public void YenidenLoad()
+        {
+            ComboxAyarları();
+        }
         private void ComboxAyarları()
         {
             cmbHashtag.Items.Clear();
@@ -109,12 +112,24 @@ namespace InstaBot.Forms
             {
                 btnYorumEkle.Text = "Yorum Ekle";
                 btnGrupYorumEkle.Text = "Grup Ekle";
-                btnGrupYorumDuzenle.Enabled = true;
                 btnGrupYorumSil.Enabled = true; 
                 cmbYorum.Enabled = true;
 
                 txtYorumGrupAdi.Enabled = false;
                 txtYorumGrupAdi.Text = cmbYorum.Text;
+
+                txtYorumGrupAdi.Enabled = false;
+                if (cmbYorum.Text.Length > 0)
+                {
+                    txtYorumGrupAdi.Text = cmbYorum.Text;
+                    btnGrupYorumDuzenle.Enabled = true;
+                }
+                else
+                {
+                    txtYorumGrupAdi.Text = "";
+                    txtYorum.Text = "";
+                    btnGrupYorumDuzenle.Enabled = false;
+                }
 
             }
         }
@@ -324,12 +339,22 @@ namespace InstaBot.Forms
             {
                 btnHashtagEkle.Text = "Hashtag Ekle";
                 btnHashtagGrupEkle.Text = "Grup Ekle";
-                btnGrupHashtag.Enabled = true;
+
                 btnHastagGrupSil.Enabled = true;
                 cmbHashtag.Enabled = true;
 
                 txtHashtagGrupAdi.Enabled = false;
-                txtYorumGrupAdi.Text = cmbHashtag.Text;
+                if (cmbHashtag.Text.Length > 0)
+                {
+                    txtHashtagGrupAdi.Text = cmbHashtag.Text;
+                    btnGrupHashtag.Enabled = true;
+                }
+                else
+                {
+                    txtHashtagGrupAdi.Text = "";
+                    txtHashtagEkle.Text = "";
+                    btnGrupHashtag.Enabled = false;
+                }
 
             }
         }
@@ -382,7 +407,6 @@ namespace InstaBot.Forms
                     txtHashtagGrupAdi.Clear();
                     btnGrupHashtag.Enabled = false;
                 }
-
             }
         }
 
@@ -593,7 +617,18 @@ namespace InstaBot.Forms
                 cmbKullanici.Enabled = true;
 
                 txtKullaniciGrupAdi.Enabled = false;
-                txtKullaniciGrupAdi.Text = cmbKullanici.Text;
+                if (cmbKullanici.Text.Length > 0)
+                {
+                    txtKullaniciGrupAdi.Text = cmbKullanici.Text;
+                    txtKullaniciAdi.Text = "";
+                    btnKullaniciGrupAdi.Enabled = true;
+                }
+                else
+                {
+                    txtKullaniciGrupAdi.Text = "";
+                    txtKullaniciAdi.Text = "";
+                    btnKullaniciGrupAdi.Enabled = false;
+                }
 
             }
         }
@@ -647,7 +682,6 @@ namespace InstaBot.Forms
                     txtKullaniciGrupAdi.Clear();
                     btnKullaniciGrupAdi.Enabled = false;
                 }
-
             }
         }
 

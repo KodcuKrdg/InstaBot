@@ -41,6 +41,12 @@ namespace InstaBot.Forms
             YorumGrubu();
             KayitliAyarlar();
         }
+        public void YenidenLoad()
+        {
+            KulHasListeVerileri();
+            YorumGrubu();
+            KayitliAyarlar();
+        }
         public void VeriyiAl(ISubject subject)
         {
             
@@ -437,6 +443,7 @@ namespace InstaBot.Forms
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ bekleme sürelerini numarikten alıp milisaniye cinsine çevirip KullaniciSecimleri.cs ye kaydettik
         private void KulHasListeVerileri() // burada veritabanından kullanıcı ve hashtaglerin grup adlarını combobox a ekledik
         {
+            chckLst.Items.Clear();
             if (rdHashtag.Checked)
             {
                 foreach (var item in Secimler.HashtagGrup) // hashtag gruplarını Ekledik
@@ -528,6 +535,8 @@ namespace InstaBot.Forms
             }
             txtEklenen.Clear();
             cmbKulHasGrup.Items.Clear();
+            chckLst.Items.Clear();
+            cmbKulHasGrup.Text = "";
             chckTumuSec.Checked = false;
             if (rdHashtag.Checked)
             {
@@ -581,7 +590,7 @@ namespace InstaBot.Forms
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cmbxKulasGrup kısmı ayarları
         private void txtKullaniciAdi_Enter(object sender, EventArgs e)
         {
-            altpnlKullanici.BackColor = Color.Blue;
+            altpnlKullanici.BackColor = Color.FromArgb(120, 89, 100);
         }
 
         private void txtKullaniciAdi_Leave(object sender, EventArgs e)
@@ -596,7 +605,7 @@ namespace InstaBot.Forms
 
         private void txtSifre_Enter(object sender, EventArgs e)
         {
-            altpnlSifre.BackColor = Color.Blue;
+            altpnlSifre.BackColor = Color.FromArgb(120, 89, 100);
         }
 
         [Obsolete]
